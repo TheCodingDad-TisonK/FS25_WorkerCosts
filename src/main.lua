@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Realistic Worker Costs Mod (version 1.0.0.5)
+-- FS25 Realistic Worker Costs Mod (version 1.0.0.6)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -13,6 +13,7 @@
 local modDirectory = g_currentModDirectory
 local modName = g_currentModName
 
+-- Load all source files in correct order
 source(modDirectory .. "src/settings/SettingsManager.lua")
 source(modDirectory .. "src/settings/Settings.lua")
 source(modDirectory .. "src/settings/WorkerSettingsGUI.lua") 
@@ -56,16 +57,19 @@ local function unload()
     end
 end
 
+-- Hook into Mission lifecycle
 Mission00.load = Utils.prependedFunction(Mission00.load, load)
 Mission00.loadMission00Finished = Utils.appendedFunction(Mission00.loadMission00Finished, loadedMission)
 FSBaseMission.delete = Utils.appendedFunction(FSBaseMission.delete, unload)
 
+-- Update hook
 FSBaseMission.update = Utils.appendedFunction(FSBaseMission.update, function(mission, dt)
     if wm then
         wm:update(dt)
     end
 end)
 
+-- Console command functions
 function workerCosts()
     if g_WorkerManager and g_WorkerManager.WorkerSettingsGUI then
         return g_WorkerManager.WorkerSettingsGUI:consoleCommandHelp()
@@ -87,21 +91,32 @@ end
 function workerCostsStatus()
     if g_WorkerManager and g_WorkerManager.settings then
         local settings = g_WorkerManager.settings
-        print(string.format(
-            "Enabled: %s\nMode: %s\nWage Level: %s\nBase Rate: $%d/h\nNotifications: %s",
+        local status = string.format(
+            "=== Worker Costs Mod Status ===\n" ..
+            "Enabled: %s\n" ..
+            "Mode: %s\n" ..
+            "Wage Level: %s\n" ..
+            "Base Rate: $%d/h\n" ..
+            "Notifications: %s\n" ..
+            "================================",
             tostring(settings.enabled),
             settings:getCostModeName(),
             settings:getWageLevelName(),
             settings:getWageRate(),
             tostring(settings.showNotifications)
-        ))
+        )
+        print(status)
+        return status
     else
         print("Worker Costs Mod not initialized")
+        return "Worker Costs Mod not initialized"
     end
 end
 
+-- Register console commands globally
 getfenv(0)["workerCosts"] = workerCosts
 getfenv(0)["workerCostsStatus"] = workerCostsStatus
+
 getfenv(0)["workerCostsEnable"] = function() 
     if g_WorkerManager and g_WorkerManager.WorkerSettingsGUI then
         return g_WorkerManager.WorkerSettingsGUI:consoleCommandWorkerCostsEnable()
@@ -124,6 +139,6 @@ getfenv(0)["workerCostsTest"] = function()
 end
 
 print("========================================")
-print("  Worker Costs Mod v1.0.0.5 LOADED      ")
+print("  Worker Costs Mod v1.0.0.6 LOADED      ")
 print("  Type 'workerCosts' in console for help")
 print("========================================")
