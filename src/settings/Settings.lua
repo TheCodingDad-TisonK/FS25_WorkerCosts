@@ -1,0 +1,159 @@
+-- =========================================================
+-- FS25 Worker Costs Mod (version 1.0.0.0)
+-- =========================================================
+-- Hourly or per-hectare wages for workers
+-- =========================================================
+-- Author: TisonK
+-- =========================================================
+-- COPYRIGHT NOTICE:
+-- All rights reserved. Unauthorized redistribution, copying,
+-- or claiming this code as your own is strictly prohibited.
+-- Original author: TisonK
+-- =========================================================
+---@class Settings
+
+Settings = {}
+local Settings_mt = Class(Settings)
+
+Settings.WAGE_LEVEL_LOW = 1
+Settings.WAGE_LEVEL_MEDIUM = 2
+Settings.WAGE_LEVEL_HIGH = 3
+
+Settings.COST_MODE_HOURLY = 1
+Settings.COST_MODE_PER_HECTARE = 2
+
+function Settings.new(manager)
+    local self = setmetatable({}, Settings_mt)
+    self.manager = manager
+    
+    self:resetToDefaults(false) 
+    
+    Logging.info("Worker Costs Mod: Settings initialized")
+    
+    return self
+end
+
+---@param wageLevel number 
+function Settings:setWageLevel(wageLevel)
+    if wageLevel >= Settings.WAGE_LEVEL_LOW and wageLevel <= Settings.WAGE_LEVEL_HIGH then
+        self.wageLevel = wageLevel
+        
+        local levelName = "Medium"
+        if wageLevel == Settings.WAGE_LEVEL_LOW then
+            levelName = "Low"
+        elseif wageLevel == Settings.WAGE_LEVEL_HIGH then
+            levelName = "High"
+        end
+        
+        Logging.info("Worker Costs Mod: Wage level changed to: %s", levelName)
+    end
+end
+
+---@return string 
+function Settings:getWageLevelName()
+    if self.wageLevel == Settings.WAGE_LEVEL_LOW then
+        return "Low"
+    elseif self.wageLevel == Settings.WAGE_LEVEL_HIGH then
+        return "High"
+    else
+        return "Medium"
+    end
+end
+
+---@return number
+function Settings:getWageRate()
+    if self.customRate > 0 then
+        return self.customRate
+    end
+    
+    if self.wageLevel == Settings.WAGE_LEVEL_LOW then
+        return 15
+    elseif self.wageLevel == Settings.WAGE_LEVEL_HIGH then
+        return 40
+    else
+        return 25
+    end
+end
+
+---@param mode number
+function Settings:setCostMode(mode)
+    if mode == Settings.COST_MODE_HOURLY or mode == Settings.COST_MODE_PER_HECTARE then
+        self.costMode = mode
+        local modeName = mode == Settings.COST_MODE_HOURLY and "Hourly" or "Per Hectare"
+        Logging.info("Worker Costs Mod: Cost mode changed to: %s", modeName)
+    end
+end
+
+---@return string
+function Settings:getCostModeName()
+    if self.costMode == Settings.COST_MODE_HOURLY then
+        return "Hourly"
+    else
+        return "Per Hectare"
+    end
+end
+
+function Settings:load()
+    if type(self.wageLevel) ~= "number" then
+        Logging.warning("Worker Costs Mod: wageLevel is not a number! Type: %s, Value: %s", 
+            type(self.wageLevel), tostring(self.wageLevel))
+        self.wageLevel = Settings.WAGE_LEVEL_MEDIUM
+    end
+    
+    self.manager:loadSettings(self)
+    
+    self:validateSettings()
+    
+    Logging.info("Worker Costs Mod: Settings Loaded. Enabled: %s, Wage Level: %s, Cost Mode: %s", 
+        tostring(self.enabled), self:getWageLevelName(), self:getCostModeName())
+end
+
+function Settings:validateSettings()
+    if self.wageLevel < Settings.WAGE_LEVEL_LOW or self.wageLevel > Settings.WAGE_LEVEL_HIGH then
+        Logging.warning("Worker Costs Mod: Invalid wageLevel value %d, resetting to Medium", self.wageLevel)
+        self.wageLevel = Settings.WAGE_LEVEL_MEDIUM
+    end
+    
+    if self.costMode ~= Settings.COST_MODE_HOURLY and self.costMode ~= Settings.COST_MODE_PER_HECTARE then
+        Logging.warning("Worker Costs Mod: Invalid costMode value %d, resetting to Hourly", self.costMode)
+        self.costMode = Settings.COST_MODE_HOURLY
+    end
+    
+    self.enabled = not not self.enabled
+    self.debugMode = not not self.debugMode
+    self.showNotifications = not not self.showNotifications
+    
+    self.customRate = tonumber(self.customRate) or 0
+    if self.customRate < 0 then
+        self.customRate = 0
+    end
+end
+
+function Settings:save()
+    if type(self.wageLevel) ~= "number" then
+        Logging.warning("Worker Costs Mod: wageLevel is not a number! Type: %s, Value: %s", 
+            type(self.wageLevel), tostring(self.wageLevel))
+        self.wageLevel = Settings.WAGE_LEVEL_MEDIUM
+    end
+    
+    self.manager:saveSettings(self)
+    Logging.info("Worker Costs Mod: Settings Saved. Wage Level: %s, Cost Mode: %s", 
+        self:getWageLevelName(), self:getCostModeName())
+end
+
+---@param saveImmediately boolean
+function Settings:resetToDefaults(saveImmediately)
+    saveImmediately = saveImmediately ~= false
+    
+    self.wageLevel = Settings.WAGE_LEVEL_MEDIUM
+    self.enabled = true
+    self.debugMode = false
+    self.costMode = Settings.COST_MODE_HOURLY
+    self.showNotifications = true
+    self.customRate = 0
+    
+    if saveImmediately then
+        self:save()
+        print("Worker Costs Mod: Settings reset to defaults")
+    end
+end

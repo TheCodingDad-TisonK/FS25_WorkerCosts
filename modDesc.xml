@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="92">
+    <author>TisonK</author>
+    <version>1.0.0.5</version>
+    <modName>FS25_WorkerCostsMod</modName>
+    <title>
+        <en>Realistic Worker Costs</en>
+        <de>Realistische Arbeiterkosten</de>
+        <fr>Coûts Réalistes des Ouvriers</fr>
+        <pl>Realistyczne Koszty Pracowników</pl>
+        <es>Costos Realistas de Trabajadores</es>
+        <it>Costi Realistici Operai</it>
+        <cz>Realistické Náklady na Pracovníky</cz>
+        <br>Custos Realistas de Trabalhadores</br>
+        <uk>Реалістичні витрати на працівників</uk>
+        <ru>Реалистичные расходы на работников</ru>
+    </title>
+    <description>
+        <en>Adds hourly wages for workers with skill-based pricing and configurable rates.</en>
+        <de>Fügt stündliche Löhne für Arbeiter mit fähigkeitsbasierten Preisen und konfigurierbaren Sätzen hinzu.</de>
+        <fr>Ajoute des salaires horaires pour les ouvriers avec tarification basée sur les compétences et taux configurables.</fr>
+        <pl>Dodaje godzinowe stawki dla pracowników z cenami opartymi na umiejętnościach i konfigurowalnymi stawkami.</pl>
+        <es>Añade salarios por hora para trabajadores con precios basados en habilidades y tarifas configurables.</es>
+        <it>Aggiunge salari orari per operai con prezzi basati su abilità e tariffe configurabili.</it>
+        <cz>Přidává hodinové mzdy pro pracovníky s cenami založenými na dovednostech a konfigurovatelnými sazbami.</cz>
+        <br>Adiciona salários por hora para trabalhadores com preços baseados em habilidades e taxas configuráveis.</br>
+        <uk>Додає погодинну оплату працівникам з ціною на основі навичок та настроюваними ставками.</uk>
+        <ru>Добавляет почасовую оплату работникам с ценами на основе навыков и настраиваемыми ставками.</ru>
+    </description>
+    <iconFilename>icon.dds</iconFilename>
+    
+    <multiplayer supported="true"/>
+    
+    <extraSourceFiles>
+        <sourceFile filename="src/main.lua" />
+    </extraSourceFiles>
+
+    <l10n>
+        <text name="wc_section">
+            <en>Worker Costs Mod</en>
+            <de>Arbeiterkosten-Mod</de>
+            <fr>Module Coûts Ouvriers</fr>
+            <pl>Mod Kosztów Pracowników</pl>
+            <es>Mod Costos Trabajadores</es>
+            <it>Mod Costi Operai</it>
+            <cz>Mod Nákladů na Pracovníky</cz>
+            <br>Mod Custos Trabalhadores</br>
+            <uk>Мод витрат на працівників</uk>
+            <ru>Мод расходов на работников</ru>
+        </text>
+        
+        <text name="wc_enabled_short">
+            <en>Enable Mod</en>
+            <de>Mod aktivieren</de>
+            <fr>Activer le mod</fr>
+            <pl>Włącz mod</pl>
+            <es>Activar mod</es>
+            <it>Attiva mod</it>
+            <cz>Povolit mod</cz>
+            <br>Ativar mod</br>
+            <uk>Увімкнути мод</uk>
+            <ru>Включить мод</ru>
+        </text>
+        
+        <text name="wc_enabled_long">
+            <en>Enable or disable the worker costs mod</en>
+            <de>Arbeiterkosten-Mod aktivieren oder deaktivieren</de>
+            <fr>Activer ou désactiver le module de coûts des ouvriers</fr>
+            <pl>Włącz lub wyłącz mod kosztów pracowników</pl>
+            <es>Activar o desactivar el módulo de costos de trabajadores</es>
+            <it>Attiva o disattiva il modulo dei costi degli operai</it>
+            <cz>Povolit nebo zakázat mod nákladů na pracovníky</cz>
+            <br>Ativar ou desativar o mod de custos de trabalhadores</br>
+            <uk>Увімкнути або вимкнути мод витрат на працівників</uk>
+            <ru>Включить или выключить мод расходов на работников</ru>
+        </text>
+        
+        <text name="wc_debug_short">
+            <en>DEBUG Mode</en>
+            <de>DEBUG-Modus</de>
+            <fr>Mode DEBUG</fr>
+            <pl>Tryb DEBUG</pl>
+            <es>Modo DEBUG</es>
+            <it>Modalità DEBUG</it>
+            <cz>DEBUG režim</cz>
+            <br>Modo DEBUG</br>
+            <uk>Режим DEBUG</uk>
+            <ru>Режим DEBUG</ru>
+        </text>
+        
+        <text name="wc_debug_long">
+            <en>Enable/disable debug mode (extra logging)</en>
+            <de>DEBUG-Modus ein-/ausschalten (zusätzliche Protokollierung)</de>
+            <fr>Activer/désactiver le mode DEBUG (journalisation supplémentaire)</fr>
+            <pl>Włącz/wyłącz tryb DEBUG (dodatkowe logowanie)</pl>
+            <es>Activar/desactivar modo DEBUG (registro adicional)</es>
+            <it>Attiva/disattiva modalità DEBUG (registrazione aggiuntiva)</it>
+            <cz>Povolit/zakázat DEBUG režim (dodatečné logování)</cz>
+            <br>Ativar/desativar modo DEBUG (registro adicional)</br>
+            <uk>Увімкнути/вимкнути режим DEBUG (додаткове логування)</uk>
+            <ru>Включить/выключить режим DEBUG (дополнительное логирование)</ru>
+        </text>
+        
+        <text name="wc_costmode_short">
+            <en>Cost Mode</en>
+            <de>Kostenmodus</de>
+            <fr>Mode de Coût</fr>
+            <pl>Tryb kosztów</pl>
+            <es>Modo de costo</es>
+            <it>Modalità costo</it>
+            <cz>Režim nákladů</cz>
+            <br>Modo de custo</br>
+            <uk>Режим витрат</uk>
+            <ru>Режим расходов</ru>
+        </text>
+        
+        <text name="wc_costmode_long">
+            <en>Choose cost calculation: hourly or per hectare</en>
+            <de>Wählen Sie die Kostenberechnung: stündlich oder pro Hektar</de>
+            <fr>Choisissez le calcul des coûts : horaire ou par hectare</fr>
+            <pl>Wybierz obliczanie kosztów: godzinowe lub za hektar</pl>
+            <es>Elegir cálculo de costos: por hora o por hectárea</es>
+            <it>Scegli calcolo costi: orario o per ettaro</it>
+            <cz>Vyberte výpočet nákladů: hodinový nebo na hektar</cz>
+            <br>Escolher cálculo de custos: por hora ou por hectare</br>
+            <uk>Виберіть розрахунок витрат: погодинно або за гектар</uk>
+            <ru>Выбрать расчет расходов: почасово или за гектар</ru>
+        </text>
+        
+        <text name="wc_costmode_1">
+            <en>Hourly ($/h)</en>
+            <de>Stündlich ($/h)</de>
+            <fr>Horaire ($/h)</fr>
+            <pl>Godzinowe ($/h)</pl>
+            <es>Por hora ($/h)</es>
+            <it>Orario ($/h)</it>
+            <cz>Hodinové ($/h)</cz>
+            <br>Por hora ($/h)</br>
+            <uk>Погодинно ($/год)</uk>
+            <ru>Почасово ($/ч)</ru>
+        </text>
+        
+        <text name="wc_costmode_2">
+            <en>Per Hectare ($/ha)</en>
+            <de>Pro Hektar ($/ha)</de>
+            <fr>Par hectare ($/ha)</fr>
+            <pl>Za hektar ($/ha)</pl>
+            <es>Por hectárea ($/ha)</es>
+            <it>Per ettaro ($/ha)</it>
+            <cz>Na hektar ($/ha)</cz>
+            <br>Por hectare ($/ha)</br>
+            <uk>За гектар ($/га)</uk>
+            <ru>За гектар ($/га)</ru>
+        </text>
+        
+        <text name="wc_difficulty_short">
+            <en>Wage Level</en>
+            <de>Lohnniveau</de>
+            <fr>Niveau de Salaire</fr>
+            <pl>Poziom płac</pl>
+            <es>Nivel de salario</es>
+            <it>Livello salariale</it>
+            <cz>Úroveň mezd</cz>
+            <br>Nível salarial</br>
+            <uk>Рівень оплати</uk>
+            <ru>Уровень оплаты</ru>
+        </text>
+        
+        <text name="wc_difficulty_long">
+            <en>Set base wage rate: Low=$15/h, Medium=$25/h, High=$40/h</en>
+            <de>Grundlohnsatz festlegen: Niedrig=15$/h, Mittel=25$/h, Hoch=40$/h</de>
+            <fr>Définir le taux de salaire de base : Bas=15$/h, Moyen=25$/h, Élevé=40$/h</fr>
+            <pl>Ustaw podstawową stawkę: Niska=15$/h, Średnia=25$/h, Wysoka=40$/h</pl>
+            <es>Establecer tasa salarial base: Baja=15$/h, Media=25$/h, Alta=40$/h</es>
+            <it>Imposta tariffa base: Bassa=15$/h, Media=25$/h, Alta=40$/h</it>
+            <cz>Nastavit základní sazbu: Nízká=15$/h, Střední=25$/h, Vysoká=40$/h</cz>
+            <br>Definir taxa salarial base: Baixa=15$/h, Média=25$/h, Alta=40$/h</br>
+            <uk>Встановити базову ставку: Низька=15$/год, Середня=25$/год, Висока=40$/год</uk>
+            <ru>Установить базовую ставку: Низкая=15$/ч, Средняя=25$/ч, Высокая=40$/ч</ru>
+        </text>
+        
+        <text name="wc_diff_1">
+            <en>Low ($15/h)</en>
+            <de>Niedrig (15$/h)</de>
+            <fr>Bas (15$/h)</fr>
+            <pl>Niska (15$/h)</pl>
+            <es>Baja (15$/h)</es>
+            <it>Bassa (15$/h)</it>
+            <cz>Nízká (15$/h)</cz>
+            <br>Baixa (15$/h)</br>
+            <uk>Низька (15$/год)</uk>
+            <ru>Низкая (15$/ч)</ru>
+        </text>
+        
+        <text name="wc_diff_2">
+            <en>Medium ($25/h)</en>
+            <de>Mittel (25$/h)</de>
+            <fr>Moyen (25$/h)</fr>
+            <pl>Średnia (25$/h)</pl>
+            <es>Media (25$/h)</es>
+            <it>Media (25$/h)</it>
+            <cz>Střední (25$/h)</cz>
+            <br>Média (25$/h)</br>
+            <uk>Середня (25$/год)</uk>
+            <ru>Средняя (25$/ч)</ru>
+        </text>
+        
+        <text name="wc_diff_3">
+            <en>High ($40/h)</en>
+            <de>Hoch (40$/h)</de>
+            <fr>Élevé (40$/h)</fr>
+            <pl>Wysoka (40$/h)</pl>
+            <es>Alta (40$/h)</es>
+            <it>Alta (40$/h)</it>
+            <cz>Vysoká (40$/h)</cz>
+            <br>Alta (40$/h)</br>
+            <uk>Висока (40$/год)</uk>
+            <ru>Высокая (40$/ч)</ru>
+        </text>
+        
+        <text name="wc_notifications_short">
+            <en>Notifications</en>
+            <de>Benachrichtigungen</de>
+            <fr>Notifications</fr>
+            <pl>Powiadomienia</pl>
+            <es>Notificaciones</es>
+            <it>Notifiche</it>
+            <cz>Upozornění</cz>
+            <br>Notificações</br>
+            <uk>Сповіщення</uk>
+            <ru>Уведомления</ru>
+        </text>
+        
+        <text name="wc_notifications_long">
+            <en>Enable/disable wage payment notifications</en>
+            <de>Lohnzahlungsbenachrichtigungen ein-/ausschalten</de>
+            <fr>Activer/désactiver les notifications de paiement des salaires</fr>
+            <pl>Włącz/wyłącz powiadomienia o wypłatach wynagrodzeń</pl>
+            <es>Activar/desactivar notificaciones de pago de salarios</es>
+            <it>Attiva/disattiva notifiche pagamento salari</it>
+            <cz>Povolit/zakázat upozornění na výplatu mezd</cz>
+            <br>Ativar/desativar notificações de pagamento de salários</br>
+            <uk>Увімкнути/вимкнути сповіщення про виплату заробітної плати</uk>
+            <ru>Включить/выключить уведомления о выплате заработной платы</ru>
+        </text>
+        
+        <text name="wc_customrate_short">
+            <en>Custom Rate</en>
+            <de>Benutzerdefinierte Rate</de>
+            <fr>Taux personnalisé</fr>
+            <pl>Niestandardowa stawka</pl>
+            <es>Tasa personalizada</es>
+            <it>Tariffa personalizzata</it>
+            <cz>Vlastní sazba</cz>
+            <br>Taxa personalizada</br>
+            <uk>Власна ставка</uk>
+            <ru>Пользовательская ставка</ru>
+        </text>
+        
+        <text name="wc_customrate_long">
+            <en>Set custom wage rate (0 = use wage level setting)</en>
+            <de>Benutzerdefinierten Lohnsatz festlegen (0 = Lohnniveau verwenden)</de>
+            <fr>Définir le taux de salaire personnalisé (0 = utiliser le niveau de salaire)</fr>
+            <pl>Ustaw niestandardową stawkę (0 = użyj ustawienia poziomu płac)</pl>
+            <es>Establecer tasa salarial personalizada (0 = usar configuración de nivel)</es>
+            <it>Imposta tariffa salariale personalizzata (0 = usa impostazione livello)</it>
+            <cz>Nastavit vlastní mzdovou sazbu (0 = použít nastavení úrovně)</cz>
+            <br>Definir taxa salarial personalizada (0 = usar configuração de nível)</br>
+            <uk>Встановити власну ставку оплати (0 = використовувати налаштування рівня)</uk>
+            <ru>Установить пользовательскую ставку оплаты (0 = использовать настройку уровня)</ru>
+        </text>
+        
+        <text name="wc_reset">
+            <en>Reset Worker Settings</en>
+            <de>Arbeitereinstellungen zurücksetzen</de>
+            <fr>Réinitialiser les paramètres des ouvriers</fr>
+            <pl>Resetuj ustawienia pracowników</pl>
+            <es>Restablecer config. trabajadores</es>
+            <it>Ripristina impostazioni operai</it>
+            <cz>Resetovat nastavení pracovníků</cz>
+            <br>Restaurar configurações de trabalhadores</br>
+            <uk>Скинути налаштування працівників</uk>
+            <ru>Сбросить настройки работников</ru>
+        </text>
+    </l10n>
+
+</modDesc>
