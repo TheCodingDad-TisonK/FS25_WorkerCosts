@@ -230,48 +230,6 @@ function UIHelper.createMultiOption(layout, id, textId, options, state, callback
     end
     
     print(string.format("wc: Set tooltip for %s: %s", textId, tooltipText))
-
+    
     return opt
-end
-
-function UIHelper.createButton(layout, id, text, callback)
-    local template = nil
-
-    -- Find a button template in the layout
-    for _, el in ipairs(layout.elements) do
-        if el.name == "button" or (el.profile and string.find(el.profile, "button")) then
-            template = el
-            break
-        end
-    end
-
-    if not template then
-        -- Try to find any element with onClickCallback
-        for _, el in ipairs(layout.elements) do
-            if el.onClickCallback then
-                template = el
-                break
-            end
-        end
-    end
-
-    if not template then
-        Logging.warning("wc: Button template not found!")
-        return nil
-    end
-
-    local button = template:clone(layout)
-    button.id = id
-
-    if button.setText then
-        button:setText(text)
-    end
-
-    button.onClickCallback = function()
-        callback()
-    end
-
-    layout:addElement(button)
-
-    return button
 end
