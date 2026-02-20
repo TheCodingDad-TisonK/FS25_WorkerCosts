@@ -152,7 +152,7 @@ Enable debug mode for detailed logging:
 3. All worker tracking and payment operations will be logged
 
 ## Version History
-- **v1.0.0.6** (2026-02-10): Fixed worker detection, improved tracking, better error handling
+- **v1.0.0.7** (2026-02-10): Fixed worker detection, improved tracking, better error handling
 - **v1.0.0.5** (2025-01-20): Bug fixes and stability improvements
 - **v1.0.0.0** (2024-01-15): Initial release
 
