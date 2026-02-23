@@ -78,19 +78,19 @@ function WorkerSystem:installGameHook()
         _self = self
         
         mission.addMoney = function(missionObj, amount, farmId, moneyType, ...)
-            -- Check if this is a helper/worker payment and our mod is enabled
+            -- Check if this is a negative payment (deduction) and our mod is enabled
             if _self and _self.settings and _self.settings.enabled and amount < 0 then
-                -- Check if this is NOT our mod's payment (we use a special handling below)
-                -- by checking if the call is coming from our chargeWage function
-                -- We detect this by checking the call stack or using a flag
+                -- Check if this is NOT our mod's payment by checking the flag
+                -- If flag is false, it's the game's built-in worker payment - skip it
+                -- If flag is true, it's our mod's payment - allow it through
                 if not _self._isProcessingPayment then
-                    -- This is likely the game's built-in worker payment - skip it
-                    -- Our mod will handle worker payments instead
+                    -- This is the game's built-in worker payment - skip it (don't call original)
                     _self:log("Worker Costs Mod: Skipping game's built-in worker payment (%d)", amount)
-                    return true
+                    return
                 end
+                -- If flag is true, this is our payment - fall through to call original
             end
-            -- Otherwise, use original function
+            -- Allow the payment through (either our mod's payment or non-worker payments)
             return originalAddMoney(missionObj, amount, farmId, moneyType, ...)
         end
         
