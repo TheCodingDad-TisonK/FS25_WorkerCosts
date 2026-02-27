@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Worker Costs Mod (version 1.0.0.0)
+-- FS25 Worker Costs Mod (version 1.0.0.9)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -34,43 +34,6 @@ function UIHelper.createSection(layout, textId)
         end
     end
     return section
-end
-
-function UIHelper.createDescription(layout, textId)
-    local template = nil
-
-    for _, el in ipairs(layout.elements) do
-        if el.elements and #el.elements >= 2 then
-            local secondChild = el.elements[2]
-            if secondChild.setText then
-                template = secondChild
-                break
-            end
-        end
-    end
-    
-    if not template then
-        Logging.warning("wc: Description template not found!")
-        return nil
-    end
-    
-    local desc = template:clone(layout)
-    desc.id = nil
-    
-    if desc.setText then
-        desc:setText(getTextSafe(textId))
-    end
-    
-    if desc.textSize then
-        desc.textSize = desc.textSize * 0.85
-    end
-    
-    if desc.textColor then
-        desc.textColor = {0.7, 0.7, 0.7, 1} 
-    end
-    
-    layout:addElement(desc)
-    return desc
 end
 
 
@@ -144,16 +107,12 @@ function UIHelper.createBinaryOption(layout, id, textId, state, callback)
     if lbl then
         lbl.toolTipText = tooltipText
     end
-    
+
     if row.setToolTipText then
         row:setToolTipText(tooltipText)
     end
     row.toolTipText = tooltipText
-    
-    if opt.elements and opt.elements[1] and opt.elements[1].setText then
-        opt.elements[1]:setText(tooltipText)
-    end
-    
+
     return opt
 end
 
@@ -224,12 +183,6 @@ function UIHelper.createMultiOption(layout, id, textId, options, state, callback
         row:setToolTipText(tooltipText)
     end
     row.toolTipText = tooltipText
-    
-    if opt.elements and opt.elements[1] and opt.elements[1].setText then
-        opt.elements[1]:setText(tooltipText)
-    end
-    
-    print(string.format("wc: Set tooltip for %s: %s", textId, tooltipText))
-    
+
     return opt
 end

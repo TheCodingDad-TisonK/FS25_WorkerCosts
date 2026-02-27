@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Worker Costs Mod (version 1.0.0.5)
+-- FS25 Worker Costs Mod (version 1.0.0.9)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -29,8 +29,14 @@ function WorkerManager.new(mission, modDirectory, modName)
     if mission:getIsClient() and g_gui then
         self.WorkerSettingsUI = WorkerSettingsUI.new(self.settings)
         
+        -- FS25 does not pcall-wrap appendedFunction hooks on onFrameOpen.
+        -- A throw here aborts InGameMenu.open() entirely, breaking ESC.
+        -- Wrap inject() so any error is contained and logged.
         InGameMenuSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuSettingsFrame.onFrameOpen, function()
-            self.WorkerSettingsUI:inject()
+            local ok, err = pcall(function() self.WorkerSettingsUI:inject() end)
+            if not ok then
+                Logging.error("Worker Costs Mod: Settings injection failed: " .. tostring(err))
+            end
         end)
         
         InGameMenuSettingsFrame.updateButtons = Utils.appendedFunction(InGameMenuSettingsFrame.updateButtons, function(frame)
@@ -52,7 +58,8 @@ function WorkerManager:onMissionLoaded()
     if self.workerSystem then
         self.workerSystem:initialize()
     end
-    
+
+    -- Single startup banner — WorkerSystem no longer shows its own.
     if self.settings.enabled and self.settings.showNotifications then
         if g_currentMission and g_currentMission.hud then
             g_currentMission.hud:showBlinkingWarning(
@@ -70,9 +77,14 @@ function WorkerManager:update(dt)
 end
 
 function WorkerManager:delete()
+    -- Restore the original mission.addMoney before the mission object is torn down
+    if self.workerSystem then
+        self.workerSystem:delete()
+    end
+
     if self.settings then
         self.settings:save()
     end
-    
-    print("Worker Costs Mod: Shutting down")
+
+    Logging.info("Worker Costs Mod: Shut down")
 end
