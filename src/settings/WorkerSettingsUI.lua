@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Worker Costs Mod (version 1.0.0.9)
+-- FS25 Worker Costs Mod (version 1.0.0.10)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -10,6 +10,14 @@
 -- or claiming this code as your own is strictly prohibited.
 -- Original author: TisonK
 -- =========================================================
+local function getTextSafe(key)
+    local text = g_i18n:getText(key)
+    if text == nil or text == "" then
+        return key
+    end
+    return text
+end
+
 ---@class WorkerSettingsUI
 WorkerSettingsUI = {}
 local WorkerSettingsUI_mt = Class(WorkerSettingsUI)
