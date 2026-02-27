@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Realistic Worker Costs Mod (version 1.0.0.8)
+-- FS25 Realistic Worker Costs Mod (version 1.0.0.9)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -120,6 +120,6 @@ getfenv(0)["workerCosts"] = workerCosts
 getfenv(0)["workerCostsStatus"] = workerCostsStatus
 
 print("========================================")
-print("  Worker Costs Mod v1.0.0.8 LOADED      ")
+print("  Worker Costs Mod v1.0.0.9 LOADED      ")
 print("  Type 'workerCosts' in console for help")
 print("========================================")
