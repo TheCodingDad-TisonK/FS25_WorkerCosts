@@ -94,17 +94,11 @@ function Settings:getCostModeName()
 end
 
 function Settings:load()
-    if type(self.wageLevel) ~= "number" then
-        Logging.warning("Worker Costs Mod: wageLevel is not a number! Type: %s, Value: %s", 
-            type(self.wageLevel), tostring(self.wageLevel))
-        self.wageLevel = Settings.WAGE_LEVEL_MEDIUM
-    end
-    
+    -- Apply file values, then clamp/validate whatever was read
     self.manager:loadSettings(self)
-    
     self:validateSettings()
-    
-    Logging.info("Worker Costs Mod: Settings Loaded. Enabled: %s, Wage Level: %s, Cost Mode: %s", 
+
+    Logging.info("Worker Costs Mod: Settings loaded. Enabled: %s, Wage Level: %s, Cost Mode: %s",
         tostring(self.enabled), self:getWageLevelName(), self:getCostModeName())
 end
 
@@ -130,14 +124,8 @@ function Settings:validateSettings()
 end
 
 function Settings:save()
-    if type(self.wageLevel) ~= "number" then
-        Logging.warning("Worker Costs Mod: wageLevel is not a number! Type: %s, Value: %s", 
-            type(self.wageLevel), tostring(self.wageLevel))
-        self.wageLevel = Settings.WAGE_LEVEL_MEDIUM
-    end
-    
     self.manager:saveSettings(self)
-    Logging.info("Worker Costs Mod: Settings Saved. Wage Level: %s, Cost Mode: %s", 
+    Logging.info("Worker Costs Mod: Settings saved. Wage Level: %s, Cost Mode: %s",
         self:getWageLevelName(), self:getCostModeName())
 end
 

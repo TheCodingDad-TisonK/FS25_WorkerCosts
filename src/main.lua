@@ -113,30 +113,11 @@ function workerCostsStatus()
     end
 end
 
--- Register console commands globally
+-- Expose the two status/help functions as Lua globals so they can be called
+-- from other mods or from the console directly.  All other commands are
+-- registered exclusively via addConsoleCommand inside WorkerSettingsGUI.
 getfenv(0)["workerCosts"] = workerCosts
 getfenv(0)["workerCostsStatus"] = workerCostsStatus
-
-getfenv(0)["workerCostsEnable"] = function() 
-    if g_WorkerManager and g_WorkerManager.WorkerSettingsGUI then
-        return g_WorkerManager.WorkerSettingsGUI:consoleCommandWorkerCostsEnable()
-    end
-    return "Worker Costs Mod not initialized"
-end
-
-getfenv(0)["workerCostsDisable"] = function() 
-    if g_WorkerManager and g_WorkerManager.WorkerSettingsGUI then
-        return g_WorkerManager.WorkerSettingsGUI:consoleCommandWorkerCostsDisable()
-    end
-    return "Worker Costs Mod not initialized"
-end
-
-getfenv(0)["workerCostsTest"] = function() 
-    if g_WorkerManager and g_WorkerManager.WorkerSettingsGUI then
-        return g_WorkerManager.WorkerSettingsGUI:consoleCommandTestPayment()
-    end
-    return "Worker Costs Mod not initialized"
-end
 
 print("========================================")
 print("  Worker Costs Mod v1.0.0.8 LOADED      ")

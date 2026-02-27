@@ -35,7 +35,8 @@ function WorkerSettingsGUI:registerConsoleCommands()
     addConsoleCommand("WorkerCostsResetSettings", "Reset all settings to defaults", "consoleCommandResetSettings", self)
     
     addConsoleCommand("workerCosts", "Show all worker costs commands", "consoleCommandHelp", self)
-    
+    addConsoleCommand("workerCostsStatus", "Show current mod status", "consoleCommandShowSettings", self)
+
     Logging.info("Worker Costs Mod console commands registered")
 end
 
@@ -193,17 +194,14 @@ end
 function WorkerSettingsGUI:consoleCommandResetSettings()
     if g_WorkerManager and g_WorkerManager.settings then
         g_WorkerManager.settings:resetToDefaults()
-        
-        if g_WorkerManager.workerSystem then
-            g_WorkerManager.workerSystem:initialize()
-        end
-        
+
+        -- Refresh UI widgets to reflect restored defaults
         if g_WorkerManager.WorkerSettingsUI then
             g_WorkerManager.WorkerSettingsUI:refreshUI()
         end
-        
-        return "Worker Costs Mod settings reset to default!"
+
+        return "Worker Costs Mod settings reset to defaults"
     end
-    
+
     return "Error: Worker Costs Mod not initialized"
 end
