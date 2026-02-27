@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Worker Costs Mod (version 1.0.0.7)
+-- FS25 Worker Costs Mod (version 1.0.0.8)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -10,6 +10,10 @@
 -- or claiming this code as your own is strictly prohibited.
 -- Original author: TisonK
 -- =========================================================
+
+-- Store original game functions for worker payment
+local originalAddMoneyForHelper = nil
+
 ---@class WorkerSystem
 WorkerSystem = {}
 local WorkerSystem_mt = Class(WorkerSystem)
@@ -38,6 +42,10 @@ function WorkerSystem:initialize()
     if g_currentMission then
         self.realTimeAccumulator = 0
 
+        -- Install hook to disable game's built-in worker costs
+        -- This prevents the double-charging issue where both game and mod charge
+        self:installGameHook()
+
         self.isInitialized = true
         self:log("Worker System initialized successfully")
         self:log("Mode: %s, Base Rate: $%d", self.settings:getCostModeName(), self.settings:getWageRate())
@@ -45,6 +53,49 @@ function WorkerSystem:initialize()
         if self.settings.enabled and self.settings.showNotifications then
             self:showNotification("Worker Costs Mod Active", "Workers will charge wages")
         end
+    end
+end
+
+-- Reference to self for use in hooked function
+local _self = nil
+
+--- Install hook to intercept and disable game's built-in worker payment
+function WorkerSystem:installGameHook()
+    -- Hook into the mission's addMoney function to intercept helper payments
+    -- The game calls this for its own worker costs - we disable them when our mod is active
+    
+    if not g_currentMission then
+        return
+    end
+
+    local mission = g_currentMission
+    
+    -- Store original function
+    local originalAddMoney = mission.addMoney
+    
+    if originalAddMoney and not self._hookedAddMoney then
+        -- Store reference to self for use in the hooked function
+        _self = self
+        
+        mission.addMoney = function(missionObj, amount, farmId, moneyType, ...)
+            -- Check if this is a negative payment (deduction) and our mod is enabled
+            if _self and _self.settings and _self.settings.enabled and amount < 0 then
+                -- Check if this is NOT our mod's payment by checking the flag
+                -- If flag is false, it's the game's built-in worker payment - skip it
+                -- If flag is true, it's our mod's payment - allow it through
+                if not _self._isProcessingPayment then
+                    -- This is the game's built-in worker payment - skip it (don't call original)
+                    _self:log("Worker Costs Mod: Skipping game's built-in worker payment (%d)", amount)
+                    return
+                end
+                -- If flag is true, this is our payment - fall through to call original
+            end
+            -- Allow the payment through (either our mod's payment or non-worker payments)
+            return originalAddMoney(missionObj, amount, farmId, moneyType, ...)
+        end
+        
+        self._hookedAddMoney = true
+        self:log("Worker Costs Mod: Installed hook to disable built-in worker costs")
     end
 end
 
@@ -126,6 +177,9 @@ function WorkerSystem:chargeWage(workerName, amount, workType)
         return false
     end
 
+    -- Set flag to allow our payment through the hook (skip game built-in worker costs)
+    self._isProcessingPayment = true
+    
     -- Charge negative amount (deduct from farm money)
     g_currentMission:addMoney(
         -amount,
@@ -133,6 +187,9 @@ function WorkerSystem:chargeWage(workerName, amount, workType)
         MoneyType.OTHER,
         false
     )
+    
+    -- Clear flag so game payments are blocked again
+    self._isProcessingPayment = false
 
     if self.settings.showNotifications then
         local formattedAmount = g_i18n:formatMoney(amount, 0, true, true)
