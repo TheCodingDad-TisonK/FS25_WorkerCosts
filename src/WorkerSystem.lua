@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Worker Costs Mod (version 1.0.1.0)
+-- FS25 Worker Costs Mod (version 1.0.1.1)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -87,15 +87,16 @@ function WorkerSystem:installGameHook()
     self._originalAddMoney = originalAddMoney
 
     mission.addMoney = function(missionObj, amount, farmId, moneyType, ...)
-        -- Only intercept negative amounts while our mod is active.
-        -- When _isProcessingPayment is true the call originated from chargeWage(),
-        -- so we let it through.  All other negative calls are the game's own
-        -- worker-wage deductions and should be suppressed.
-        if capturedSelf.settings.enabled and amount < 0 then
-            if not capturedSelf._isProcessingPayment then
-                capturedSelf:log("Suppressed built-in worker payment: %d", amount)
-                return
-            end
+        -- Only intercept the game's own worker-wage deductions (MoneyType.WORKER_WAGES).
+        -- All other negative calls (equipment purchases, repairs, etc.) must pass through.
+        -- When _isProcessingPayment is true the call originated from our chargeWage(),
+        -- so we let it through regardless.
+        if capturedSelf.settings.enabled
+                and amount < 0
+                and moneyType == MoneyType.WORKER_WAGES
+                and not capturedSelf._isProcessingPayment then
+            capturedSelf:log("Suppressed built-in worker payment: %d (moneyType=%s)", amount, tostring(moneyType))
+            return
         end
         return originalAddMoney(missionObj, amount, farmId, moneyType, ...)
     end
