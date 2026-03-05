@@ -282,6 +282,135 @@
             <uk>Скинути налаштування працівників</uk>
             <ru>Сбросить настройки работников</ru>
         </text>
+
+        <!-- ════ New Pause Menu GUI strings ════ -->
+
+        <text name="wc_menu_title">
+            <en>Worker Costs</en>
+        </text>
+        <text name="wc_balance_label">
+            <en>Balance:</en>
+        </text>
+        <text name="wc_btn_open_manager">
+            <en>Open Manager</en>
+        </text>
+        <text name="wc_hint_open_manager">
+            <en>Press Accept to open the full Worker Costs manager.</en>
+        </text>
+
+        <!-- Tab titles -->
+        <text name="wc_tab_dashboard">
+            <en>Dashboard</en>
+            <de>Übersicht</de>
+            <fr>Tableau de bord</fr>
+            <pl>Panel</pl>
+            <es>Panel</es>
+        </text>
+        <text name="wc_tab_wage_settings">
+            <en>Wage Settings</en>
+            <de>Lohneinstellungen</de>
+            <fr>Paramètres Salaire</fr>
+            <pl>Ustawienia płac</pl>
+            <es>Configuración salarial</es>
+        </text>
+
+        <!-- Section headings -->
+        <text name="wc_section_status">
+            <en>Mod Status</en>
+        </text>
+        <text name="wc_section_workers">
+            <en>Active Workers</en>
+        </text>
+        <text name="wc_section_payment">
+            <en>Payment Info</en>
+        </text>
+        <text name="wc_section_general">
+            <en>General</en>
+        </text>
+        <text name="wc_section_cost_mode">
+            <en>Cost Mode</en>
+        </text>
+        <text name="wc_section_wage_level">
+            <en>Wage Level</en>
+        </text>
+        <text name="wc_section_effective">
+            <en>Effective Rate</en>
+        </text>
+
+        <!-- Row labels -->
+        <text name="wc_label_mod_enabled">
+            <en>Mod Active:</en>
+        </text>
+        <text name="wc_label_cost_mode">
+            <en>Cost Mode:</en>
+        </text>
+        <text name="wc_label_wage_level">
+            <en>Wage Level:</en>
+        </text>
+        <text name="wc_label_current_rate">
+            <en>Current Rate:</en>
+        </text>
+        <text name="wc_label_active_workers">
+            <en>Active Workers:</en>
+        </text>
+        <text name="wc_label_next_payment">
+            <en>Next Payment:</en>
+        </text>
+        <text name="wc_label_est_cost">
+            <en>Est. Cost:</en>
+        </text>
+        <text name="wc_label_farm_balance">
+            <en>Farm Balance:</en>
+        </text>
+        <text name="wc_label_worker_list">
+            <en>Worker Names</en>
+        </text>
+        <text name="wc_label_effective_rate">
+            <en>Effective Rate:</en>
+        </text>
+        <text name="wc_label_pay_interval">
+            <en>Payment Interval:</en>
+        </text>
+
+        <!-- Status values -->
+        <text name="wc_status_active">
+            <en>Active</en>
+            <de>Aktiv</de>
+            <fr>Actif</fr>
+            <pl>Aktywny</pl>
+            <es>Activo</es>
+        </text>
+        <text name="wc_status_inactive">
+            <en>Inactive</en>
+            <de>Inaktiv</de>
+            <fr>Inactif</fr>
+            <pl>Nieaktywny</pl>
+            <es>Inactivo</es>
+        </text>
+        <text name="wc_no_workers">
+            <en>No active workers</en>
+            <de>Keine aktiven Arbeiter</de>
+            <fr>Aucun ouvrier actif</fr>
+            <pl>Brak aktywnych pracowników</pl>
+            <es>Sin trabajadores activos</es>
+        </text>
+
+        <!-- Help text for Wage Settings tab -->
+        <text name="wc_help_title">
+            <en>Help</en>
+        </text>
+        <text name="wc_help_body">
+            <en>Cost Mode: Choose Hourly to pay workers per real-time hour, or Per Hectare to pay based on area worked.
+
+Wage Level sets the base rate:
+  Low  = $15/h
+  Medium = $25/h
+  High = $40/h
+
+Payments are deducted every 5 real-time minutes.
+
+Use Reset to restore all settings to their defaults.</en>
+        </text>
     </l10n>
 
 </modDesc>

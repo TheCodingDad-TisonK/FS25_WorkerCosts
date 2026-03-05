@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI name="WCMenuPage">
+    <GuiElement profile="uiInGameMenuFrame">
+
+        <!-- ── Header ──────────────────────────────────────── -->
+        <GuiElement profile="fs25_menuHeaderPanel">
+            <Bitmap profile="fs25_menuHeaderIconBg"/>
+            <Text profile="fs25_menuHeaderTitle" text="$l10n_wc_menu_title"/>
+            <RoundCorner profile="fs25_shopMoneyBoxBg" position="580px 0px"/>
+            <BoxLayout profile="fs25_shopMoneyBox" position="550px 0px">
+                <Text profile="fs25_shopBalance" text="$l10n_wc_balance_label"/>
+                <Text profile="fs25_shopMoney" id="txtFarmBalance"/>
+            </BoxLayout>
+        </GuiElement>
+
+        <!-- ── Two-column content ───────────────────────────── -->
+        <GuiElement profile="fs25_subCategorySelectorTabbedContainer" position="0px -80px">
+
+            <!-- LEFT: Status + Payment countdown -->
+            <ThreePartBitmap profile="fs25_primaryMenuContainerBg" width="640px" height="500px" position="0px 20px">
+                <Bitmap profile="fs25_menuContainerArrow"/>
+                <GuiElement profile="fs25_subCategoryContainer" width="600px">
+
+                    <!-- MOD STATUS -->
+                    <Text profile="WC_SectionTitle" position="10px -10px" text="$l10n_wc_section_status"/>
+                    <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -34px" width="580px"/>
+
+                    <BoxLayout profile="WC_ColBoxV" position="5px -50px" width="580px">
+                        <BoxLayout profile="WC_RowBoxH" width="580px">
+                            <Text profile="WC_RowLabel" text="$l10n_wc_label_mod_enabled" width="240px"/>
+                            <Text profile="WC_RowValue" id="txtModEnabled" width="330px"/>
+                        </BoxLayout>
+                        <BoxLayout profile="WC_RowBoxH" width="580px">
+                            <Text profile="WC_RowLabel" text="$l10n_wc_label_cost_mode" width="240px"/>
+                            <Text profile="WC_RowValue" id="txtCostMode" width="330px"/>
+                        </BoxLayout>
+                        <BoxLayout profile="WC_RowBoxH" width="580px">
+                            <Text profile="WC_RowLabel" text="$l10n_wc_label_wage_level" width="240px"/>
+                            <Text profile="WC_RowValue" id="txtWageLevel" width="330px"/>
+                        </BoxLayout>
+                        <BoxLayout profile="WC_RowBoxH" width="580px">
+                            <Text profile="WC_RowLabel" text="$l10n_wc_label_current_rate" width="240px"/>
+                            <Text profile="WC_RowValueGreen" id="txtWageRate" width="330px"/>
+                        </BoxLayout>
+                    </BoxLayout>
+
+                    <!-- NEXT PAYMENT countdown -->
+                    <Text profile="WC_SectionTitle" position="10px -220px" text="$l10n_wc_section_payment"/>
+                    <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -244px" width="580px"/>
+
+                    <Text profile="WC_BigStatLabel" position="10px -268px" text="$l10n_wc_label_next_payment"/>
+                    <Text profile="WC_BigStat" id="txtNextPayment" position="10px -288px"/>
+
+                </GuiElement>
+            </ThreePartBitmap>
+
+            <!-- Vertical separator -->
+            <Bitmap profile="fs25_settingsTooltipSeparator" position="660px 0px"/>
+
+            <!-- RIGHT: Active workers + Open Manager button -->
+            <GuiElement position="680px 30px" width="420px" height="500px">
+
+                <Text profile="WC_SectionTitle" position="0px -10px" text="$l10n_wc_section_workers"/>
+                <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -34px" width="400px"/>
+
+                <!-- Big worker count -->
+                <Text profile="WC_BigStat" id="txtActiveWorkers" position="0px -56px"/>
+                <Text profile="WC_BigStatLabel" position="0px -104px" text="$l10n_wc_label_active_workers"/>
+
+                <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -132px" width="400px"/>
+                <Text profile="WC_BodyText" id="txtWorkerNames" position="0px -152px" width="400px"/>
+
+                <!-- Open Manager button -->
+                <Button profile="fs25_buttonOK" id="btnOpenManager"
+                        text="$l10n_wc_btn_open_manager" onClick="onOpenManager"
+                        position="60px -440px" width="280px"/>
+
+            </GuiElement>
+
+        </GuiElement>
+
+    </GuiElement>
+</GUI>

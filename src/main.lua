@@ -22,6 +22,13 @@ source(modDirectory .. "src/settings/WorkerSettingsUI.lua")
 source(modDirectory .. "src/WorkerSystem.lua")
 source(modDirectory .. "src/WorkerManager.lua")
 
+-- GUI: pause-menu tab + inner tabbed manager
+source(modDirectory .. "src/gui/WCDashboardFrame.lua")
+source(modDirectory .. "src/gui/WCWageSettingsFrame.lua")
+source(modDirectory .. "src/gui/WCGui.lua")
+source(modDirectory .. "src/gui/WCMenuPage.lua")
+source(modDirectory .. "src/gui/WCModGui.lua")
+
 local wm
 
 local function isEnabled()
@@ -38,6 +45,11 @@ local function loadedMission(mission, node)
     end
     
     wm:onMissionLoaded()
+
+    -- Trigger GUI tab registration after map load
+    if g_wcModGui ~= nil then
+        g_wcModGui:onMapLoaded()
+    end
 end
 
 local function load(mission)

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUIProfiles>
+    <!-- ============================================================ -->
+    <!-- Worker Costs Mod: GUI profiles                               -->
+    <!-- All WC_ prefixed to avoid collision with other mods          -->
+    <!-- ============================================================ -->
+
+    <!-- Layout helpers -->
+    <Profile name="WC_RowBoxH" extends="emptyPanel" with="anchorTopLeft">
+        <layoutDirection value="horizontal"/>
+        <layoutSpacing value="10px"/>
+        <clipChildren value="false"/>
+    </Profile>
+
+    <Profile name="WC_ColBoxV" extends="emptyPanel" with="anchorTopLeft">
+        <layoutDirection value="vertical"/>
+        <layoutSpacing value="6px"/>
+        <clipChildren value="false"/>
+    </Profile>
+
+    <!-- Section header: small, bold, uppercase -->
+    <Profile name="WC_SectionTitle" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="16px"/>
+        <textBold value="true"/>
+        <textUpperCase value="true"/>
+        <textColor value="$preset_fs25_colorMainDefault"/>
+        <textAlignment value="left"/>
+    </Profile>
+
+    <!-- Row label: left-aligned, slightly dimmed -->
+    <Profile name="WC_RowLabel" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="18px"/>
+        <textBold value="false"/>
+        <textColor value="1 1 1 0.8"/>
+        <textAlignment value="left"/>
+        <width value="200px"/>
+    </Profile>
+
+    <!-- Row value: right-aligned, bold, bright -->
+    <Profile name="WC_RowValue" extends="fs25_textDefault" with="anchorTopRight">
+        <textSize value="18px"/>
+        <textBold value="true"/>
+        <textColor value="1 1 1 1"/>
+        <textAlignment value="right"/>
+        <width value="220px"/>
+    </Profile>
+
+    <!-- Highlighted value: green accent (money / active) -->
+    <Profile name="WC_RowValueGreen" extends="fs25_textDefault" with="anchorTopRight">
+        <textSize value="18px"/>
+        <textBold value="true"/>
+        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textAlignment value="right"/>
+        <width value="220px"/>
+    </Profile>
+
+    <!-- Large stat number: big centre display -->
+    <Profile name="WC_BigStat" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="36px"/>
+        <textBold value="true"/>
+        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textAlignment value="left"/>
+    </Profile>
+
+    <!-- Big stat label underneath -->
+    <Profile name="WC_BigStatLabel" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="14px"/>
+        <textBold value="false"/>
+        <textUpperCase value="true"/>
+        <textColor value="1 1 1 0.6"/>
+        <textAlignment value="left"/>
+    </Profile>
+
+    <!-- Body / list text with wrapping -->
+    <Profile name="WC_BodyText" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="16px"/>
+        <textBold value="false"/>
+        <textColor value="1 1 1 0.85"/>
+        <textAlignment value="left"/>
+        <textWrap value="true"/>
+        <width value="380px"/>
+    </Profile>
+
+    <!-- Footer wage label -->
+    <Profile name="WC_FooterLabel" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="18px"/>
+        <textBold value="true"/>
+        <textColor value="1 1 1 0.6"/>
+    </Profile>
+
+    <!-- Footer wage value (green, right) -->
+    <Profile name="WC_FooterValue" extends="fs25_textDefault" with="anchorTopRight">
+        <textSize value="22px"/>
+        <textBold value="true"/>
+        <textAlignment value="right"/>
+        <textColor value="$preset_fs25_colorMainHighlight"/>
+    </Profile>
+
+    <!-- Filter switcher (Hourly / Per Hectare toggle) -->
+    <Profile name="WC_FilterSwitcher" extends="fs25_subCategorySelector" with="anchorTopLeft"/>
+
+    <!-- Empty state text -->
+    <Profile name="WC_EmptyText" extends="fs25_textGrey" with="anchorMiddleCenter">
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+        <textSize value="22px"/>
+    </Profile>
+
+    <!-- Status pill: green when active -->
+    <Profile name="WC_StatusActive" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="18px"/>
+        <textBold value="true"/>
+        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textAlignment value="left"/>
+    </Profile>
+
+    <Profile name="WC_StatusInactive" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="18px"/>
+        <textBold value="true"/>
+        <textColor value="1 0.35 0.35 1"/>
+        <textAlignment value="left"/>
+    </Profile>
+
+</GUIProfiles>
