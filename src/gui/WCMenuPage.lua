@@ -34,7 +34,7 @@ end
 function WCMenuPage:initialize()
     WCMenuPage:superClass().initialize(self)
 
-    self.btnBack = { inputAction = InputAction.MENU_BACK }
+    self.btnBack = { inputAction = InputAction.MENU_BACK, text = g_i18n:getText("button_back") }
     self.btnOpen = {
         inputAction = InputAction.MENU_ACCEPT,
         text = g_i18n:getText("wc_btn_open_manager"),

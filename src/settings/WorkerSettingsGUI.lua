@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Worker Costs Mod (version 1.0.1.0)
+-- FS25 Worker Costs Mod (version 1.0.2.0)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -172,17 +172,19 @@ function WorkerSettingsGUI:consoleCommandShowSettings()
             "Debug Mode: %s\n" ..
             "Cost Mode: %s\n" ..
             "Wage Level: %s\n" ..
-            "Wage Rate: $%d/h\n" ..
+            "Wage Rate: $%d%s\n" ..
             "Notifications: %s\n" ..
-            "Custom Rate: $%d/h\n" ..
+            "Custom Rate: $%d%s\n" ..
             "================================",
             tostring(settings.enabled),
             tostring(settings.debugMode),
             settings:getCostModeName(),
             settings:getWageLevelName(),
             settings:getWageRate(),
+            settings.costMode == Settings.COST_MODE_HOURLY and "/h" or "/ha",
             tostring(settings.showNotifications),
-            settings.customRate
+            settings.customRate,
+            settings.costMode == Settings.COST_MODE_HOURLY and "/h" or "/ha"
         )
         print(info)
         return info

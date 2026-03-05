@@ -100,9 +100,10 @@ function WCWorkerStatsFrame:refreshLive()
                 if isHourly then
                     costStr = g_i18n:formatMoney(math.floor(rate * intervalHrs), 0, true, false)
                 else
-                    costStr = g_i18n:getText("wc_costmode_2")
+                    -- Per-hectare cost depends on area worked during the interval — not estimable in advance
+                    costStr = "-"
                 end
-                table.insert(lines, w.name .. "   +" .. costStr)
+                table.insert(lines, w.name .. "   -" .. costStr)
             end
             self.txtWorkerList:setText(table.concat(lines, "\n"))
         else
