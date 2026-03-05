@@ -39,11 +39,12 @@ function WCGui:setupPages(gui)
     -- GuiUtils.getUVs expects { x, y, width, height } in pixels.
     local tabIcons = Utils.getFilename("tab_icons.dds", MOD_DIR)
 
+    -- 4px inset per side to avoid sampling the spritesheet grid lines at quadrant edges
     local pages = {
-        { gui.pageDashboard,    GuiUtils.getUVs({   0,   0, 512, 512 }) },  -- top-left:     person + euro
-        { gui.pageWageSettings, GuiUtils.getUVs({ 512,   0, 512, 512 }) },  -- top-right:    gear / settings
-        { gui.pageWorkerStats,  GuiUtils.getUVs({   0, 512, 512, 512 }) },  -- bottom-left:  stars / trending
-        { gui.pageAbout,        GuiUtils.getUVs({ 512, 512, 512, 512 }) },  -- bottom-right: clock + list
+        { gui.pageDashboard,    GuiUtils.getUVs({   4,   4, 504, 504 }) },  -- top-left:     person + euro
+        { gui.pageWageSettings, GuiUtils.getUVs({ 516,   4, 504, 504 }) },  -- top-right:    gear / settings
+        { gui.pageWorkerStats,  GuiUtils.getUVs({   4, 516, 504, 504 }) },  -- bottom-left:  stars / trending
+        { gui.pageAbout,        GuiUtils.getUVs({ 516, 516, 504, 504 }) },  -- bottom-right: clock + list
     }
 
     for idx, entry in ipairs(pages) do
