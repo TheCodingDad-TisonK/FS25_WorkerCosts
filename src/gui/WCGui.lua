@@ -35,23 +35,21 @@ function WCGui:onGuiSetupFinished()
 end
 
 function WCGui:setupPages(gui)
-    -- Pass a real icon .dds + full-tile UVs for each tab.
-    -- Slice ID strings like "ingameMenu/tab_statistics" are NOT valid in FS25
-    -- and produce "does not contain prefix or slice ID" warnings (see log).
-    -- Using an explicit filename+UVs is the safe, warning-free approach.
-    local fullUVs = GuiUtils.getUVs({ 0, 0, 1024, 1024 })
+    -- Each tab uses a different quadrant of the tab_icons.dds spritesheet (1024x1024, 2x2 grid).
+    -- GuiUtils.getUVs expects { x, y, width, height } in pixels.
+    local tabIcons = Utils.getFilename("tab_icons.dds", MOD_DIR)
 
     local pages = {
-        { gui.pageDashboard,    Utils.getFilename("icon.dds", MOD_DIR) },
-        { gui.pageWageSettings, Utils.getFilename("icon.dds", MOD_DIR) },
-        { gui.pageWorkerStats,  Utils.getFilename("icon.dds", MOD_DIR) },
-        { gui.pageAbout,        Utils.getFilename("icon.dds", MOD_DIR) },
+        { gui.pageDashboard,    GuiUtils.getUVs({   0,   0, 512, 512 }) },  -- top-left:     person + euro
+        { gui.pageWageSettings, GuiUtils.getUVs({ 512,   0, 512, 512 }) },  -- top-right:    gear / settings
+        { gui.pageWorkerStats,  GuiUtils.getUVs({   0, 512, 512, 512 }) },  -- bottom-left:  stars / trending
+        { gui.pageAbout,        GuiUtils.getUVs({ 512, 512, 512, 512 }) },  -- bottom-right: clock + list
     }
 
     for idx, entry in ipairs(pages) do
-        local page, iconFile = unpack(entry)
+        local page, uvs = unpack(entry)
         gui:registerPage(page, idx)
-        gui:addPageTab(page, iconFile, fullUVs)
+        gui:addPageTab(page, tabIcons, uvs)
     end
 
     gui:rebuildTabList()
