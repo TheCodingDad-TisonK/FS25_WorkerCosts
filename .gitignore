@@ -3,6 +3,7 @@ FS25_WorkerCosts.zip
 
 # Source images (DDS files are the shipped assets)
 *.png
+!icon.png
 
 # Local AI/editor config
 .claude/
