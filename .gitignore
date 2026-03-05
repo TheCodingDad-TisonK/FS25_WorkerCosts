@@ -1,0 +1,13 @@
+# Build artifacts
+FS25_WorkerCosts.zip
+
+# Source images (DDS files are the shipped assets)
+*.png
+
+# Local AI/editor config
+.claude/
+
+# OS junk
+Thumbs.db
+.DS_Store
+desktop.ini

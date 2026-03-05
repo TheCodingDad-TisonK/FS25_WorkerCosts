@@ -1,0 +1,81 @@
+name: Bug Report
+description: Something isn't working correctly in-game
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting, please check that you're on the **latest version** and that the issue isn't already reported.
+
+  - type: input
+    id: mod_version
+    attributes:
+      label: Mod Version
+      description: Found in the mod manager or modDesc.xml
+      placeholder: "e.g. 1.0.2.0"
+    validations:
+      required: true
+
+  - type: input
+    id: game_version
+    attributes:
+      label: FS25 Game Version
+      description: Shown in the bottom-right corner of the main menu
+      placeholder: "e.g. 1.6.0.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: multiplayer
+    attributes:
+      label: Game Mode
+      options:
+        - Singleplayer
+        - Multiplayer (host)
+        - Multiplayer (client)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly. What did you expect to happen?
+      placeholder: "Workers are being charged twice per payment interval..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. Hire a worker
+        2. Wait 5 minutes
+        3. Check balance...
+    validations:
+      required: true
+
+  - type: textarea
+    id: log
+    attributes:
+      label: Relevant Log Output
+      description: Paste lines from `log.txt` tagged with `[Worker Costs]` or nearby errors. Find it at `%USERPROFILE%\Documents\My Games\FarmingSimulator2025\log.txt`
+      render: text
+
+  - type: textarea
+    id: other_mods
+    attributes:
+      label: Other Active Mods
+      description: List any other mods that might interact with workers or finances.
+      placeholder: "FS25_NPCFavor, FS25_TaxMod..."
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I am on the latest version of the mod
+          required: true
+        - label: I searched existing issues and this hasn't been reported yet
+          required: true

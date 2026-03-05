@@ -14,8 +14,6 @@
         <SmoothList profile="fs25_tabList" id="pagingTabList" onSelectionChanged="onTabMenuSelectionChanged" onScroll="onTabMenuScroll">
             <ListItem profile="fs25_tabListItem">
                 <Button profile="fs25_tabListItemButton" name="tabButton" soundDisabled="true"/>
-                <Bitmap profile="fs25_tabListItemSeparator"/>
-                <Bitmap profile="fs25_tabListItemSeparatorBottom"/>
             </ListItem>
         </SmoothList>
     </Bitmap>
