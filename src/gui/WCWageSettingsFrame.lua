@@ -170,3 +170,15 @@ function WCWageSettingsFrame:onClickReset()
         Logging.info("WCWageSettingsFrame: Settings reset to defaults.")
     end
 end
+
+function WCWageSettingsFrame:onBtnResetFocus()
+    if self.btnResetBg then
+        self.btnResetBg:setImageColor(nil, 0.50, 0.16, 0.16, 0.95)
+    end
+end
+
+function WCWageSettingsFrame:onBtnResetLeave()
+    if self.btnResetBg then
+        self.btnResetBg:setImageColor(nil, 0.35, 0.12, 0.12, 0.95)
+    end
+end

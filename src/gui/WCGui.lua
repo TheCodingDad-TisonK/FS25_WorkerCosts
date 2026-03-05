@@ -27,6 +27,8 @@ function WCGui:onGuiSetupFinished()
 
     self.pageDashboard:initialize()
     self.pageWageSettings:initialize()
+    self.pageWorkerStats:initialize()
+    self.pageAbout:initialize()
 
     self:setupPages(self)
     self:setupMenuButtonInfo()
@@ -40,10 +42,10 @@ function WCGui:setupPages(gui)
     local fullUVs = GuiUtils.getUVs({ 0, 0, 1024, 1024 })
 
     local pages = {
-        -- Tab 1: Dashboard  (uses the mod's main icon)
         { gui.pageDashboard,    Utils.getFilename("icon.dds", MOD_DIR) },
-        -- Tab 2: Wage Settings (uses the mod's main icon - tinted differently by selection state)
         { gui.pageWageSettings, Utils.getFilename("icon.dds", MOD_DIR) },
+        { gui.pageWorkerStats,  Utils.getFilename("icon.dds", MOD_DIR) },
+        { gui.pageAbout,        Utils.getFilename("icon.dds", MOD_DIR) },
     }
 
     for idx, entry in ipairs(pages) do
@@ -77,6 +79,9 @@ function WCGui:update(dt)
         if self.pageDashboard and self.pageDashboard.refreshLive then
             self.pageDashboard:refreshLive()
         end
+        if self.pageWorkerStats and self.pageWorkerStats.refreshLive then
+            self.pageWorkerStats:refreshLive()
+        end
     end
 end
 
@@ -85,6 +90,8 @@ function WCGui:onOpen()
     self._refreshTimer = 0
     self.pageDashboard:refresh()
     self.pageWageSettings:refresh()
+    self.pageWorkerStats:refresh()
+    self.pageAbout:refresh()
 end
 
 function WCGui:onClose()

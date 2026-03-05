@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI name="WCAbout">
+    <GuiElement profile="uiInGameMenuFrame">
+
+        <!-- Tab header -->
+        <GuiElement profile="fs25_menuHeaderPanel">
+            <Bitmap profile="fs25_menuHeaderIconBg"/>
+            <Text profile="fs25_menuHeaderTitle" text="$l10n_wc_tab_about"/>
+        </GuiElement>
+
+        <GuiElement profile="fs25_subCategorySelectorTabbedContainer" position="0px -80px">
+
+            <!-- LEFT: How it works body text -->
+            <ThreePartBitmap profile="fs25_primaryMenuContainerBg" width="580px" height="480px" position="0px 20px">
+                <Bitmap profile="fs25_menuContainerArrow"/>
+                <GuiElement profile="fs25_subCategoryContainer" width="540px">
+
+                    <Text profile="WC_SectionTitle" position="10px -10px" text="$l10n_wc_section_how_it_works"/>
+                    <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -34px" width="520px"/>
+
+                    <Text profile="WC_BodyText" position="10px -54px" size="520px 390px" text="$l10n_wc_about_body"/>
+
+                </GuiElement>
+            </ThreePartBitmap>
+
+            <!-- Vertical separator -->
+            <Bitmap profile="fs25_settingsTooltipSeparator" position="596px 0px"/>
+
+            <!-- RIGHT: Quick reference — wage table + payment info -->
+            <GuiElement position="614px 30px" width="420px" height="480px">
+
+                <Text profile="WC_SectionTitle" position="0px -10px" text="$l10n_wc_section_wage_level"/>
+                <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -34px" width="400px"/>
+
+                <!-- wc_diff_N already includes the price: "Low ($15/h)" etc. -->
+                <Text profile="WC_RowLabel" position="0px -54px" width="400px" text="$l10n_wc_diff_1"/>
+                <Text profile="WC_RowLabel" position="0px -82px" width="400px" text="$l10n_wc_diff_2"/>
+                <Text profile="WC_RowLabel" position="0px -110px" width="400px" text="$l10n_wc_diff_3"/>
+
+                <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -144px" width="400px"/>
+                <Text profile="WC_SectionTitle" position="0px -164px" text="$l10n_wc_section_payment"/>
+                <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -188px" width="400px"/>
+
+                <BoxLayout profile="WC_RowBoxH" position="0px -206px" width="400px">
+                    <Text profile="WC_RowLabel" text="$l10n_wc_label_pay_interval" width="200px"/>
+                    <Text profile="WC_RowValue" id="txtPayInterval" width="190px"/>
+                </BoxLayout>
+
+                <Text profile="WC_BodyText" position="0px -240px" size="400px 120px" text="$l10n_wc_about_payment_note"/>
+
+                <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -370px" width="400px"/>
+
+                <Text profile="WC_BigStatLabel" position="0px -390px" text="$l10n_wc_label_version"/>
+                <Text profile="WC_RowValue" id="txtVersion" position="0px -410px" width="400px"/>
+
+            </GuiElement>
+
+        </GuiElement>
+
+    </GuiElement>
+</GUI>

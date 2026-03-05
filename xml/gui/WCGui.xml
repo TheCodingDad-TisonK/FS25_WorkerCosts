@@ -5,6 +5,8 @@
     <Paging profile="uiInGameMenuPaging" onPageChange="onPageChange" onPageUpdate="onPageUpdate" id="pagingElement">
         <FrameReference ref="WCDashboard"    name="WCDashboard"    id="pageDashboard"/>
         <FrameReference ref="WCWageSettings" name="WCWageSettings" id="pageWageSettings"/>
+        <FrameReference ref="WCWorkerStats"  name="WCWorkerStats"  id="pageWorkerStats"/>
+        <FrameReference ref="WCAbout"        name="WCAbout"        id="pageAbout"/>
     </Paging>
 
     <Bitmap profile="fs25_tabListContainer" id="header">

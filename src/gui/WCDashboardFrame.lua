@@ -68,6 +68,11 @@ function WCDashboardFrame:refresh()
         self.txtCostMode:setText(settings:getCostModeName())
     end
 
+    -- ── Wage level ────────────────────────────────────────────
+    if self.txtWageLevel then
+        self.txtWageLevel:setText(settings:getWageLevelName())
+    end
+
     self:refreshLive()
 end
 

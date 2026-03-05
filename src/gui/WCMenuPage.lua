@@ -100,15 +100,18 @@ function WCMenuPage:refresh()
     self:refreshLive()
 end
 
--- Updates only time-varying fields (timer, worker count, balance)
+-- Updates only time-varying fields (timer, worker count, est. cost, balance, countdown)
 function WCMenuPage:refreshLive()
     if g_WorkerManager == nil then return end
-    local ws = g_WorkerManager.workerSystem
-    if ws == nil then return end
+    local ws       = g_WorkerManager.workerSystem
+    local settings = g_WorkerManager.settings
+    if ws == nil or settings == nil then return end
+
+    local workers     = ws:getActiveWorkers()
+    local workerCount = #workers
 
     if self.txtActiveWorkers then
-        local workers = ws:getActiveWorkers()
-        self.txtActiveWorkers:setText(tostring(#workers))
+        self.txtActiveWorkers:setText(tostring(workerCount))
     end
 
     if self.txtNextPayment then
@@ -116,6 +119,17 @@ function WCMenuPage:refreshLive()
         local mins = math.floor(remaining / 60000)
         local secs = math.floor((remaining % 60000) / 1000)
         self.txtNextPayment:setText(string.format("%d:%02d", mins, secs))
+    end
+
+    if self.txtEstCost then
+        if workerCount > 0 and settings.costMode == Settings.COST_MODE_HOURLY then
+            local rate          = settings:getWageRate()
+            local intervalHours = ws.paymentInterval / 3600000
+            local estimate      = math.floor(rate * intervalHours * workerCount)
+            self.txtEstCost:setText(g_i18n:formatMoney(estimate, 0, true, false))
+        else
+            self.txtEstCost:setText("-")
+        end
     end
 
     if self.txtFarmBalance and g_localPlayer and g_farmManager then
@@ -129,6 +143,18 @@ end
 function WCMenuPage:onOpenManager()
     if g_wcGui ~= nil then
         g_gui:showGui("WCGui")
+    end
+end
+
+function WCMenuPage:onBtnOpenManagerFocus()
+    if self.btnOpenManagerBg then
+        self.btnOpenManagerBg:setImageColor(nil, 0.16, 0.45, 0.22, 0.95)
+    end
+end
+
+function WCMenuPage:onBtnOpenManagerLeave()
+    if self.btnOpenManagerBg then
+        self.btnOpenManagerBg:setImageColor(nil, 0.12, 0.35, 0.12, 0.95)
     end
 end
 

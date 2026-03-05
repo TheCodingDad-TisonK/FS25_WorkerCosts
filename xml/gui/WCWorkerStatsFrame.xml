@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI name="WCWorkerStats">
+    <GuiElement profile="uiInGameMenuFrame">
+
+        <!-- Tab header -->
+        <GuiElement profile="fs25_menuHeaderPanel">
+            <Bitmap profile="fs25_menuHeaderIconBg"/>
+            <Text profile="fs25_menuHeaderTitle" text="$l10n_wc_tab_worker_stats"/>
+        </GuiElement>
+
+        <GuiElement profile="fs25_subCategorySelectorTabbedContainer" position="0px -80px">
+
+            <!-- LEFT: Summary stats -->
+            <ThreePartBitmap profile="fs25_primaryMenuContainerBg" width="340px" height="480px" position="0px 20px">
+                <Bitmap profile="fs25_menuContainerArrow"/>
+                <GuiElement profile="fs25_subCategoryContainer" width="300px">
+
+                    <Text profile="WC_SectionTitle" position="10px -10px" text="$l10n_wc_section_summary"/>
+                    <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -34px" width="280px"/>
+
+                    <!-- Big active worker count -->
+                    <Text profile="WC_BigStat" id="txtWorkerCount" position="10px -52px"/>
+                    <Text profile="WC_BigStatLabel" position="10px -98px" text="$l10n_wc_label_active_workers"/>
+
+                    <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -124px" width="280px"/>
+
+                    <BoxLayout profile="WC_RowBoxH" position="5px -142px" width="290px">
+                        <Text profile="WC_RowLabel" text="$l10n_wc_label_cost_per_worker" width="150px"/>
+                        <Text profile="WC_RowValueGreen" id="txtCostPerWorker" width="130px"/>
+                    </BoxLayout>
+
+                    <BoxLayout profile="WC_RowBoxH" position="5px -170px" width="290px">
+                        <Text profile="WC_RowLabel" text="$l10n_wc_label_total_interval_cost" width="150px"/>
+                        <Text profile="WC_RowValueGreen" id="txtTotalCost" width="130px"/>
+                    </BoxLayout>
+
+                    <BoxLayout profile="WC_RowBoxH" position="5px -198px" width="290px">
+                        <Text profile="WC_RowLabel" text="$l10n_wc_label_pay_interval" width="150px"/>
+                        <Text profile="WC_RowValue" id="txtPayInterval" width="130px"/>
+                    </BoxLayout>
+
+                    <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -232px" width="280px"/>
+
+                    <BoxLayout profile="WC_RowBoxH" position="5px -250px" width="290px">
+                        <Text profile="WC_RowLabel" text="$l10n_wc_label_cost_mode" width="150px"/>
+                        <Text profile="WC_RowValue" id="txtCostMode" width="130px"/>
+                    </BoxLayout>
+
+                    <BoxLayout profile="WC_RowBoxH" position="5px -278px" width="290px">
+                        <Text profile="WC_RowLabel" text="$l10n_wc_label_wage_level" width="150px"/>
+                        <Text profile="WC_RowValue" id="txtWageLevel" width="130px"/>
+                    </BoxLayout>
+
+                </GuiElement>
+            </ThreePartBitmap>
+
+            <!-- Vertical separator -->
+            <Bitmap profile="fs25_settingsTooltipSeparator" position="356px 0px"/>
+
+            <!-- RIGHT: Per-worker breakdown -->
+            <GuiElement position="374px 30px" width="660px" height="480px">
+
+                <Text profile="WC_SectionTitle" position="0px -10px" text="$l10n_wc_section_breakdown"/>
+                <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -34px" width="640px"/>
+
+                <!-- Column headers -->
+                <BoxLayout profile="WC_RowBoxH" position="0px -54px" width="640px">
+                    <Text profile="WC_BigStatLabel" text="$l10n_wc_col_worker_name" width="360px"/>
+                    <Text profile="WC_BigStatLabel" text="$l10n_wc_col_interval_cost" width="270px"/>
+                </BoxLayout>
+
+                <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -80px" width="640px"/>
+
+                <!-- Worker list with costs -->
+                <Text profile="WC_BodyText" id="txtWorkerList" position="0px -100px" size="640px 340px"/>
+
+            </GuiElement>
+
+        </GuiElement>
+
+    </GuiElement>
+</GUI>

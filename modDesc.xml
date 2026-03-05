@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="92">
     <author>TisonK</author>
-    <version>1.0.1.1</version>
+    <version>1.0.2.0</version>
     <modName>FS25_WorkerCostsMod</modName>
     <title>
         <en>Realistic Worker Costs</en>
@@ -395,19 +395,134 @@
             <es>Sin trabajadores activos</es>
         </text>
 
+        <!-- Section headers -->
+        <text name="wc_section_configuration">
+            <en>Configuration</en>
+            <de>Konfiguration</de>
+            <fr>Configuration</fr>
+            <es>Configuración</es>
+        </text>
+        <text name="wc_section_summary">
+            <en>Summary</en>
+            <de>Zusammenfassung</de>
+            <fr>Résumé</fr>
+            <es>Resumen</es>
+        </text>
+        <text name="wc_section_breakdown">
+            <en>Worker Breakdown</en>
+            <de>Arbeiter-Aufschlüsselung</de>
+            <fr>Détail par ouvrier</fr>
+            <es>Desglose de trabajadores</es>
+        </text>
+        <text name="wc_section_how_it_works">
+            <en>How It Works</en>
+            <de>Funktionsweise</de>
+            <fr>Comment ça marche</fr>
+            <es>Cómo funciona</es>
+        </text>
+
+        <!-- Column headers for Worker Stats -->
+        <text name="wc_col_worker_name">
+            <en>WORKER</en>
+            <de>ARBEITER</de>
+            <fr>OUVRIER</fr>
+            <es>TRABAJADOR</es>
+        </text>
+        <text name="wc_col_interval_cost">
+            <en>COST / INTERVAL</en>
+            <de>KOSTEN / INTERVALL</de>
+            <fr>COÛT / INTERVALLE</fr>
+            <es>COSTO / INTERVALO</es>
+        </text>
+
+        <!-- Worker Stats labels -->
+        <text name="wc_label_cost_per_worker">
+            <en>Per Worker</en>
+            <de>Pro Arbeiter</de>
+            <fr>Par ouvrier</fr>
+            <es>Por trabajador</es>
+        </text>
+        <text name="wc_label_total_interval_cost">
+            <en>Total / Interval</en>
+            <de>Gesamt / Intervall</de>
+            <fr>Total / Intervalle</fr>
+            <es>Total / Intervalo</es>
+        </text>
+
+        <!-- Tab titles -->
+        <text name="wc_tab_worker_stats">
+            <en>Worker Stats</en>
+            <de>Arbeiter-Statistiken</de>
+            <fr>Stats Ouvriers</fr>
+            <es>Stats Trabajadores</es>
+        </text>
+        <text name="wc_tab_about">
+            <en>About</en>
+            <de>Info</de>
+            <fr>À propos</fr>
+            <es>Acerca de</es>
+        </text>
+
+        <!-- About frame -->
+        <text name="wc_label_version">
+            <en>VERSION</en>
+            <de>VERSION</de>
+            <fr>VERSION</fr>
+            <es>VERSIÓN</es>
+        </text>
+        <text name="wc_about_payment_note">
+            <en>Payments run on real time — game speed does not affect billing. Deductions happen silently in the background every interval.</en>
+            <de>Zahlungen laufen in Echtzeit — die Spielgeschwindigkeit hat keinen Einfluss auf die Abrechnung.</de>
+            <fr>Les paiements s'effectuent en temps réel — la vitesse du jeu n'affecte pas la facturation.</fr>
+            <es>Los pagos se ejecutan en tiempo real — la velocidad del juego no afecta la facturación.</es>
+        </text>
+        <text name="wc_about_body">
+            <en>Realistic Worker Costs replaces the default worker pay system with a billing model based on real time.
+
+Workers are charged on a fixed schedule regardless of game speed. Each active AI worker costs money every payment interval.
+
+HOURLY MODE
+A fixed rate per worker per hour. Charges scale with how many workers are active and how long they work.
+
+PER-HECTARE MODE
+Workers are charged based on area worked. The per-hectare rate scales with your Wage Level setting.
+
+WAGE SETTINGS
+Adjust Cost Mode, Wage Level, and toggle notifications in the Wage Settings tab. Use Reset to restore defaults.
+
+WORKER STATS
+The Worker Stats tab shows a live breakdown of costs per worker for the current billing interval.
+
+This mod is multiplayer compatible. Settings are saved per save game.</en>
+            <de>Realistische Arbeiterkosten ersetzt das Standard-Arbeiterlohnsystem durch ein Abrechnungsmodell auf Basis von Echtzeit.</de>
+            <fr>Coûts Réalistes des Ouvriers remplace le système de salaire par défaut par un modèle de facturation basé sur le temps réel.</fr>
+            <es>Costos Realistas de Trabajadores reemplaza el sistema de pago de trabajadores predeterminado con un modelo de facturación basado en tiempo real.</es>
+        </text>
+
+        <!-- WCMenuPage landing -->
+        <text name="wc_menu_description">
+            <en>Monitor your worker costs and billing status at a glance. Open the Worker Manager for live stats, detailed breakdowns, and full settings control.</en>
+            <de>Überwachen Sie Ihre Arbeitskosten und den Abrechnungsstatus auf einen Blick.</de>
+            <fr>Surveillez vos coûts de main-d'oeuvre d'un coup d'oeil. Ouvrez le Gestionnaire pour les statistiques en direct.</fr>
+            <es>Supervise los costos de sus trabajadores de un vistazo. Abra el Administrador para estadísticas en vivo.</es>
+        </text>
+
         <!-- Help text for Wage Settings tab -->
         <text name="wc_help_title">
             <en>Help</en>
         </text>
         <text name="wc_help_body">
-            <en>Cost Mode: Choose Hourly to pay workers per real-time hour, or Per Hectare to pay based on area worked.
+            <en>COST MODE
+Hourly — pay a fixed rate per worker per real-time hour.
+Per Hectare — pay based on area worked.
 
-Wage Level sets the base rate:
-  Low  = $15/h
-  Medium = $25/h
-  High = $40/h
+WAGE LEVEL
+Low    = $15 per worker per hour
+Medium = $25 per worker per hour
+High   = $40 per worker per hour
 
-Payments are deducted every 5 real-time minutes.
+PAYMENTS
+Deducted every 5 real-time minutes, independent of game speed. The rate preview on this page reflects the exact charge per billing interval.
 
 Use Reset to restore all settings to their defaults.</en>
         </text>

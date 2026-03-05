@@ -174,11 +174,15 @@ end
 function WCModGui:loadTabbedMenu()
     local dashFrame    = WCDashboardFrame.new()
     local wageFrame    = WCWageSettingsFrame.new()
+    local statsFrame   = WCWorkerStatsFrame.new()
+    local aboutFrame   = WCAboutFrame.new()
 
     g_wcGui = WCGui.new(g_messageCenter, g_i18n, g_inputBinding)
 
-    g_gui:loadGui(MOD_DIR .. "xml/gui/WCDashboardFrame.xml",   "WCDashboardFrame",   dashFrame,  true)
-    g_gui:loadGui(MOD_DIR .. "xml/gui/WCWageSettingsFrame.xml", "WCWageSettingsFrame", wageFrame, true)
+    g_gui:loadGui(MOD_DIR .. "xml/gui/WCDashboardFrame.xml",    "WCDashboardFrame",    dashFrame,  true)
+    g_gui:loadGui(MOD_DIR .. "xml/gui/WCWageSettingsFrame.xml", "WCWageSettingsFrame", wageFrame,  true)
+    g_gui:loadGui(MOD_DIR .. "xml/gui/WCWorkerStatsFrame.xml",  "WCWorkerStatsFrame",  statsFrame, true)
+    g_gui:loadGui(MOD_DIR .. "xml/gui/WCAboutFrame.xml",        "WCAboutFrame",        aboutFrame, true)
     g_gui:loadGui(MOD_DIR .. "xml/gui/WCGui.xml",               "WCGui",               g_wcGui)
 
     Logging.info("WCModGui: TabbedMenu loaded successfully.")

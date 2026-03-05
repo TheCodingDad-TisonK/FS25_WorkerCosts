@@ -25,6 +25,8 @@ source(modDirectory .. "src/WorkerManager.lua")
 -- GUI: pause-menu tab + inner tabbed manager
 source(modDirectory .. "src/gui/WCDashboardFrame.lua")
 source(modDirectory .. "src/gui/WCWageSettingsFrame.lua")
+source(modDirectory .. "src/gui/WCWorkerStatsFrame.lua")
+source(modDirectory .. "src/gui/WCAboutFrame.lua")
 source(modDirectory .. "src/gui/WCGui.lua")
 source(modDirectory .. "src/gui/WCMenuPage.lua")
 source(modDirectory .. "src/gui/WCModGui.lua")

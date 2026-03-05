@@ -121,4 +121,25 @@
         <textAlignment value="left"/>
     </Profile>
 
+    <!-- 3-layer interactive buttons (NPCFavor RVB pattern) -->
+    <Profile name="WC_BtnBgGreen" extends="baseReference" with="anchorTopLeft">
+        <imageColor value="0.12 0.35 0.12 0.95"/>
+    </Profile>
+
+    <Profile name="WC_BtnBgRed" extends="baseReference" with="anchorTopLeft">
+        <imageColor value="0.35 0.12 0.12 0.95"/>
+    </Profile>
+
+    <Profile name="WC_BtnHit" extends="emptyPanel" with="anchorTopLeft">
+        <isFocusable value="true"/>
+    </Profile>
+
+    <Profile name="WC_BtnText" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="18px"/>
+        <textBold value="true"/>
+        <textColor value="1 1 1 1"/>
+        <textAlignment value="center"/>
+        <textVerticalAlignment value="middle"/>
+    </Profile>
+
 </GUIProfiles>
