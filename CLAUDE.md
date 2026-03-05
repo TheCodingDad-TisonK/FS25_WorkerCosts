@@ -75,6 +75,42 @@ At these stages, Claude and Samantha MUST have explicit dialog:
 
 ---
 
+---
+
+## File Size Rule: 1500 Lines
+
+**RULE**: If you create, append to, or significantly modify a file that exceeds **1500 lines**, you MUST trigger a refactor to break it into smaller, focused modules.
+
+**Why This Matters:**
+- Syntax errors in 1900+ line files are nightmares to find
+- Large files breed bugs, make code review painful, and create merge conflicts
+- Breaking into smaller files forces better separation of concerns
+
+**When to Refactor:**
+- File grows beyond 1500 lines during feature development
+- Adding new functionality would push file over the limit
+- File has multiple responsibilities (dialog logic + business logic + data handling)
+
+**Refactor Checklist:**
+1. Identify logical boundaries (GUI vs business logic vs calculations)
+2. Extract to new files with clear single responsibility
+3. Main file becomes a coordinator/orchestrator
+4. Update `main.lua` source order to load new files in correct phase
+5. Test thoroughly (syntax errors, runtime behavior)
+6. Update comments/documentation
+
+**Exception:** Data files (configs, mappings) can exceed if justified.
+
+---
+
+## No Branding / No Advertising
+
+- **Never** add "Generated with Claude Code", "Co-Authored-By: Claude", or any claude.ai links to commit messages, PR descriptions, code comments, or any other output.
+- **Never** advertise or reference Anthropic, Claude, or claude.ai in any project artifacts.
+- This mod is by its human author(s) — keep it that way.
+
+---
+
 ## Build & Deploy
 
 ```bash

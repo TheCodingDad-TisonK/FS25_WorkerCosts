@@ -42,7 +42,7 @@ function WCAboutFrame:refresh()
 
     -- Mod version from g_modManager
     if self.txtVersion then
-        local version = "1.0.2.0"
+        local version = "unknown"
         if g_modManager then
             local mod = g_modManager:getModByName("FS25_WorkerCostsMod")
             if mod and mod.version then

@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Realistic Worker Costs Mod (version 1.0.1.0)
+-- FS25 Realistic Worker Costs Mod (version 1.0.3.0)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -56,10 +56,10 @@ end
 
 local function load(mission)
     if wm == nil then
-        print("Worker Costs Mod: Initializing...")
+        Logging.info("[Worker Costs] Initializing...")
         wm = WorkerManager.new(mission, modDirectory, modName)
         getfenv(0)["g_WorkerManager"] = wm
-        print("Worker Costs Mod: Initialized successfully")
+        Logging.info("[Worker Costs] Initialized successfully")
     end
 end
 
@@ -110,13 +110,14 @@ function workerCostsStatus()
             "Enabled: %s\n" ..
             "Mode: %s\n" ..
             "Wage Level: %s\n" ..
-            "Base Rate: $%d/h\n" ..
+            "Base Rate: $%d%s\n" ..
             "Notifications: %s\n" ..
             "================================",
             tostring(settings.enabled),
             settings:getCostModeName(),
             settings:getWageLevelName(),
             settings:getWageRate(),
+            settings.costMode == Settings.COST_MODE_HOURLY and "/h" or "/ha",
             tostring(settings.showNotifications)
         )
         print(status)
@@ -133,7 +134,4 @@ end
 getfenv(0)["workerCosts"] = workerCosts
 getfenv(0)["workerCostsStatus"] = workerCostsStatus
 
-print("========================================")
-print("  Worker Costs Mod v1.0.1.0 LOADED      ")
-print("  Type 'workerCosts' in console for help")
-print("========================================")
+Logging.info("[Worker Costs] v1.0.2.0 loaded — type 'workerCosts' in console for help")

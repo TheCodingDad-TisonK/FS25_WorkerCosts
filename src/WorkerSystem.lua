@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Worker Costs Mod (version 1.0.1.1)
+-- FS25 Worker Costs Mod (version 1.0.3.0)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -191,8 +191,9 @@ function WorkerSystem:chargeWage(workerName, amount, workType)
     end
 
     local farmId = g_currentMission:getFarmId()
-    if not farmId then
-        self:log("Cannot charge wage: No farm ID")
+    if not farmId or farmId == 0 then
+        -- farmId 0 = spectator in multiplayer; cannot deduct from an unowned farm
+        self:log("Cannot charge wage: No valid farm ID (spectator or uninitialized farm)")
         return false
     end
 
