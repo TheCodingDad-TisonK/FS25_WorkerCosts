@@ -231,7 +231,7 @@ Search for `[Worker Costs]` — all mod activity (when Debug Mode is on) and any
 
 ## Changelog
 
-### v1.0.3.0 — Audit & Polish
+### v1.0.4.0 — Audit & Polish
 - Fixed: per-hectare mode showed mode-name string as a cost value in Worker Stats tab
 - Fixed: worker cost rows showed a `+` prefix (implying income) — corrected to `-`
 - Fixed: `farmId == 0` guard in payment system (spectator slot in multiplayer)
