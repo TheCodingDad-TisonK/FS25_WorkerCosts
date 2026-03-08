@@ -153,6 +153,19 @@
             <ru>За гектар ($/га)</ru>
         </text>
         
+        <text name="wc_monthly_salary_short">
+            <en>Monthly Salary</en>
+            <de>Monatliches Gehalt</de>
+            <fr>Salaire Mensuel</fr>
+            <pl>Miesięczne Wynagrodzenie</pl>
+            <es>Salario Mensual</es>
+            <it>Stipendio Mensile</it>
+            <cz>Měsíční plat</cz>
+            <br>Salário Mensal</br>
+            <uk>Щомісячна заробітна плата</uk>
+            <ru>Ежемесячная зарплата</ru>
+        </text>
+
         <text name="wc_difficulty_short">
             <en>Wage Level</en>
             <de>Lohnniveau</de>
@@ -313,7 +326,7 @@
             <pl>Ustawienia płac</pl>
             <es>Configuración salarial</es>
         </text>
-
+        
         <!-- Section headings -->
         <text name="wc_section_status">
             <en>Mod Status</en>
