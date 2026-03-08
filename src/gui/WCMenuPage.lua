@@ -148,13 +148,13 @@ end
 
 function WCMenuPage:onBtnOpenManagerFocus()
     if self.btnOpenManagerBg then
-        self.btnOpenManagerBg:setImageColor(nil, 0.16, 0.45, 0.22, 0.95)
+        self.btnOpenManagerBg:setImageColor(0.16, 0.45, 0.22, 0.95)
     end
 end
 
 function WCMenuPage:onBtnOpenManagerLeave()
     if self.btnOpenManagerBg then
-        self.btnOpenManagerBg:setImageColor(nil, 0.12, 0.35, 0.12, 0.95)
+        self.btnOpenManagerBg:setImageColor(0.12, 0.35, 0.12, 0.95)
     end
 end
 

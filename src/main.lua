@@ -27,6 +27,7 @@ source(modDirectory .. "src/gui/WCDashboardFrame.lua")
 source(modDirectory .. "src/gui/WCWageSettingsFrame.lua")
 source(modDirectory .. "src/gui/WCWorkerStatsFrame.lua")
 source(modDirectory .. "src/gui/WCAboutFrame.lua")
+source(modDirectory .. "src/gui/WCSalaryDialog.lua")
 source(modDirectory .. "src/gui/WCGui.lua")
 source(modDirectory .. "src/gui/WCMenuPage.lua")
 source(modDirectory .. "src/gui/WCModGui.lua")
@@ -83,23 +84,31 @@ FSBaseMission.update = Utils.appendedFunction(FSBaseMission.update, function(mis
     end
 end)
 
--- Console command functions
+-- Pre-initialization safety shims for `workerCosts` / `workerCostsStatus`.
+-- Once WorkerSettingsGUI:registerConsoleCommands() runs, the real implementations
+-- (which call into g_WorkerManager) are registered via addConsoleCommand() and take
+-- precedence in the console.  These plain-global fallbacks exist so that typing either
+-- command *before* the mod is fully initialized prints something useful instead of a
+-- Lua error.
+
 function workerCosts()
+    -- If the mod initialized normally, WorkerSettingsGUI has already registered a
+    -- proper addConsoleCommand handler.  This function is only reached if someone
+    -- calls it as a plain Lua global before WorkerManager.new() ran.
     if g_WorkerManager and g_WorkerManager.WorkerSettingsGUI then
         return g_WorkerManager.WorkerSettingsGUI:consoleCommandHelp()
-    else
-        print("=== Worker Costs Mod Commands ===")
-        print("Type these commands in console (~):")
-        print("WorkerCostsShowSettings - Show current settings")
-        print("WorkerCostsEnable/Disable - Enable/disable mod")
-        print("WorkerCostsSetWageLevel 1|2|3 - Set wage level")
-        print("WorkerCostsSetCostMode 1|2 - Set cost mode")
-        print("WorkerCostsSetNotifications true|false - Toggle notifications")
-        print("WorkerCostsTestPayment - Test wage payment")
-        print("WorkerCostsResetSettings - Reset to defaults")
-        print("==================================")
-        return "Worker Costs Mod commands listed above"
     end
+    print("=== Worker Costs Mod Commands ===")
+    print("Type these commands in console (~):")
+    print("WorkerCostsShowSettings - Show current settings")
+    print("WorkerCostsEnable/Disable - Enable/disable mod")
+    print("WorkerCostsSetWageLevel 1|2|3 - Set wage level")
+    print("WorkerCostsSetCostMode 1|2 - Set cost mode")
+    print("WorkerCostsSetNotifications true|false - Toggle notifications")
+    print("WorkerCostsTestPayment - Test wage payment")
+    print("WorkerCostsResetSettings - Reset to defaults")
+    print("==================================")
+    return "Worker Costs Mod commands listed above"
 end
 
 function workerCostsStatus()
@@ -122,16 +131,15 @@ function workerCostsStatus()
         )
         print(status)
         return status
-    else
-        print("Worker Costs Mod not initialized")
-        return "Worker Costs Mod not initialized"
     end
+    print("Worker Costs Mod not initialized")
+    return "Worker Costs Mod not initialized"
 end
 
--- Expose the two status/help functions as Lua globals so they can be called
--- from other mods or from the console directly.  All other commands are
--- registered exclusively via addConsoleCommand inside WorkerSettingsGUI.
-getfenv(0)["workerCosts"] = workerCosts
+-- Expose as globals so other mods can call them directly if needed.
+-- The console uses addConsoleCommand-registered handlers (registered inside
+-- WorkerSettingsGUI), so these globals are supplementary, not the primary path.
+getfenv(0)["workerCosts"]       = workerCosts
 getfenv(0)["workerCostsStatus"] = workerCostsStatus
 
-Logging.info("[Worker Costs] v1.0.2.0 loaded — type 'workerCosts' in console for help")
+Logging.info("[Worker Costs] v1.0.3.0 loaded — type 'workerCosts' in console for help")

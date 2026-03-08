@@ -23,7 +23,8 @@ SettingsManager.defaultConfig = {
     debugMode = false,
     costMode = 1,               -- 1=Hourly, 2=Per Hectare
     showNotifications = true,
-    customRate = 0
+    customRate = 0,
+    monthlySalaryEnabled = true -- end-of-month salary summary dialog
 }
 
 function SettingsManager.new()
@@ -48,6 +49,7 @@ function SettingsManager:loadSettings(settingsObject)
     settingsObject.costMode = self.defaultConfig.costMode
     settingsObject.showNotifications = self.defaultConfig.showNotifications
     settingsObject.customRate = self.defaultConfig.customRate
+    settingsObject.monthlySalaryEnabled = self.defaultConfig.monthlySalaryEnabled
     
     -- Load from file if it exists
     if xmlPath and fileExists(xmlPath) then
@@ -59,6 +61,7 @@ function SettingsManager:loadSettings(settingsObject)
             settingsObject.costMode = xml:getInt(self.XMLTAG..".costMode", self.defaultConfig.costMode)
             settingsObject.showNotifications = xml:getBool(self.XMLTAG..".showNotifications", self.defaultConfig.showNotifications)
             settingsObject.customRate = xml:getInt(self.XMLTAG..".customRate", self.defaultConfig.customRate)
+            settingsObject.monthlySalaryEnabled = xml:getBool(self.XMLTAG..".monthlySalaryEnabled", self.defaultConfig.monthlySalaryEnabled)
             
             xml:delete()
             Logging.info("Worker Costs Mod: Settings loaded from savegame")
@@ -84,6 +87,7 @@ function SettingsManager:saveSettings(settingsObject)
         xml:setInt(self.XMLTAG..".costMode", settingsObject.costMode or self.defaultConfig.costMode)
         xml:setBool(self.XMLTAG..".showNotifications", settingsObject.showNotifications)
         xml:setInt(self.XMLTAG..".customRate", settingsObject.customRate or 0)
+        xml:setBool(self.XMLTAG..".monthlySalaryEnabled", settingsObject.monthlySalaryEnabled ~= false)
         
         xml:save()
         xml:delete()

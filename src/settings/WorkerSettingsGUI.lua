@@ -29,6 +29,9 @@ function WorkerSettingsGUI:registerConsoleCommands()
     addConsoleCommand("WorkerCostsSetNotifications", "Enable/disable notifications (true/false)", "consoleCommandSetNotifications", self)
     addConsoleCommand("WorkerCostsSetCustomRate", "Set custom wage rate (0 = use wage level)", "consoleCommandSetCustomRate", self)
     addConsoleCommand("WorkerCostsTestPayment", "Test wage payment system", "consoleCommandTestPayment", self)
+
+    addConsoleCommand("WorkerCostsMonthlySalary", "Enable/disable monthly salary dialog (true/false)", "consoleCommandSetMonthlySalary", self)
+    addConsoleCommand("WorkerCostsTestMonthlySalary", "Trigger monthly salary dialog right now (for testing)", "consoleCommandTestMonthlySalary", self)
     
     addConsoleCommand("WorkerCostsShowSettings", "Show current settings", "consoleCommandShowSettings", self)
     
@@ -140,7 +143,8 @@ function WorkerSettingsGUI:consoleCommandSetCustomRate(rate)
         g_WorkerManager.settings.customRate = customRate
         g_WorkerManager.settings:save()
         if customRate > 0 then
-            return string.format("Custom rate set to: $%d/h", customRate)
+            local unit = (g_WorkerManager.settings.costMode == Settings.COST_MODE_HOURLY) and "/h" or "/ha"
+            return string.format("Custom rate set to: $%d%s", customRate, unit)
         else
             return "Custom rate disabled, using wage level setting"
         end
@@ -166,6 +170,7 @@ end
 function WorkerSettingsGUI:consoleCommandShowSettings()
     if g_WorkerManager and g_WorkerManager.settings then
         local settings = g_WorkerManager.settings
+        local unit = settings.costMode == Settings.COST_MODE_HOURLY and "/h" or "/ha"
         local info = string.format(
             "=== Worker Costs Mod Settings ===\n" ..
             "Enabled: %s\n" ..
@@ -174,22 +179,22 @@ function WorkerSettingsGUI:consoleCommandShowSettings()
             "Wage Level: %s\n" ..
             "Wage Rate: $%d%s\n" ..
             "Notifications: %s\n" ..
-            "Custom Rate: $%d%s\n" ..
+            "Custom Rate: %s\n" ..
+            "Monthly Salary: %s\n" ..
             "================================",
             tostring(settings.enabled),
             tostring(settings.debugMode),
             settings:getCostModeName(),
             settings:getWageLevelName(),
-            settings:getWageRate(),
-            settings.costMode == Settings.COST_MODE_HOURLY and "/h" or "/ha",
+            settings:getWageRate(), unit,
             tostring(settings.showNotifications),
-            settings.customRate,
-            settings.costMode == Settings.COST_MODE_HOURLY and "/h" or "/ha"
+            settings.customRate > 0 and string.format("$%d%s", settings.customRate, unit) or "off (use wage level)",
+            tostring(settings.monthlySalaryEnabled)
         )
         print(info)
         return info
     end
-    
+
     return "Error: Worker Costs Mod not initialized"
 end
 
@@ -205,5 +210,33 @@ function WorkerSettingsGUI:consoleCommandResetSettings()
         return "Worker Costs Mod settings reset to defaults"
     end
 
+    return "Error: Worker Costs Mod not initialized"
+end
+
+function WorkerSettingsGUI:consoleCommandSetMonthlySalary(valueStr)
+    if g_WorkerManager and g_WorkerManager.settings then
+        local settings = g_WorkerManager.settings
+        local value = valueStr == "true" or valueStr == "1"
+        settings.monthlySalaryEnabled = value
+        settings:save()
+        return string.format("Monthly salary dialog %s", value and "ENABLED" or "DISABLED")
+    end
+    return "Error: Worker Costs Mod not initialized"
+end
+
+function WorkerSettingsGUI:consoleCommandTestMonthlySalary()
+    if g_WorkerManager and g_WorkerManager.workerSystem then
+        local ws = g_WorkerManager.workerSystem
+        -- Add a fake entry so the dialog has something to show
+        ws.monthlyCosts["Test Worker A"] = (ws.monthlyCosts["Test Worker A"] or 0) + 1200
+        ws.monthlyCosts["Test Worker B"] = (ws.monthlyCosts["Test Worker B"] or 0) + 850
+        -- Force trigger
+        local month = 1
+        if g_currentMission and g_currentMission.environment then
+            month = g_currentMission.environment.currentPeriod or 1
+        end
+        ws:triggerMonthlySalaryDialog(month)
+        return "Monthly salary dialog triggered (test mode)"
+    end
     return "Error: Worker Costs Mod not initialized"
 end

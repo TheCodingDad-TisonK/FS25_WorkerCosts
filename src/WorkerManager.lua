@@ -14,6 +14,10 @@
 WorkerManager = {}
 local WorkerManager_mt = Class(WorkerManager)
 
+---@param mission table  The FS25 Mission00 object
+---@param modDirectory string
+---@param modName string
+---@return WorkerManager
 function WorkerManager.new(mission, modDirectory, modName)
     local self = setmetatable({}, WorkerManager_mt)
     
