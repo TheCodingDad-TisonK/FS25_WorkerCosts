@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Worker Costs Mod (version 1.0.1.0)
+-- FS25 Worker Costs Mod (version 1.0.3.0)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -9,6 +9,9 @@
 -- All rights reserved. Unauthorized redistribution, copying,
 -- or claiming this code as your own is strictly prohibited.
 -- Original author: TisonK
+-- =========================================================
+-- NOTE: Keep the version string above in sync with modDesc.xml
+--       and the header in main.lua whenever the mod version changes.
 -- =========================================================
 local function getTextSafe(key)
     local text = g_i18n:getText(key)
@@ -119,12 +122,25 @@ function WorkerSettingsUI:inject()
             self.settings:save()
         end
     )
-    
-    self.enabledOption = enabledOpt
-    self.debugOption = debugOpt
-    self.costModeOption = costModeOpt
-    self.wageLevelOption = wageOpt
-    self.notificationsOption = notificationsOpt
+
+    -- Monthly salary dialog toggle (end-of-month summary)
+    local monthlySalaryOpt = UIHelper.createBinaryOption(
+        layout,
+        "wc_monthly_salary",
+        "wc_monthly_salary",
+        self.settings.monthlySalaryEnabled,
+        function(val)
+            self.settings.monthlySalaryEnabled = val
+            self.settings:save()
+        end
+    )
+
+    self.enabledOption         = enabledOpt
+    self.debugOption           = debugOpt
+    self.costModeOption        = costModeOpt
+    self.wageLevelOption       = wageOpt
+    self.notificationsOption   = notificationsOpt
+    self.monthlySalaryOption   = monthlySalaryOpt
     
     self.injected = true
     layout:invalidateLayout()
@@ -161,6 +177,12 @@ function WorkerSettingsUI:refreshUI()
         self.notificationsOption:setIsChecked(self.settings.showNotifications)
     elseif self.notificationsOption and self.notificationsOption.setState then
         self.notificationsOption:setState(self.settings.showNotifications and 2 or 1)
+    end
+
+    if self.monthlySalaryOption and self.monthlySalaryOption.setIsChecked then
+        self.monthlySalaryOption:setIsChecked(self.settings.monthlySalaryEnabled)
+    elseif self.monthlySalaryOption and self.monthlySalaryOption.setState then
+        self.monthlySalaryOption:setState(self.settings.monthlySalaryEnabled and 2 or 1)
     end
 end
 

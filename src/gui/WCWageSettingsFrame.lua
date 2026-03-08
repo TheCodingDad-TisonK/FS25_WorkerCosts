@@ -78,6 +78,16 @@ function WCWageSettingsFrame:bindCallbacks()
             end
         end
     end
+
+    -- Monthly salary dialog toggle
+    if self.optMonthlySalary then
+        self.optMonthlySalary.onClickCallback = function(state)
+            if g_WorkerManager and g_WorkerManager.settings then
+                g_WorkerManager.settings.monthlySalaryEnabled = (state == 2)
+                g_WorkerManager.settings:save()
+            end
+        end
+    end
 end
 
 function WCWageSettingsFrame:onFrameOpen()
@@ -132,6 +142,11 @@ function WCWageSettingsFrame:refresh()
         self.optDebugMode:setState(settings.debugMode and 2 or 1)
     end
 
+    -- Monthly salary dialog toggle (widget is optional — XML may not include it yet)
+    if self.optMonthlySalary and self.optMonthlySalary.setState then
+        self.optMonthlySalary:setState(settings.monthlySalaryEnabled and 2 or 1)
+    end
+
     self:refreshRatePreview()
 end
 
@@ -173,12 +188,12 @@ end
 
 function WCWageSettingsFrame:onBtnResetFocus()
     if self.btnResetBg then
-        self.btnResetBg:setImageColor(nil, 0.50, 0.16, 0.16, 0.95)
+        self.btnResetBg:setImageColor(0.50, 0.16, 0.16, 0.95)
     end
 end
 
 function WCWageSettingsFrame:onBtnResetLeave()
     if self.btnResetBg then
-        self.btnResetBg:setImageColor(nil, 0.35, 0.12, 0.12, 0.95)
+        self.btnResetBg:setImageColor(0.35, 0.12, 0.12, 0.95)
     end
 end

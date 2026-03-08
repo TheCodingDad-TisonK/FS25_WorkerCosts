@@ -22,6 +22,8 @@ Settings.WAGE_LEVEL_HIGH = 3
 Settings.COST_MODE_HOURLY = 1
 Settings.COST_MODE_PER_HECTARE = 2
 
+---@param manager SettingsManager
+---@return Settings
 function Settings.new(manager)
     local self = setmetatable({}, Settings_mt)
     self.manager = manager
@@ -116,6 +118,7 @@ function Settings:validateSettings()
     self.enabled = not not self.enabled
     self.debugMode = not not self.debugMode
     self.showNotifications = not not self.showNotifications
+    self.monthlySalaryEnabled = not not self.monthlySalaryEnabled
     
     self.customRate = tonumber(self.customRate) or 0
     if self.customRate < 0 then
@@ -139,6 +142,7 @@ function Settings:resetToDefaults(saveImmediately)
     self.costMode = Settings.COST_MODE_HOURLY
     self.showNotifications = true
     self.customRate = 0
+    self.monthlySalaryEnabled = true  -- end-of-month salary summary dialog
     
     if saveImmediately then
         self:save()

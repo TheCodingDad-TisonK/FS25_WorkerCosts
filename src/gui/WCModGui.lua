@@ -185,6 +185,9 @@ function WCModGui:loadTabbedMenu()
     g_gui:loadGui(MOD_DIR .. "xml/gui/WCAboutFrame.xml",        "WCAboutFrame",        aboutFrame, true)
     g_gui:loadGui(MOD_DIR .. "xml/gui/WCGui.xml",               "WCGui",               g_wcGui)
 
+    -- Register the salary dialog screen
+    WCSalaryDialog.register()
+
     Logging.info("WCModGui: TabbedMenu loaded successfully.")
 end
 
@@ -204,6 +207,9 @@ end
 -- Console
 -- ─────────────────────────────────────────────────────────
 function WCModGui:consoleReloadGui()
+    if g_inGameMenu == nil then
+        return "Worker Costs GUI: cannot reload before map is loaded"
+    end
     self:load()
     return "Worker Costs GUI reloaded"
 end

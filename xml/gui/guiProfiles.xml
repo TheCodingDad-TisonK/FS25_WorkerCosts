@@ -23,7 +23,7 @@
         <textSize value="16px"/>
         <textBold value="true"/>
         <textUpperCase value="true"/>
-        <textColor value="$preset_fs25_colorMainDefault"/>
+        <textColor value="1 1 1 1"/>
         <textAlignment value="left"/>
     </Profile>
 
@@ -49,7 +49,7 @@
     <Profile name="WC_RowValueGreen" extends="fs25_textDefault" with="anchorTopRight">
         <textSize value="18px"/>
         <textBold value="true"/>
-        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textColor value="0.2 0.8 0.2 1"/>
         <textAlignment value="right"/>
         <width value="220px"/>
     </Profile>
@@ -58,7 +58,7 @@
     <Profile name="WC_BigStat" extends="fs25_textDefault" with="anchorTopLeft">
         <textSize value="36px"/>
         <textBold value="true"/>
-        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textColor value="0.2 0.8 0.2 1"/>
         <textAlignment value="left"/>
     </Profile>
 
@@ -68,7 +68,6 @@
         <textBold value="false"/>
         <textUpperCase value="true"/>
         <textColor value="1 1 1 0.6"/>
-        <textAlignment value="left"/>
     </Profile>
 
     <!-- Body / list text with wrapping -->
@@ -93,7 +92,7 @@
         <textSize value="22px"/>
         <textBold value="true"/>
         <textAlignment value="right"/>
-        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textColor value="0.2 0.8 0.2 1"/>
     </Profile>
 
     <!-- Filter switcher (Hourly / Per Hectare toggle) -->
@@ -110,7 +109,7 @@
     <Profile name="WC_StatusActive" extends="fs25_textDefault" with="anchorTopLeft">
         <textSize value="18px"/>
         <textBold value="true"/>
-        <textColor value="$preset_fs25_colorMainHighlight"/>
+        <textColor value="0.2 0.8 0.2 1"/>
         <textAlignment value="left"/>
     </Profile>
 
@@ -119,6 +118,31 @@
         <textBold value="true"/>
         <textColor value="1 0.35 0.35 1"/>
         <textAlignment value="left"/>
+    </Profile>
+
+    <!-- Penalty warning text: red, centred, left-anchored so it stays inside dialog -->
+    <Profile name="WC_PenaltyText" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="13px"/>
+        <textBold value="true"/>
+        <textUpperCase value="true"/>
+        <textColor value="1 0.4 0.4 1"/>
+        <textAlignment value="center"/>
+    </Profile>
+
+    <!-- Total row label: left side, left-anchored -->
+    <Profile name="WC_TotalLabel" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="18px"/>
+        <textBold value="true"/>
+        <textColor value="1 1 1 0.8"/>
+        <textAlignment value="left"/>
+    </Profile>
+
+    <!-- Total row value: right side, right-aligned text, left-anchored element -->
+    <Profile name="WC_TotalValue" extends="fs25_textDefault" with="anchorTopLeft">
+        <textSize value="18px"/>
+        <textBold value="true"/>
+        <textColor value="0.2 0.8 0.2 1"/>
+        <textAlignment value="right"/>
     </Profile>
 
     <!-- 3-layer interactive buttons (NPCFavor RVB pattern) -->

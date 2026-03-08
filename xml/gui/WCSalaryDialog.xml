@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<GUI name="WCSalaryDialog" onCreate="onCreate" onOpen="onOpen" onClose="onClose">
+    <GuiElement profile="newLayer" />
+    <Bitmap profile="dialogFullscreenBg" id="dialogBg" />
+
+    <GuiElement profile="dialogBg" id="dialogElement" size="680px 510px">
+        <ThreePartBitmap profile="fs25_dialogBgMiddle" />
+        <ThreePartBitmap profile="fs25_dialogBgTop" />
+        <ThreePartBitmap profile="fs25_dialogBgBottom" />
+
+        <GuiElement profile="fs25_dialogContentContainer">
+
+            <!-- Title -->
+            <Text profile="WC_SectionTitle" id="txtTitle"
+                  position="0px -10px" size="580px 30px"
+                  textSize="20px" textAlignment="center"
+                  text="Monthly Worker Salaries"/>
+
+            <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -46px" width="580px"/>
+
+            <!-- Penalty warning (hidden by default) -->
+            <Text profile="WC_PenaltyText" id="txtPenalty"
+                  position="0px -58px" size="580px 22px"
+                  textSize="13px" textAlignment="center"
+                  text="" visible="false"/>
+
+            <!-- Worker list heading -->
+            <Text profile="WC_BigStatLabel"
+                  position="0px -84px" size="580px 18px"
+                  textAlignment="center" text="WORKER BREAKDOWN"/>
+
+            <!-- Worker list -->
+            <Text profile="WC_BodyText" id="txtWorkerList"
+                  position="100px -106px" size="380px 160px"
+                  textSize="14px" textAlignment="left" textWrap="true"/>
+
+            <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -272px" width="580px"/>
+
+            <!-- Total row: BoxLayout keeps label+value inside the container -->
+            <BoxLayout profile="WC_RowBoxH" position="50px -306px" width="480px">
+                <Text profile="WC_TotalLabel" width="240px" text="TOTAL DUE"/>
+                <Text profile="WC_TotalValue" id="txtTotal" width="240px"/>
+            </BoxLayout>
+
+            <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -332px" width="580px"/>
+
+            <!-- PAY button (green) — nudged right to center -->
+            <Bitmap  profile="WC_BtnBgGreen" id="btnPayBg"  position="22px -358px" size="276px 48px"/>
+            <Button  profile="WC_BtnHit"     id="btnPay"    position="22px -358px" size="276px 48px"
+                     onFocus="onBtnPayFocus" onLeave="onBtnPayLeave" onClick="onClickPay"/>
+            <Text    profile="WC_BtnText"    id="txtBtnPay" position="22px -358px" size="276px 48px"
+                     textAlignment="center" textVerticalAlignment="middle" text="Pay"/>
+
+            <!-- DECLINE button (red) — 22 + 276 + 16 = 314px -->
+            <Bitmap  profile="WC_BtnBgRed"    id="btnDeclineBg"  position="314px -358px" size="276px 48px"/>
+            <Button  profile="WC_BtnHit"      id="btnDecline"    position="314px -358px" size="276px 48px"
+                     onFocus="onBtnDeclineFocus" onLeave="onBtnDeclineLeave" onClick="onClickDecline"/>
+            <Text    profile="WC_BtnText"     id="txtBtnDecline" position="314px -358px" size="276px 48px"
+                     textAlignment="center" textVerticalAlignment="middle"
+                     text="Decline (20% penalty next month)"/>
+
+        </GuiElement>
+    </GuiElement>
+
+</GUI>
