@@ -47,6 +47,10 @@ end
 
 function WorkerSystem:initialize()
     if self.isInitialized then
+        -- Re-install the hook in case it was lost (e.g. after WorkerCostsEnable)
+        if not self._hookedAddMoney then
+            self:installGameHook()
+        end
         return
     end
 
@@ -57,7 +61,7 @@ function WorkerSystem:initialize()
         self:installGameHook()
 
         self.isInitialized = true
-        self:log("Worker System initialized. Mode: %s, Base Rate: $%d",
+        Logging.info("[Worker Costs] Worker System initialized. Mode: %s, Base Rate: $%d",
             self.settings:getCostModeName(), self.settings:getWageRate())
     end
 end
@@ -76,7 +80,11 @@ end
 
 --- Patch mission.addMoney to zero out the game's own worker-wage deductions.
 -- We use _isProcessingPayment as a flag so that OUR payments still pass through.
--- Only negative addMoney calls are intercepted; positive calls are always allowed.
+--
+-- IMPORTANT: The game charges helper wages via MoneyType.AI (confirmed from AIJob source).
+-- AIJob:updateCost() accumulates pendingCost and flushes whenever it exceeds 25§:
+--   g_currentMission:addMoney(-self.pendingCost, self.startedFarmId, MoneyType.AI, true)
+-- We intercept exactly MoneyType.AI charges while helpers are active.
 function WorkerSystem:installGameHook()
     if not g_currentMission then
         return
@@ -91,28 +99,58 @@ function WorkerSystem:installGameHook()
         return
     end
 
-    -- Capture self in the closure so the hook survives reassignment of any
-    -- module-level variable and cleans up correctly via delete().
-    local capturedSelf = self
-    self._originalAddMoney = originalAddMoney
+    -- MoneyType.AI is the type used by AIJob:updateCost() and AIJob:stop().
+    -- Log whatever values are available so the diagnostic command can report them.
+    local aiMoneyType = MoneyType and MoneyType.AI
+    Logging.info("[Worker Costs] MoneyType.AI = %s, MoneyType.WORKER_WAGES = %s",
+        tostring(aiMoneyType),
+        tostring(MoneyType and MoneyType.WORKER_WAGES))
+
+    if aiMoneyType == nil then
+        Logging.warning("[Worker Costs] MoneyType.AI not found — will fall back to active-job heuristic.")
+    end
+
+    local capturedSelf      = self
+    local capturedAIType    = aiMoneyType
+    self._originalAddMoney  = originalAddMoney
 
     mission.addMoney = function(missionObj, amount, farmId, moneyType, ...)
-        -- Only intercept the game's own worker-wage deductions (MoneyType.WORKER_WAGES).
-        -- All other negative calls (equipment purchases, repairs, etc.) must pass through.
-        -- When _isProcessingPayment is true the call originated from our chargeWage(),
-        -- so we let it through regardless.
-        if capturedSelf.settings.enabled
-                and amount < 0
-                and moneyType == MoneyType.WORKER_WAGES
-                and not capturedSelf._isProcessingPayment then
-            capturedSelf:log("Suppressed built-in worker payment: %d (moneyType=%s)", amount, tostring(moneyType))
-            return
+        -- Let OUR charges pass through unconditionally.
+        if capturedSelf._isProcessingPayment then
+            return originalAddMoney(missionObj, amount, farmId, moneyType, ...)
         end
+
+        if capturedSelf.settings.enabled and amount < 0 then
+            -- Primary: MoneyType.AI is what AIJob uses for helper wages.
+            local isHelperWage = (capturedAIType ~= nil and moneyType == capturedAIType)
+
+            -- Also catch MoneyType.WORKER_WAGES in case some FS25 builds use it.
+            if not isHelperWage and MoneyType and MoneyType.WORKER_WAGES ~= nil then
+                isHelperWage = (moneyType == MoneyType.WORKER_WAGES)
+            end
+
+            -- Fallback when MoneyType enum is unavailable: intercept small negative
+            -- charges that coincide with active AI jobs (AIJob flushes at >25§ chunks).
+            if not isHelperWage and capturedAIType == nil then
+                local hasActiveJobs = false
+                local aiSystem = g_currentMission and g_currentMission.aiSystem
+                if aiSystem and aiSystem.activeJobs then
+                    hasActiveJobs = (#aiSystem.activeJobs > 0)
+                end
+                isHelperWage = hasActiveJobs and math.abs(amount) <= 500
+            end
+
+            if isHelperWage then
+                capturedSelf:log("Suppressed built-in helper wage: %d (moneyType=%s)", amount, tostring(moneyType))
+                return
+            end
+        end
+
         return originalAddMoney(missionObj, amount, farmId, moneyType, ...)
     end
 
     self._hookedAddMoney = true
-    self:log("Installed hook to suppress built-in worker costs")
+    Logging.info("[Worker Costs] Hook installed — intercepting MoneyType.AI helper wages")
 end
 
 function WorkerSystem:log(msg, ...)
@@ -145,15 +183,42 @@ function WorkerSystem:getActiveWorkers()
         return workers
     end
 
-    for _, job in pairs(aiSystem.activeJobs) do
-        if job and job.isActive and job.vehicle then
-            -- getFullName may not exist on all vehicle types; guard the call
-            local name = (job.vehicle.getFullName and job.vehicle:getFullName()) or "Worker"
-            table.insert(workers, {
-                vehicle = job.vehicle,
-                job = job,
-                name = name
-            })
+    -- activeJobs is an array — use ipairs, not pairs.
+    -- job.isRunning is the correct running-state field (not job.isActive).
+    -- Vehicle is accessed via job.vehicleParameter:getVehicle() on field-work jobs,
+    -- with a fallback to job.vehicle for any custom job types that set it directly.
+    for _, job in ipairs(aiSystem.activeJobs) do
+        if job and job.isRunning then
+            -- Get vehicle: prefer the official vehicleParameter API
+            local vehicle = nil
+            if job.vehicleParameter and job.vehicleParameter.getVehicle then
+                vehicle = job.vehicleParameter:getVehicle()
+            elseif job.vehicle then
+                vehicle = job.vehicle
+            end
+
+            if vehicle then
+                -- Helper name: job:getHelperName() is defined on AIJob base class
+                local name = "Worker"
+                if job.getHelperName then
+                    local ok, helperName = pcall(function() return job:getHelperName() end)
+                    if ok and helperName and helperName ~= "" then
+                        name = helperName
+                    end
+                end
+                -- Fall back to vehicle name if helper name unavailable
+                if name == "Worker" then
+                    name = (vehicle.getFullName and vehicle:getFullName())
+                       or (vehicle.getName and vehicle:getName())
+                       or "Worker"
+                end
+
+                table.insert(workers, {
+                    vehicle = vehicle,
+                    job     = job,
+                    name    = name
+                })
+            end
         end
     end
 
