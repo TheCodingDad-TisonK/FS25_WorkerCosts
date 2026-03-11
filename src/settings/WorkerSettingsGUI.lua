@@ -29,11 +29,13 @@ function WorkerSettingsGUI:registerConsoleCommands()
     addConsoleCommand("WorkerCostsSetNotifications", "Enable/disable notifications (true/false)", "consoleCommandSetNotifications", self)
     addConsoleCommand("WorkerCostsSetCustomRate", "Set custom wage rate (0 = use wage level)", "consoleCommandSetCustomRate", self)
     addConsoleCommand("WorkerCostsTestPayment", "Test wage payment system", "consoleCommandTestPayment", self)
+    addConsoleCommand("WorkerCostsDebug", "Enable/disable debug mode (true/false)", "consoleCommandSetDebug", self)
 
     addConsoleCommand("WorkerCostsMonthlySalary", "Enable/disable monthly salary dialog (true/false)", "consoleCommandSetMonthlySalary", self)
     addConsoleCommand("WorkerCostsTestMonthlySalary", "Trigger monthly salary dialog right now (for testing)", "consoleCommandTestMonthlySalary", self)
     
     addConsoleCommand("WorkerCostsShowSettings", "Show current settings", "consoleCommandShowSettings", self)
+    addConsoleCommand("WorkerCostsDiagnostic", "Run full diagnostic report", "consoleCommandDiagnostic", self)
     
     addConsoleCommand("WorkerCostsResetSettings", "Reset all settings to defaults", "consoleCommandResetSettings", self)
     
@@ -52,7 +54,9 @@ function WorkerSettingsGUI:consoleCommandHelp()
     print("WorkerCostsSetNotifications true|false - Toggle notifications")
     print("WorkerCostsSetCustomRate <rate> - Set custom rate (0 for default)")
     print("WorkerCostsTestPayment - Test payment system")
+    print("WorkerCostsDebug true|false - Toggle debug logging")
     print("WorkerCostsShowSettings - Show current settings")
+    print("WorkerCostsDiagnostic - Run full diagnostic report")
     print("WorkerCostsResetSettings - Reset to defaults")
     print("===========================================")
     return "Type 'workerCosts' for more info"
@@ -196,6 +200,82 @@ function WorkerSettingsGUI:consoleCommandShowSettings()
     end
 
     return "Error: Worker Costs Mod not initialized"
+end
+
+function WorkerSettingsGUI:consoleCommandSetDebug(valueStr)
+    if g_WorkerManager and g_WorkerManager.settings then
+        local value = (valueStr == "true" or valueStr == "1")
+        g_WorkerManager.settings.debugMode = value
+        g_WorkerManager.settings:save()
+        return string.format("Debug mode %s", value and "ENABLED — check log.txt for [Worker Costs] entries" or "DISABLED")
+    end
+    return "Error: Worker Costs Mod not initialized"
+end
+
+function WorkerSettingsGUI:consoleCommandDiagnostic()
+    local lines = { "=== Worker Costs Mod Diagnostic ===" }
+
+    -- 1. Manager
+    if g_WorkerManager == nil then
+        table.insert(lines, "FAIL: g_WorkerManager is nil — mod did not initialize!")
+        print(table.concat(lines, "\n"))
+        return table.concat(lines, "\n")
+    end
+    table.insert(lines, "OK:   g_WorkerManager exists")
+
+    -- 2. Settings
+    local settings = g_WorkerManager.settings
+    if settings == nil then
+        table.insert(lines, "FAIL: settings is nil")
+    else
+        table.insert(lines, string.format("OK:   settings — enabled=%s, mode=%s, rate=$%d, debug=%s",
+            tostring(settings.enabled), settings:getCostModeName(),
+            settings:getWageRate(), tostring(settings.debugMode)))
+    end
+
+    -- 3. WorkerSystem
+    local ws = g_WorkerManager.workerSystem
+    if ws == nil then
+        table.insert(lines, "FAIL: workerSystem is nil")
+    else
+        table.insert(lines, string.format("OK:   workerSystem — initialized=%s, hookInstalled=%s",
+            tostring(ws.isInitialized), tostring(ws._hookedAddMoney)))
+    end
+
+    -- 4. Mission / addMoney hook
+    if g_currentMission then
+        local isHooked = ws and ws._hookedAddMoney
+        table.insert(lines, string.format("%s:  addMoney hook — %s",
+            isHooked and "OK  " or "WARN",
+            isHooked and "installed" or "NOT installed (built-in wages may still run!)"))
+    else
+        table.insert(lines, "WARN: g_currentMission is nil — not in a game?")
+    end
+
+    -- 5. MoneyType check
+    local aiType  = MoneyType and MoneyType.AI
+    local wageType = MoneyType and MoneyType.WORKER_WAGES
+    table.insert(lines, string.format("%s:  MoneyType.AI = %s (this is what the game uses for helper wages)",
+        aiType ~= nil and "OK  " or "WARN", tostring(aiType)))
+    table.insert(lines, string.format("INFO: MoneyType.WORKER_WAGES = %s", tostring(wageType)))
+
+    -- 6. Active workers
+    if ws then
+        local workers = ws:getActiveWorkers()
+        table.insert(lines, string.format("INFO: Active workers detected: %d", #workers))
+        for _, w in ipairs(workers) do
+            table.insert(lines, string.format("      - %s", w.name))
+        end
+    end
+
+    -- 7. GUI
+    table.insert(lines, string.format("INFO: g_wcModGui=%s, g_wcGui=%s, g_inGameMenu=%s",
+        tostring(g_wcModGui ~= nil), tostring(g_wcGui ~= nil), tostring(g_inGameMenu ~= nil)))
+
+    table.insert(lines, "=== End Diagnostic ===")
+    local report = table.concat(lines, "\n")
+    print(report)
+    return report
 end
 
 function WorkerSettingsGUI:consoleCommandResetSettings()
