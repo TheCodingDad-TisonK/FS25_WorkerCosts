@@ -56,10 +56,11 @@ function WCDashboardFrame:refresh()
     -- ── Current rate display ──────────────────────────────────
     if self.txtCurrentRate then
         local rate = settings:getWageRate()
+        local rateFormatted = g_i18n:formatMoney(rate, 0, true, false)
         if settings.costMode == Settings.COST_MODE_HOURLY then
-            self.txtCurrentRate:setText(string.format("$%d / h", rate))
+            self.txtCurrentRate:setText(rateFormatted .. " / h")
         else
-            self.txtCurrentRate:setText(string.format("$%d / ha", rate))
+            self.txtCurrentRate:setText(rateFormatted .. " / ha")
         end
     end
 

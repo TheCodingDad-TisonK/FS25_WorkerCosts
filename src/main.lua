@@ -119,13 +119,13 @@ function workerCostsStatus()
             "Enabled: %s\n" ..
             "Mode: %s\n" ..
             "Wage Level: %s\n" ..
-            "Base Rate: $%d%s\n" ..
+            "Base Rate: %s%s\n" ..
             "Notifications: %s\n" ..
             "================================",
             tostring(settings.enabled),
             settings:getCostModeName(),
             settings:getWageLevelName(),
-            settings:getWageRate(),
+            g_i18n and g_i18n:formatMoney(settings:getWageRate(), 0, true, false) or tostring(settings:getWageRate()),
             settings.costMode == Settings.COST_MODE_HOURLY and "/h" or "/ha",
             tostring(settings.showNotifications)
         )

@@ -134,8 +134,9 @@ function WorkerSystem:installGameHook()
             if not isHelperWage and capturedAIType == nil then
                 local hasActiveJobs = false
                 local aiSystem = g_currentMission and g_currentMission.aiSystem
-                if aiSystem and aiSystem.activeJobs then
-                    hasActiveJobs = (#aiSystem.activeJobs > 0)
+                if aiSystem and aiSystem.getActiveJobs then
+                    local jobs = aiSystem:getActiveJobs()
+                    hasActiveJobs = (jobs ~= nil and #jobs > 0)
                 end
                 isHelperWage = hasActiveJobs and math.abs(amount) <= 500
             end
@@ -179,15 +180,19 @@ function WorkerSystem:getActiveWorkers()
     end
 
     local aiSystem = g_currentMission.aiSystem
-    if not aiSystem or not aiSystem.activeJobs then
+    if not aiSystem or not aiSystem.getActiveJobs then
         return workers
     end
 
-    -- activeJobs is an array — use ipairs, not pairs.
+    local activeJobs = aiSystem:getActiveJobs()
+    if not activeJobs then
+        return workers
+    end
+
     -- job.isRunning is the correct running-state field (not job.isActive).
     -- Vehicle is accessed via job.vehicleParameter:getVehicle() on field-work jobs,
     -- with a fallback to job.vehicle for any custom job types that set it directly.
-    for _, job in ipairs(aiSystem.activeJobs) do
+    for _, job in ipairs(activeJobs) do
         if job and job.isRunning then
             -- Get vehicle: prefer the official vehicleParameter API
             local vehicle = nil
