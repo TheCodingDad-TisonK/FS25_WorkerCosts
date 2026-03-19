@@ -9,6 +9,9 @@
   [![FS25](https://img.shields.io/badge/Farming%20Simulator-25-brightgreen?style=for-the-badge)](#)
   [![Multiplayer](https://img.shields.io/badge/Multiplayer-Supported-success?style=for-the-badge)](#)
   [![Languages](https://img.shields.io/badge/Languages-10-orange?style=for-the-badge)](#languages)
+  <a href="https://paypal.me/TheCodingDad">
+    <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate via PayPal" height="50">
+  </a>
 
   <br/>
 
