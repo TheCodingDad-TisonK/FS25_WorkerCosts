@@ -165,5 +165,11 @@
         <textAlignment value="center"/>
         <textVerticalAlignment value="middle"/>
     </Profile>
+    <!-- Tab button: like the base game tab button but without the hardcoded tractor slice background.
+         The icon image is driven entirely by addPageTab() (tab_icons.dds UV per tab). -->
+    <Profile name="WC_tabListItemButton" extends="fs25_tabListItemButton">
+        <filename value="$dataS/menu/blank.png"/>
+        <imageColor value="0 0 0 0"/>
+    </Profile>
 
 </GUIProfiles>

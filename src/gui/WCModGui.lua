@@ -148,7 +148,7 @@ function WCModGui:loadMenuFrame(class)
     g_gui:loadGui(xmlFile, class.CLASS_NAME, pageController, true)
 
     -- Icon: use the mod's existing icon.dds, full tile UVs
-    local iconPath = "icon.dds"
+    local iconPath = "WorkerCostsSlice.dds"
     local uvs = { 0, 0, 1024, 1024 }
 
     addIngameMenuPage(
