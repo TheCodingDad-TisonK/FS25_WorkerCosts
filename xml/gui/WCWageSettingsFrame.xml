@@ -21,15 +21,15 @@
                     <Text profile="WC_SectionTitle" position="10px -10px" text="$l10n_wc_section_general"/>
                     <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -34px" width="520px"/>
 
-                    <!-- Checkbox rows: CheckedOption + label as explicit siblings (BoxLayout breaks checkboxes) -->
-                    <CheckedOption profile="fs25_optionCheckbox" id="optEnabled" position="5px -52px"/>
-                    <Text profile="WC_RowLabel" position="50px -58px" width="480px" text="$l10n_wc_enabled_short"/>
+                    <!-- Toggle rows: WC_CheckSwitcher replaces fs25_optionCheckbox (absent in FS25 1.17) -->
+                    <CheckedOption profile="WC_CheckSwitcher" id="optEnabled" position="5px -52px" size="140px 32px"/>
+                    <Text profile="WC_RowLabel" position="155px -58px" width="375px" text="$l10n_wc_enabled_short"/>
 
-                    <CheckedOption profile="fs25_optionCheckbox" id="optNotifications" position="5px -90px"/>
-                    <Text profile="WC_RowLabel" position="50px -96px" width="480px" text="$l10n_wc_notifications_short"/>
+                    <CheckedOption profile="WC_CheckSwitcher" id="optNotifications" position="5px -90px" size="140px 32px"/>
+                    <Text profile="WC_RowLabel" position="155px -96px" width="375px" text="$l10n_wc_notifications_short"/>
 
-                    <CheckedOption profile="fs25_optionCheckbox" id="optDebugMode" position="5px -128px"/>
-                    <Text profile="WC_RowLabel" position="50px -134px" width="480px" text="$l10n_wc_debug_short"/>
+                    <CheckedOption profile="WC_CheckSwitcher" id="optDebugMode" position="5px -128px" size="140px 32px"/>
+                    <Text profile="WC_RowLabel" position="155px -134px" width="375px" text="$l10n_wc_debug_short"/>
 
                     <!-- COST MODE -->
                     <Text profile="WC_SectionTitle" position="10px -174px" text="$l10n_wc_section_cost_mode"/>
