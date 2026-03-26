@@ -6,11 +6,14 @@
         <GuiElement profile="fs25_menuHeaderPanel">
             <Bitmap profile="fs25_menuHeaderIconBg"/>
             <Text profile="fs25_menuHeaderTitle" text="$l10n_wc_menu_title"/>
-            <RoundCorner profile="fs25_shopMoneyBoxBg" position="680px 0px"/>
-            <BoxLayout profile="fs25_shopMoneyBox" position="648px 0px">
-                <Text profile="fs25_shopBalance" text="$l10n_wc_balance_label"/>
-                <Text profile="fs25_shopMoney" id="txtFarmBalance"/>
-            </BoxLayout>
+            <!-- Fixed 1034px shell keeps the balance box in the right third at any aspect ratio -->
+            <GuiElement profile="WC_MoneyBoxFixedWidth" size="1034px 80px">
+                <RoundCorner profile="fs25_shopMoneyBoxBg" position="680px 0px"/>
+                <BoxLayout profile="fs25_shopMoneyBox" position="648px 0px">
+                    <Text profile="fs25_shopBalance" text="$l10n_wc_balance_label"/>
+                    <Text profile="fs25_shopMoney" id="txtFarmBalance"/>
+                </BoxLayout>
+            </GuiElement>
         </GuiElement>
 
         <GuiElement profile="fs25_subCategorySelectorTabbedContainer" position="0px -80px">

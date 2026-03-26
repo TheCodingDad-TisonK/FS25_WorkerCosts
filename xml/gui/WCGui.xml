@@ -13,7 +13,7 @@
         <MultiTextOption profile="uiInGameMenuHeaderSelector" onClick="onClickPageSelection" id="pageSelector" soundDisabled="true"/>
         <SmoothList profile="fs25_tabList" id="pagingTabList" onSelectionChanged="onTabMenuSelectionChanged" onScroll="onTabMenuScroll">
             <ListItem profile="fs25_tabListItem">
-                <Button profile="fs25_tabListItemButton" name="tabButton" soundDisabled="true"/>
+                <Button profile="WC_tabListItemButton" name="tabButton" soundDisabled="true"/>
             </ListItem>
         </SmoothList>
     </Bitmap>
