@@ -60,6 +60,8 @@ local function load(mission)
         Logging.info("[Worker Costs] Initializing...")
         wm = WorkerManager.new(mission, modDirectory, modName)
         getfenv(0)["g_WorkerManager"] = wm
+        -- Cross-mod bridge: g_currentMission is a shared C++ object visible to all mods.
+        mission.workerCostsManager = wm
         Logging.info("[Worker Costs] Initialized successfully")
     end
 end
@@ -69,6 +71,7 @@ local function unload()
         wm:delete()
         wm = nil
         getfenv(0)["g_WorkerManager"] = nil
+        if g_currentMission then g_currentMission.workerCostsManager = nil end
     end
 end
 
