@@ -1,5 +1,5 @@
 -- =========================================================
--- FS25 Realistic Worker Costs Mod (version 1.0.8.0)
+-- FS25 Realistic Worker Costs Mod (version 1.0.7.0)
 -- =========================================================
 -- Hourly or per-hectare wages for workers
 -- =========================================================
@@ -60,6 +60,8 @@ local function load(mission)
         Logging.info("[Worker Costs] Initializing...")
         wm = WorkerManager.new(mission, modDirectory, modName)
         getfenv(0)["g_WorkerManager"] = wm
+        -- Cross-mod bridge: g_currentMission is a shared C++ object visible to all mods.
+        mission.workerCostsManager = wm
         Logging.info("[Worker Costs] Initialized successfully")
     end
 end
@@ -69,6 +71,7 @@ local function unload()
         wm:delete()
         wm = nil
         getfenv(0)["g_WorkerManager"] = nil
+        if g_currentMission then g_currentMission.workerCostsManager = nil end
     end
 end
 
@@ -142,4 +145,4 @@ end
 getfenv(0)["workerCosts"]       = workerCosts
 getfenv(0)["workerCostsStatus"] = workerCostsStatus
 
-Logging.info("[Worker Costs] v1.0.8.0 loaded — type 'workerCosts' in console for help")
+Logging.info("[Worker Costs] v1.0.7.0 loaded — type 'workerCosts' in console for help")

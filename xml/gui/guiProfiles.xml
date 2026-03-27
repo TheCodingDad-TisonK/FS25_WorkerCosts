@@ -101,8 +101,8 @@
     <!-- Compact on/off toggle for settings checkboxes (fs25_optionCheckbox does not exist in FS25 1.17) -->
     <Profile name="WC_CheckSwitcher" extends="fs25_subCategorySelector" with="anchorTopLeft"/>
 
-    <!-- Fixed-width coordinate shell for the balance box — keeps it in the right third at any aspect ratio -->
-    <Profile name="WC_MoneyBoxFixedWidth" extends="emptyPanel" with="anchorTopLeft"/>
+    <!-- Fixed-width coordinate shell for the balance box — right-anchored so it adapts to any header width -->
+    <Profile name="WC_MoneyBoxFixedWidth" extends="emptyPanel" with="anchorTopRight"/>
 
     <!-- Empty state text -->
     <Profile name="WC_EmptyText" extends="fs25_textGrey" with="anchorMiddleCenter">

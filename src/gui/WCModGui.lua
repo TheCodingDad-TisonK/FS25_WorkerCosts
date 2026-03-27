@@ -147,9 +147,10 @@ function WCModGui:loadMenuFrame(class)
     local xmlFile = class.getXmlFilename and class.getXmlFilename() or (MOD_DIR .. "xml/gui/" .. class.CLASS_NAME .. ".xml")
     g_gui:loadGui(xmlFile, class.CLASS_NAME, pageController, true)
 
-    -- Icon: use the mod's existing icon.dds, full tile UVs
-    local iconPath = "WorkerCostsSlice.dds"
-    local uvs = { 0, 0, 1024, 1024 }
+    -- Icon: top-left quadrant of the tab_icons spritesheet (1024x1024, 2x2 grid).
+    -- 4px inset avoids sampling the grid lines at quadrant edges.
+    local iconPath = "tab_icons.dds"
+    local uvs = { 4, 4, 504, 504 }
 
     addIngameMenuPage(
         pageController,
