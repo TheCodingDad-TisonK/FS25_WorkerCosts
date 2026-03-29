@@ -1,0 +1,224 @@
+[
+  {
+    "timestamp": "2026-03-29T12:02:25Z",
+    "date": "2026-03-29",
+    "views": {
+      "count": 245,
+      "uniques": 92
+    },
+    "clones": {
+      "count": 99,
+      "uniques": 61
+    },
+    "referrers": [
+      {
+        "referrer": "github.com",
+        "count": 104,
+        "uniques": 37
+      },
+      {
+        "referrer": "kingmods.net",
+        "count": 28,
+        "uniques": 16
+      },
+      {
+        "referrer": "Google",
+        "count": 10,
+        "uniques": 9
+      },
+      {
+        "referrer": "Bing",
+        "count": 7,
+        "uniques": 2
+      },
+      {
+        "referrer": "ntp.msn.com",
+        "count": 2,
+        "uniques": 2
+      },
+      {
+        "referrer": "Yahoo",
+        "count": 1,
+        "uniques": 1
+      }
+    ],
+    "popular_paths": [
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts",
+        "title": "GitHub - TheCodingDad-TisonK/FS25_WorkerCosts: Skill-based worker wages with ...",
+        "count": 133,
+        "uniques": 66
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.7.0",
+        "title": "Release v1.0.7.0 · TheCodingDad-TisonK/FS25_WorkerCosts · GitHub",
+        "count": 19,
+        "uniques": 18
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases",
+        "title": "Releases · TheCodingDad-TisonK/FS25_WorkerCosts",
+        "count": 13,
+        "uniques": 10
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0",
+        "title": "Release v1.0.9.0 — FarmTablet Integration & Accumulated Fixes · TheCodingDad-...",
+        "count": 12,
+        "uniques": 12
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues",
+        "title": "GitHub · Where software is built",
+        "count": 12,
+        "uniques": 7
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.8.0",
+        "title": "Release v1.0.8.0 — Ultrawide fix & checkbox crash fix · TheCodingDad-TisonK/F...",
+        "count": 9,
+        "uniques": 4
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/24",
+        "title": "Broken UI · Issue #24 · TheCodingDad-TisonK/FS25_WorkerCosts",
+        "count": 7,
+        "uniques": 3
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/25",
+        "title": "Change the pause menu icon · Issue #25 · TheCodingDad-TisonK/FS25_WorkerCosts",
+        "count": 7,
+        "uniques": 3
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/icon.png",
+        "title": "GitHub - TheCodingDad-TisonK/FS25_WorkerCosts: Płace pracowników uzależnione ...",
+        "count": 4,
+        "uniques": 4
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.4.0",
+        "title": "Release v1.0.4.0 - Update and polish pass · TheCodingDad-TisonK/FS25_WorkerCo...",
+        "count": 4,
+        "uniques": 2
+      }
+    ],
+    "releases": [
+      {
+        "assets": [
+          {
+            "downloads": 17,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.9.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 8,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.8.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 15,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.7.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 9,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.6.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 13,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.4.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 8,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.3.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 1,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.2.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 23,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.1.1"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 12,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.1.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 21,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.0.7"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 23,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v2.0.1"
+      },
+      {
+        "assets": [],
+        "tag": "v1.0.0.6"
+      },
+      {
+        "assets": [],
+        "tag": "v1.0.0.5"
+      },
+      {
+        "assets": [],
+        "tag": "v1.0.0.0"
+      }
+    ],
+    "stars": 10,
+    "forks": 0,
+    "watchers": 2
+  }
+]
