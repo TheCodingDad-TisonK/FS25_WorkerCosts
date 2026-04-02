@@ -883,21 +883,21 @@
     "watchers": 2
   },
   {
-    "timestamp": "2026-04-02T06:08:08Z",
+    "timestamp": "2026-04-02T12:56:43Z",
     "date": "2026-04-02",
     "views": {
-      "count": 273,
+      "count": 316,
       "uniques": 93
     },
     "clones": {
-      "count": 204,
-      "uniques": 104
+      "count": 245,
+      "uniques": 120
     },
     "referrers": [
       {
         "referrer": "github.com",
-        "count": 125,
-        "uniques": 39
+        "count": 129,
+        "uniques": 41
       },
       {
         "referrer": "kingmods.net",
@@ -923,62 +923,62 @@
     "popular_paths": [
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts",
-        "title": "GitHub - TheCodingDad-TisonK/FS25_WorkerCosts: Skill-based worker wages with ...",
-        "count": 149,
-        "uniques": 69
+        "title": "Overview",
+        "count": 162,
+        "uniques": 72
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0",
-        "title": "Release v1.0.9.0 — FarmTablet Integration & Accumulated Fixes · TheCodingDad-...",
+        "title": "/releases/tag/v1.0.9.0",
         "count": 26,
         "uniques": 20
       },
       {
-        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases",
-        "title": "Releases · TheCodingDad-TisonK/FS25_WorkerCosts",
-        "count": 15,
-        "uniques": 11
-      },
-      {
-        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.7.0",
-        "title": "Release v1.0.7.0 · TheCodingDad-TisonK/FS25_WorkerCosts · GitHub",
-        "count": 13,
-        "uniques": 12
-      },
-      {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues",
-        "title": "GitHub · Where software is built",
-        "count": 11,
+        "title": "/issues",
+        "count": 18,
         "uniques": 6
       },
       {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases",
+        "title": "/releases",
+        "count": 16,
+        "uniques": 12
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/28",
+        "title": "/issues/28",
+        "count": 14,
+        "uniques": 2
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.7.0",
+        "title": "/releases/tag/v1.0.7.0",
+        "count": 11,
+        "uniques": 10
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/24",
+        "title": "/issues/24",
+        "count": 10,
+        "uniques": 3
+      },
+      {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.8.0",
-        "title": "Release v1.0.8.0 — Ultrawide fix & checkbox crash fix · TheCodingDad-TisonK/F...",
+        "title": "/releases/tag/v1.0.8.0",
         "count": 9,
         "uniques": 4
       },
       {
-        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/24",
-        "title": "Broken UI · Issue #24 · TheCodingDad-TisonK/FS25_WorkerCosts",
-        "count": 9,
-        "uniques": 3
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/29",
+        "title": "/issues/29",
+        "count": 8,
+        "uniques": 2
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/25",
-        "title": "Change the pause menu icon · Issue #25 · TheCodingDad-TisonK/FS25_WorkerCosts",
+        "title": "/issues/25",
         "count": 7,
-        "uniques": 3
-      },
-      {
-        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/icon.png",
-        "title": "GitHub - TheCodingDad-TisonK/FS25_WorkerCosts: Płace pracowników uzależnione ...",
-        "count": 5,
-        "uniques": 5
-      },
-      {
-        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.1.1",
-        "title": "Release v1.0.1.1 — Critical bugfix: money no longer deducted · TheCodingDad-T...",
-        "count": 3,
         "uniques": 3
       }
     ],
