@@ -1968,31 +1968,31 @@
     "watchers": 2
   },
   {
-    "timestamp": "2026-04-07T06:15:53Z",
+    "timestamp": "2026-04-07T18:54:41Z",
     "date": "2026-04-07",
     "views": {
-      "count": 339,
-      "uniques": 96
+      "count": 342,
+      "uniques": 95
     },
     "clones": {
-      "count": 377,
-      "uniques": 156
+      "count": 410,
+      "uniques": 166
     },
     "referrers": [
       {
         "referrer": "github.com",
-        "count": 145,
+        "count": 152,
         "uniques": 41
       },
       {
         "referrer": "kingmods.net",
-        "count": 23,
-        "uniques": 16
+        "count": 22,
+        "uniques": 15
       },
       {
         "referrer": "Google",
-        "count": 17,
-        "uniques": 12
+        "count": 19,
+        "uniques": 14
       },
       {
         "referrer": "Bing",
@@ -2009,8 +2009,8 @@
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts",
         "title": "Overview",
-        "count": 187,
-        "uniques": 76
+        "count": 193,
+        "uniques": 78
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0",
@@ -2061,17 +2061,17 @@
         "uniques": 3
       },
       {
-        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.7.0",
-        "title": "/releases/tag/v1.0.7.0",
-        "count": 5,
-        "uniques": 5
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/icon.png",
+        "title": "/blob/main/icon.png",
+        "count": 4,
+        "uniques": 4
       }
     ],
     "releases": [
       {
         "assets": [
           {
-            "downloads": 34,
+            "downloads": 36,
             "name": "FS25_WorkerCosts.zip"
           }
         ],
