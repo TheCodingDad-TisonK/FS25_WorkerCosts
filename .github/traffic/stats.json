@@ -3472,31 +3472,36 @@
     "watchers": 2
   },
   {
-    "timestamp": "2026-04-15T06:29:22Z",
+    "timestamp": "2026-04-15T18:02:30Z",
     "date": "2026-04-15",
     "views": {
-      "count": 236,
-      "uniques": 75
+      "count": 239,
+      "uniques": 74
     },
     "clones": {
-      "count": 557,
-      "uniques": 175
+      "count": 599,
+      "uniques": 185
     },
     "referrers": [
       {
         "referrer": "github.com",
-        "count": 120,
-        "uniques": 39
+        "count": 130,
+        "uniques": 38
       },
       {
         "referrer": "Google",
-        "count": 19,
-        "uniques": 13
+        "count": 17,
+        "uniques": 12
       },
       {
         "referrer": "kingmods.net",
         "count": 10,
         "uniques": 8
+      },
+      {
+        "referrer": "Bing",
+        "count": 1,
+        "uniques": 1
       }
     ],
     "popular_paths": [
@@ -3504,13 +3509,13 @@
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts",
         "title": "Overview",
         "count": 157,
-        "uniques": 69
+        "uniques": 68
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0",
         "title": "/releases/tag/v1.0.9.0",
-        "count": 27,
-        "uniques": 16
+        "count": 24,
+        "uniques": 17
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/28",
@@ -3519,16 +3524,16 @@
         "uniques": 3
       },
       {
-        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases",
-        "title": "/releases",
-        "count": 8,
-        "uniques": 8
-      },
-      {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues",
         "title": "/issues",
-        "count": 8,
-        "uniques": 2
+        "count": 12,
+        "uniques": 3
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases",
+        "title": "/releases",
+        "count": 10,
+        "uniques": 8
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/29",
@@ -3565,7 +3570,7 @@
       {
         "assets": [
           {
-            "downloads": 43,
+            "downloads": 44,
             "name": "FS25_WorkerCosts.zip"
           }
         ],

@@ -434,18 +434,23 @@
   "2026-04-15": [
     {
       "referrer": "github.com",
-      "count": 120,
-      "uniques": 39
+      "count": 130,
+      "uniques": 38
     },
     {
       "referrer": "Google",
-      "count": 19,
-      "uniques": 13
+      "count": 17,
+      "uniques": 12
     },
     {
       "referrer": "kingmods.net",
       "count": 10,
       "uniques": 8
+    },
+    {
+      "referrer": "Bing",
+      "count": 1,
+      "uniques": 1
     }
   ]
 }
