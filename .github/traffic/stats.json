@@ -3682,5 +3682,217 @@
     "stars": 9,
     "forks": 0,
     "watchers": 2
+  },
+  {
+    "timestamp": "2026-04-17T06:54:00Z",
+    "date": "2026-04-17",
+    "views": {
+      "count": 190,
+      "uniques": 76
+    },
+    "clones": {
+      "count": 600,
+      "uniques": 177
+    },
+    "referrers": [
+      {
+        "referrer": "github.com",
+        "count": 130,
+        "uniques": 41
+      },
+      {
+        "referrer": "Google",
+        "count": 17,
+        "uniques": 12
+      },
+      {
+        "referrer": "kingmods.net",
+        "count": 10,
+        "uniques": 8
+      },
+      {
+        "referrer": "Bing",
+        "count": 1,
+        "uniques": 1
+      }
+    ],
+    "popular_paths": [
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts",
+        "title": "Overview",
+        "count": 143,
+        "uniques": 68
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0",
+        "title": "/releases/tag/v1.0.9.0",
+        "count": 23,
+        "uniques": 16
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases",
+        "title": "/releases",
+        "count": 7,
+        "uniques": 5
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues",
+        "title": "/issues",
+        "count": 4,
+        "uniques": 1
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/compare/v1.0.9.0...main",
+        "title": "/compare/v1.0.9.0...main",
+        "count": 2,
+        "uniques": 2
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/commits/main",
+        "title": "/commits/main",
+        "count": 2,
+        "uniques": 1
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.1.1",
+        "title": "/releases/tag/v1.0.1.1",
+        "count": 2,
+        "uniques": 1
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/src/gui/WCDashboardFrame.lua",
+        "title": "/blob/main/src/gui/WCDashboardFrame.lua",
+        "count": 1,
+        "uniques": 1
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/commit/08714f078f78e129bbe8137aa1a51ad564d37551",
+        "title": "/commit/08714f078f78e129bbe8137aa1a51ad564d37551",
+        "count": 1,
+        "uniques": 1
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/24",
+        "title": "/issues/24",
+        "count": 1,
+        "uniques": 1
+      }
+    ],
+    "releases": [
+      {
+        "assets": [
+          {
+            "downloads": 45,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.9.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 9,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.8.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 16,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.7.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 9,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.6.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 13,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.4.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 8,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.3.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 1,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.2.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 24,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.1.1"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 12,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.1.0"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 21,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v1.0.0.7"
+      },
+      {
+        "assets": [
+          {
+            "downloads": 24,
+            "name": "FS25_WorkerCosts.zip"
+          }
+        ],
+        "tag": "v2.0.1"
+      },
+      {
+        "assets": [],
+        "tag": "v1.0.0.6"
+      },
+      {
+        "assets": [],
+        "tag": "v1.0.0.5"
+      },
+      {
+        "assets": [],
+        "tag": "v1.0.0.0"
+      }
+    ],
+    "stars": 9,
+    "forks": 0,
+    "watchers": 2
   }
 ]
