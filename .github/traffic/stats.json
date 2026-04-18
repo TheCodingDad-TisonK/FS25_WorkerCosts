@@ -3896,31 +3896,31 @@
     "watchers": 2
   },
   {
-    "timestamp": "2026-04-18T06:09:04Z",
+    "timestamp": "2026-04-18T12:44:25Z",
     "date": "2026-04-18",
     "views": {
-      "count": 190,
-      "uniques": 76
+      "count": 184,
+      "uniques": 77
     },
     "clones": {
-      "count": 600,
-      "uniques": 177
+      "count": 599,
+      "uniques": 174
     },
     "referrers": [
       {
         "referrer": "github.com",
-        "count": 130,
+        "count": 123,
         "uniques": 41
       },
       {
         "referrer": "Google",
-        "count": 17,
-        "uniques": 12
+        "count": 18,
+        "uniques": 13
       },
       {
         "referrer": "kingmods.net",
         "count": 10,
-        "uniques": 8
+        "uniques": 7
       },
       {
         "referrer": "Bing",
@@ -3932,8 +3932,8 @@
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts",
         "title": "Overview",
-        "count": 143,
-        "uniques": 68
+        "count": 135,
+        "uniques": 69
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0",
@@ -3972,6 +3972,12 @@
         "uniques": 1
       },
       {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/icon.png",
+        "title": "/blob/main/icon.png",
+        "count": 1,
+        "uniques": 1
+      },
+      {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/src/gui/WCDashboardFrame.lua",
         "title": "/blob/main/src/gui/WCDashboardFrame.lua",
         "count": 1,
@@ -3980,12 +3986,6 @@
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/commit/08714f078f78e129bbe8137aa1a51ad564d37551",
         "title": "/commit/08714f078f78e129bbe8137aa1a51ad564d37551",
-        "count": 1,
-        "uniques": 1
-      },
-      {
-        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/24",
-        "title": "/issues/24",
         "count": 1,
         "uniques": 1
       }
