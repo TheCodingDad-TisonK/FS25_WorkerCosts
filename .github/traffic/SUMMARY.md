@@ -1,7 +1,7 @@
 # Repository Traffic Dashboard
 
-**Last updated:** 2026-04-19T18:38:35Z
-**Days tracked:** 20 | **Download snapshots:** 79 (hourly)
+**Last updated:** 2026-04-20T18:02:21Z
+**Days tracked:** 21 | **Download snapshots:** 82 (hourly)
 
 ---
 
@@ -11,8 +11,8 @@
 
 | Metric | 14-Day Total | Unique |
 |--------|-------------|--------|
-| Page Views | 176 | 71 |
-| Git Clones | 616 | 177 |
+| Page Views | 178 | 72 |
+| Git Clones | 574 | 156 |
 
 > **Engagement:** 2.4 pages per visitor (14-day avg)
 
@@ -30,9 +30,9 @@
 
 ![Conversion](charts/conversion.png)
 
-> **14-day conversion:** 361 of 71 visitors cloned or downloaded (**508.4%**)
+> **14-day conversion:** 342 of 72 visitors cloned or downloaded (**475.0%**)
 >
-> Unique cloners: 177 | Release downloads: 184
+> Unique cloners: 156 | Release downloads: 186
 
 ---
 
@@ -42,9 +42,9 @@
 
 | Channel | Count |
 |---------|-------|
-| Zip Downloads | 184 |
-| Git Clones (14-day) | 616 |
-| **Total Acquisitions** | **800** |
+| Zip Downloads | 186 |
+| Git Clones (14-day) | 574 |
+| **Total Acquisitions** | **760** |
 
 ---
 
@@ -54,8 +54,8 @@
 
 | Source | Views | Unique |
 |--------|-------|--------|
-| github.com | 118 | 38 |
-| Google | 18 | 13 |
+| github.com | 112 | 38 |
+| Google | 13 | 11 |
 | kingmods.net | 7 | 5 |
 | Bing | 1 | 1 |
 
@@ -77,16 +77,16 @@
 
 | Page | Views | Unique |
 |------|-------|--------|
-| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 131 | 65 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 21 | 13 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 127 | 66 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 15 | 10 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 7 | 5 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues` | 4 | 1 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.7.0` | 2 | 2 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/CLAUDE.md` | 2 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/commits/main` | 2 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.1.1` | 2 | 1 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/icon.png` | 1 | 1 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/src/gui/WCDashboardFrame.lua` | 1 | 1 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/commit/08714f078f78e129bbe8137aa1a51ad564d37551` | 1 | 1 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/commits` | 1 | 1 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/.github/ISSUE_TEMPLATE/bug_report.yml` | 1 | 1 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/.github/ISSUE_TEMPLATE/config.yml` | 1 | 1 |
 
 ---
 
