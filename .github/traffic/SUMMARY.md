@@ -1,7 +1,7 @@
 # Repository Traffic Dashboard
 
-**Last updated:** 2026-04-27T12:19:08Z
-**Days tracked:** 28 | **Download snapshots:** 98 (hourly)
+**Last updated:** 2026-04-28T12:23:55Z
+**Days tracked:** 29 | **Download snapshots:** 101 (hourly)
 
 ---
 
@@ -11,10 +11,10 @@
 
 | Metric | 14-Day Total | Unique |
 |--------|-------------|--------|
-| Page Views | 165 | 59 |
-| Git Clones | 750 | 239 |
+| Page Views | 161 | 56 |
+| Git Clones | 769 | 243 |
 
-> **Engagement:** 2.7 pages per visitor (14-day avg)
+> **Engagement:** 2.8 pages per visitor (14-day avg)
 
 ---
 
@@ -30,9 +30,9 @@
 
 ![Conversion](charts/conversion.png)
 
-> **14-day conversion:** 432 of 59 visitors cloned or downloaded (**732.2%**)
+> **14-day conversion:** 436 of 56 visitors cloned or downloaded (**778.5%**)
 >
-> Unique cloners: 239 | Release downloads: 193
+> Unique cloners: 243 | Release downloads: 193
 
 ---
 
@@ -43,8 +43,8 @@
 | Channel | Count |
 |---------|-------|
 | Zip Downloads | 193 |
-| Git Clones (14-day) | 750 |
-| **Total Acquisitions** | **943** |
+| Git Clones (14-day) | 769 |
+| **Total Acquisitions** | **962** |
 
 ---
 
@@ -54,8 +54,8 @@
 
 | Source | Views | Unique |
 |--------|-------|--------|
-| github.com | 80 | 29 |
-| Google | 13 | 7 |
+| github.com | 75 | 27 |
+| Google | 12 | 8 |
 | kingmods.net | 6 | 3 |
 | Bing | 5 | 3 |
 
@@ -77,9 +77,9 @@
 
 | Page | Views | Unique |
 |------|-------|--------|
-| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 111 | 54 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 19 | 16 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 7 | 5 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 109 | 51 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 16 | 14 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 8 | 6 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues` | 5 | 2 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/CLAUDE.md` | 2 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/commits/main` | 2 | 1 |
