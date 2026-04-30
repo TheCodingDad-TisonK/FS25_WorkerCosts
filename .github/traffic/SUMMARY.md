@@ -1,7 +1,7 @@
 # Repository Traffic Dashboard
 
-**Last updated:** 2026-04-29T12:13:01Z
-**Days tracked:** 30 | **Download snapshots:** 103 (hourly)
+**Last updated:** 2026-04-30T12:11:02Z
+**Days tracked:** 31 | **Download snapshots:** 104 (hourly)
 
 ---
 
@@ -11,10 +11,10 @@
 
 | Metric | 14-Day Total | Unique |
 |--------|-------------|--------|
-| Page Views | 161 | 56 |
-| Git Clones | 769 | 243 |
+| Page Views | 131 | 51 |
+| Git Clones | 692 | 219 |
 
-> **Engagement:** 2.8 pages per visitor (14-day avg)
+> **Engagement:** 2.5 pages per visitor (14-day avg)
 
 ---
 
@@ -30,9 +30,9 @@
 
 ![Conversion](charts/conversion.png)
 
-> **14-day conversion:** 437 of 56 visitors cloned or downloaded (**780.3%**)
+> **14-day conversion:** 413 of 51 visitors cloned or downloaded (**809.8%**)
 >
-> Unique cloners: 243 | Release downloads: 194
+> Unique cloners: 219 | Release downloads: 194
 
 ---
 
@@ -43,8 +43,8 @@
 | Channel | Count |
 |---------|-------|
 | Zip Downloads | 194 |
-| Git Clones (14-day) | 769 |
-| **Total Acquisitions** | **963** |
+| Git Clones (14-day) | 692 |
+| **Total Acquisitions** | **886** |
 
 ---
 
@@ -54,10 +54,10 @@
 
 | Source | Views | Unique |
 |--------|-------|--------|
-| github.com | 75 | 27 |
-| Google | 12 | 8 |
+| github.com | 47 | 24 |
+| Google | 14 | 10 |
 | kingmods.net | 6 | 3 |
-| Bing | 5 | 3 |
+| Bing | 4 | 2 |
 
 ---
 
@@ -77,16 +77,16 @@
 
 | Page | Views | Unique |
 |------|-------|--------|
-| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 109 | 51 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 16 | 14 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 8 | 6 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/issues` | 5 | 2 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 96 | 49 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 12 | 12 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 5 | 5 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/CLAUDE.md` | 2 | 1 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/commits/main` | 2 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/.github/ISSUE_TEMPLATE/bug_report.yml` | 1 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/.github/ISSUE_TEMPLATE/config.yml` | 1 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/README.md` | 1 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/WorkerCostsSlice.dds` | 1 | 1 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/icon.png` | 1 | 1 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/modDesc.xml` | 1 | 1 |
 
 ---
 
