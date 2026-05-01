@@ -1,7 +1,7 @@
 # Repository Traffic Dashboard
 
-**Last updated:** 2026-04-30T12:11:02Z
-**Days tracked:** 31 | **Download snapshots:** 104 (hourly)
+**Last updated:** 2026-05-01T06:09:36Z
+**Days tracked:** 32 | **Download snapshots:** 108 (hourly)
 
 ---
 
@@ -11,10 +11,10 @@
 
 | Metric | 14-Day Total | Unique |
 |--------|-------------|--------|
-| Page Views | 131 | 51 |
-| Git Clones | 692 | 219 |
+| Page Views | 129 | 48 |
+| Git Clones | 719 | 228 |
 
-> **Engagement:** 2.5 pages per visitor (14-day avg)
+> **Engagement:** 2.6 pages per visitor (14-day avg)
 
 ---
 
@@ -30,9 +30,9 @@
 
 ![Conversion](charts/conversion.png)
 
-> **14-day conversion:** 413 of 51 visitors cloned or downloaded (**809.8%**)
+> **14-day conversion:** 425 of 48 visitors cloned or downloaded (**885.4%**)
 >
-> Unique cloners: 219 | Release downloads: 194
+> Unique cloners: 228 | Release downloads: 197
 
 ---
 
@@ -42,9 +42,9 @@
 
 | Channel | Count |
 |---------|-------|
-| Zip Downloads | 194 |
-| Git Clones (14-day) | 692 |
-| **Total Acquisitions** | **886** |
+| Zip Downloads | 197 |
+| Git Clones (14-day) | 719 |
+| **Total Acquisitions** | **916** |
 
 ---
 
@@ -54,9 +54,9 @@
 
 | Source | Views | Unique |
 |--------|-------|--------|
-| github.com | 47 | 24 |
-| Google | 14 | 10 |
-| kingmods.net | 6 | 3 |
+| github.com | 45 | 21 |
+| Google | 13 | 9 |
+| kingmods.net | 7 | 4 |
 | Bing | 4 | 2 |
 
 ---
@@ -77,9 +77,9 @@
 
 | Page | Views | Unique |
 |------|-------|--------|
-| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 96 | 49 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 93 | 46 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 12 | 12 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 5 | 5 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 6 | 6 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/CLAUDE.md` | 2 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/.github/ISSUE_TEMPLATE/bug_report.yml` | 1 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/.github/ISSUE_TEMPLATE/config.yml` | 1 | 1 |
