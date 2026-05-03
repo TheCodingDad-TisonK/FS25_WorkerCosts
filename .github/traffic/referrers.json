@@ -804,5 +804,27 @@
       "count": 5,
       "uniques": 3
     }
+  ],
+  "2026-05-03": [
+    {
+      "referrer": "github.com",
+      "count": 44,
+      "uniques": 20
+    },
+    {
+      "referrer": "Google",
+      "count": 14,
+      "uniques": 10
+    },
+    {
+      "referrer": "kingmods.net",
+      "count": 9,
+      "uniques": 4
+    },
+    {
+      "referrer": "Bing",
+      "count": 5,
+      "uniques": 3
+    }
   ]
 }
