@@ -1,7 +1,7 @@
 # Repository Traffic Dashboard
 
-**Last updated:** 2026-05-18T06:50:13Z
-**Days tracked:** 48 | **Download snapshots:** 148 (hourly)
+**Last updated:** 2026-05-19T18:56:15Z
+**Days tracked:** 49 | **Download snapshots:** 151 (hourly)
 
 ---
 
@@ -11,10 +11,10 @@
 
 | Metric | 14-Day Total | Unique |
 |--------|-------------|--------|
-| Page Views | 112 | 43 |
-| Git Clones | 510 | 160 |
+| Page Views | 120 | 43 |
+| Git Clones | 527 | 172 |
 
-> **Engagement:** 2.6 pages per visitor (14-day avg)
+> **Engagement:** 2.7 pages per visitor (14-day avg)
 
 ---
 
@@ -30,9 +30,9 @@
 
 ![Conversion](charts/conversion.png)
 
-> **14-day conversion:** 383 of 43 visitors cloned or downloaded (**890.6%**)
+> **14-day conversion:** 397 of 43 visitors cloned or downloaded (**923.2%**)
 >
-> Unique cloners: 160 | Release downloads: 223
+> Unique cloners: 172 | Release downloads: 225
 
 ---
 
@@ -42,9 +42,9 @@
 
 | Channel | Count |
 |---------|-------|
-| Zip Downloads | 223 |
-| Git Clones (14-day) | 510 |
-| **Total Acquisitions** | **733** |
+| Zip Downloads | 225 |
+| Git Clones (14-day) | 527 |
+| **Total Acquisitions** | **752** |
 
 ---
 
@@ -54,9 +54,9 @@
 
 | Source | Views | Unique |
 |--------|-------|--------|
-| github.com | 47 | 22 |
-| Google | 16 | 12 |
-| kingmods.net | 5 | 4 |
+| github.com | 51 | 22 |
+| Google | 16 | 11 |
+| kingmods.net | 7 | 5 |
 | search.brave.com | 1 | 1 |
 
 ---
@@ -77,15 +77,15 @@
 
 | Page | Views | Unique |
 |------|-------|--------|
-| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 73 | 39 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 10 | 8 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/issues` | 6 | 2 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/issues/30` | 3 | 2 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 71 | 39 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 14 | 11 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/issues` | 7 | 3 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/issues/30` | 4 | 2 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/pulls` | 4 | 2 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues/32` | 3 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/modDesc.xml` | 2 | 2 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 2 | 2 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/tree/main` | 2 | 1 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/CLAUDE.md` | 1 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/blob/main/src/utils/UIHelper.lua` | 1 | 1 |
 
 ---
