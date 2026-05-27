@@ -1,7 +1,7 @@
 # Repository Traffic Dashboard
 
-**Last updated:** 2026-05-26T18:19:19Z
-**Days tracked:** 54 | **Download snapshots:** 167 (hourly)
+**Last updated:** 2026-05-27T12:15:04Z
+**Days tracked:** 55 | **Download snapshots:** 170 (hourly)
 
 ---
 
@@ -11,10 +11,10 @@
 
 | Metric | 14-Day Total | Unique |
 |--------|-------------|--------|
-| Page Views | 199 | 59 |
-| Git Clones | 572 | 213 |
+| Page Views | 214 | 65 |
+| Git Clones | 584 | 220 |
 
-> **Engagement:** 3.3 pages per visitor (14-day avg)
+> **Engagement:** 3.2 pages per visitor (14-day avg)
 
 ---
 
@@ -30,9 +30,9 @@
 
 ![Conversion](charts/conversion.png)
 
-> **14-day conversion:** 451 of 59 visitors cloned or downloaded (**764.4%**)
+> **14-day conversion:** 460 of 65 visitors cloned or downloaded (**707.6%**)
 >
-> Unique cloners: 213 | Release downloads: 238
+> Unique cloners: 220 | Release downloads: 240
 
 ---
 
@@ -42,9 +42,9 @@
 
 | Channel | Count |
 |---------|-------|
-| Zip Downloads | 238 |
-| Git Clones (14-day) | 572 |
-| **Total Acquisitions** | **810** |
+| Zip Downloads | 240 |
+| Git Clones (14-day) | 584 |
+| **Total Acquisitions** | **824** |
 
 ---
 
@@ -54,9 +54,9 @@
 
 | Source | Views | Unique |
 |--------|-------|--------|
-| github.com | 83 | 31 |
-| kingmods.net | 17 | 9 |
-| Google | 12 | 7 |
+| github.com | 93 | 34 |
+| kingmods.net | 19 | 10 |
+| Google | 14 | 9 |
 | search.brave.com | 1 | 1 |
 
 ---
@@ -77,10 +77,10 @@
 
 | Page | Views | Unique |
 |------|-------|--------|
-| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 108 | 55 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 118 | 61 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.1` | 21 | 14 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 18 | 16 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.0` | 15 | 13 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 13 | 12 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues` | 11 | 5 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues/30` | 4 | 2 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/pulls` | 4 | 2 |
