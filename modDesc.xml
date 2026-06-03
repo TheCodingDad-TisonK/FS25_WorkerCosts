@@ -1222,6 +1222,141 @@ Fratrækkes hvert 5. realtidsminut, uafhængigt af spillets hastighed. Satsforh�
 
 Brug Nulstil for at gendanne alle indstillinger til standardværdierne.</da>
         </text>
+        <text name="wc_help_body_ha">
+            <en>COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</en>
+
+            <de>[EN] COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</de>
+            <fr>[EN] COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</fr>
+            <pl>[EN] COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</pl>
+            <es>[EN] COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</es>
+            <it>[EN] COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</it>
+            <cz>[EN] COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</cz>
+            <br>[EN] COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</br>
+            <uk>[EN] COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</uk>
+            <ru>[EN] COST MODE
+Per Hectare — workers are billed per hectare of field worked during each payment interval.
+
+WAGE LEVEL (per hectare)
+Low    = $15 per hectare worked
+Medium = $25 per hectare worked
+High   = $40 per hectare worked
+
+PAYMENTS
+Deducted every 5 real-time minutes based on area worked. Workers not currently active have no charge for that interval.
+
+Use Reset to restore all settings to their defaults.</ru>
+            <da>OMKOSTNINGSTILSTAND
+Pr. hektar — medarbejdere opkræves pr. hektar bearbejdet mark i hvert betalingsinterval.
+
+LØNNIVEAU (pr. hektar)
+Lav = $15 pr. hektar bearbejdet
+Mellem = $25 pr. hektar bearbejdet
+Høj = $40 pr. hektar bearbejdet
+
+BETALINGER
+Fratrækkes hvert 5. realtidsminut baseret på bearbejdet areal. Medarbejdere, der ikke er aktive, opkræves ikke for det pågældende interval.
+
+Brug Nulstil for at gendanne alle indstillinger til standardværdierne.</da>
+        </text>
     </l10n>
 
 </modDesc>

@@ -11,8 +11,9 @@ local WCWageSettingsFrame_mt = Class(WCWageSettingsFrame, TabbedMenuFrameElement
 
 function WCWageSettingsFrame.new()
     local self = WCWageSettingsFrame:superClass().new(nil, WCWageSettingsFrame_mt)
-    self.name      = "WCWageSettingsFrame"
-    self.className = "WCWageSettingsFrame"
+    self.name       = "WCWageSettingsFrame"
+    self.className  = "WCWageSettingsFrame"
+    self._refreshing = false
     return self
 end
 
@@ -25,65 +26,68 @@ function WCWageSettingsFrame:initialize()
     -- nothing extra needed at init time
 end
 
--- Wire up all the option widgets → settings
+-- Wire up all the option widgets → settings.
+-- Reads current widget state via getState() to avoid the FS25 target-as-first-arg
+-- issue where raiseCallback passes (self.target, state) to closures.
 function WCWageSettingsFrame:bindCallbacks()
-    -- Mod Enabled toggle
     if self.optEnabled then
-        self.optEnabled.onClickCallback = function(state)
+        self.optEnabled.onClickCallback = function(...)
+            if self._refreshing then return end
             if g_WorkerManager and g_WorkerManager.settings then
-                g_WorkerManager.settings.enabled = (state == 2)
+                g_WorkerManager.settings.enabled = (self.optEnabled:getState() == 2)
                 g_WorkerManager.settings:save()
             end
         end
     end
 
-    -- Cost Mode selector
     if self.optCostMode then
-        self.optCostMode.onClickCallback = function(state)
+        self.optCostMode.onClickCallback = function(...)
+            if self._refreshing then return end
             if g_WorkerManager and g_WorkerManager.settings then
-                g_WorkerManager.settings:setCostMode(state)
+                g_WorkerManager.settings:setCostMode(self.optCostMode:getState())
                 g_WorkerManager.settings:save()
                 self:refreshRatePreview()
+                self:refreshHelpText()
             end
         end
     end
 
-    -- Wage Level selector
     if self.optWageLevel then
-        self.optWageLevel.onClickCallback = function(state)
+        self.optWageLevel.onClickCallback = function(...)
+            if self._refreshing then return end
             if g_WorkerManager and g_WorkerManager.settings then
-                g_WorkerManager.settings:setWageLevel(state)
+                g_WorkerManager.settings:setWageLevel(self.optWageLevel:getState())
                 g_WorkerManager.settings:save()
                 self:refreshRatePreview()
             end
         end
     end
 
-    -- Notifications toggle
     if self.optNotifications then
-        self.optNotifications.onClickCallback = function(state)
+        self.optNotifications.onClickCallback = function(...)
+            if self._refreshing then return end
             if g_WorkerManager and g_WorkerManager.settings then
-                g_WorkerManager.settings.showNotifications = (state == 2)
+                g_WorkerManager.settings.showNotifications = (self.optNotifications:getState() == 2)
                 g_WorkerManager.settings:save()
             end
         end
     end
 
-    -- Debug mode toggle
     if self.optDebugMode then
-        self.optDebugMode.onClickCallback = function(state)
+        self.optDebugMode.onClickCallback = function(...)
+            if self._refreshing then return end
             if g_WorkerManager and g_WorkerManager.settings then
-                g_WorkerManager.settings.debugMode = (state == 2)
+                g_WorkerManager.settings.debugMode = (self.optDebugMode:getState() == 2)
                 g_WorkerManager.settings:save()
             end
         end
     end
 
-    -- Monthly salary dialog toggle
     if self.optMonthlySalary then
-        self.optMonthlySalary.onClickCallback = function(state)
+        self.optMonthlySalary.onClickCallback = function(...)
+            if self._refreshing then return end
             if g_WorkerManager and g_WorkerManager.settings then
-                g_WorkerManager.settings.monthlySalaryEnabled = (state == 2)
+                g_WorkerManager.settings.monthlySalaryEnabled = (self.optMonthlySalary:getState() == 2)
                 g_WorkerManager.settings:save()
             end
         end
@@ -99,11 +103,14 @@ function WCWageSettingsFrame:onFrameClose()
     WCWageSettingsFrame:superClass().onFrameClose(self)
 end
 
--- Sync all widgets to current settings values
+-- Sync all widgets to current settings values.
+-- The _refreshing guard prevents any incidental callback fires during setState.
 function WCWageSettingsFrame:refresh()
     if g_WorkerManager == nil then return end
     local settings = g_WorkerManager.settings
     if settings == nil then return end
+
+    self._refreshing = true
 
     if self.optEnabled and self.optEnabled.setState then
         self.optEnabled:setState(settings.enabled and 2 or 1)
@@ -142,12 +149,14 @@ function WCWageSettingsFrame:refresh()
         self.optDebugMode:setState(settings.debugMode and 2 or 1)
     end
 
-    -- Monthly salary dialog toggle (widget is optional — XML may not include it yet)
     if self.optMonthlySalary and self.optMonthlySalary.setState then
         self.optMonthlySalary:setState(settings.monthlySalaryEnabled and 2 or 1)
     end
 
+    self._refreshing = false
+
     self:refreshRatePreview()
+    self:refreshHelpText()
 end
 
 -- Update the live "effective rate" preview text
@@ -174,6 +183,20 @@ function WCWageSettingsFrame:refreshRatePreview()
         local ms  = g_WorkerManager.workerSystem.paymentInterval
         local min = math.floor(ms / 60000)
         self.txtPayInterval:setText(string.format("%d min", min))
+    end
+end
+
+-- Update the Cost Structure help body to reflect the active cost mode
+function WCWageSettingsFrame:refreshHelpText()
+    if self.txtHelpBody == nil then return end
+    if g_WorkerManager == nil then return end
+    local settings = g_WorkerManager.settings
+    if settings == nil then return end
+
+    if settings.costMode == Settings.COST_MODE_HOURLY then
+        self.txtHelpBody:setText(g_i18n:getText("wc_help_body"))
+    else
+        self.txtHelpBody:setText(g_i18n:getText("wc_help_body_ha"))
     end
 end
 
