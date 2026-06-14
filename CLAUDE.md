@@ -205,6 +205,10 @@ XML layouts live in `xml/gui/`. Custom GUI profiles are loaded from `xml/gui/gui
 | `WorkerCostsShowSettings` | Detailed settings dump |
 | `WorkerCostsShowRoster` | Show the Pro-Staff worker roster (id, name, level, hours, jobs, XP, fatigue) |
 | `WorkerCostsGrantXP <xp>` | TESTING: grant XP (=hours) to all roster workers; recomputes level (Experienced=40, Master=160) |
+| `WorkerCostsHire <name>` | Hire a roster worker |
+| `WorkerCostsFire <id>` | Fire a worker; charges severance (scales with level) |
+| `WorkerCostsAssign <id>` | Pin worker to the vehicle you're seated in (persists by stable uniqueId) |
+| `WorkerCostsUnassign <id>` | Remove a worker's vehicle pin |
 | `WorkerCostsEnable` / `WorkerCostsDisable` | Toggle mod |
 | `WorkerCostsSetWageLevel 1\|2\|3` | Low/Medium/High |
 | `WorkerCostsSetCostMode 1\|2` | Hourly / Per Hectare |

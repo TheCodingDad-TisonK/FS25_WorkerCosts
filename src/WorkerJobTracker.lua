@@ -39,7 +39,8 @@
 --   [x] Phase 2 — recompute tier from totalXP on stop/flush; promotion notice
 --   [x] Phase 3 — accrue fatigue per hour worked (recovery lives in WorkerSystem)
 --   [ ] Phase 4 — surface the job-complete summary in the UI (currently log-only)
---   [ ] Phase 5 — broadcast roster mutations (hire/assign/level) to MP clients
+--   [~] Phase 5 — re-bind to a pinned vehicle by uniqueId DONE; still to do:
+--                 broadcast roster mutations (hire/fire/assign/level) to MP clients
 -- =========================================================
 
 ---@class WorkerJobTracker
@@ -283,19 +284,45 @@ function WorkerJobTracker:_resolveWorker(vehicle, helperName)
     end
     local vehicleId = tostring(vehicle)
 
+    -- 1. Already driving this vehicle this session.
     local worker = self.roster:getWorkerByVehicle(vehicleId)
     if worker then
         return worker
     end
 
+    -- 2. Phase 5: pinned to this vehicle by the player. Match the stable uniqueId
+    -- (survives save/reload), then take the transient binding for the job.
+    local uniqueId = self:_vehicleUniqueId(vehicle)
+    if uniqueId then
+        worker = self.roster:getByAssignedUniqueId(uniqueId)
+        if worker then
+            self.roster:assignVehicle(worker.uuid, vehicleId)
+            return worker
+        end
+    end
+
+    -- 3. A free worker of the same name (auto-hire bridge).
     worker = self.roster:findIdleByName(helperName)
     if worker then
         self.roster:assignVehicle(worker.uuid, vehicleId)
         return worker
     end
 
+    -- 4. Auto-hire a new worker seeded with the helper's name.
     worker = self.roster:createWorker(helperName)
     self.roster:assignVehicle(worker.uuid, vehicleId)
     self:log("Auto-hired '%s' (uuid=%d) [Phase 1 bridge]", worker.name, worker.uuid)
     return worker
+end
+
+-- Stable, save-persistent vehicle id (Vehicle:getUniqueId, verified in source).
+function WorkerJobTracker:_vehicleUniqueId(vehicle)
+    if vehicle == nil or vehicle.getUniqueId == nil then
+        return nil
+    end
+    local ok, id = pcall(function() return vehicle:getUniqueId() end)
+    if ok and id ~= nil and id ~= "" then
+        return id
+    end
+    return nil
 end

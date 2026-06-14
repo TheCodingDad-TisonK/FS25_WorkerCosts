@@ -25,8 +25,8 @@
 --   [x] Phase 2 — levelForXP / recomputeLevel / levelName (Novice/Exp/Master)
 --   [x] Phase 3 — fatigue model (addFatigue / recoverFatigue) for the wage pipeline
 --   [ ] Phase 4 — (no change here; UI reads the roster via the manager)
---   [ ] Phase 5 — getRosterSnapshot() read API + MP (de)serialization, and
---                 persist a STABLE vehicle uniqueId for assignedVehicleId
+--   [~] Phase 5 — persistent assignment by stable vehicle uniqueId DONE; still
+--                 to do: getRosterSnapshot() read API + MP (de)serialization
 -- =========================================================
 
 ---@class WorkerRoster
@@ -77,10 +77,13 @@ function WorkerRoster.newWorker(uuid, name)
         fatigue    = 0,
         hiredDay   = (g_currentMission and g_currentMission.environment
                       and g_currentMission.environment.currentDay) or 0,
-        -- Runtime-only in Phase 0. A runtime vehicle id is meaningless next
-        -- session, so it is deliberately NOT written to disk (see save()).
-        -- Phase 5 persists a stable vehicle uniqueId and re-binds on load.
+        -- TRANSIENT runtime binding: which vehicle this worker is driving RIGHT
+        -- NOW (set for the duration of one AI job). Runtime-only, never saved.
         assignedVehicleId = nil,
+        -- PERSISTENT manual assignment (Phase 5): the stable vehicle uniqueId a
+        -- player pinned this worker to. Saved; survives reload. Re-binds naturally
+        -- when a job starts on that vehicle (its uniqueId matches).
+        assignedVehicleUniqueId = nil,
     }
 end
 
@@ -137,19 +140,61 @@ function WorkerRoster:getWorkerByVehicle(vehicleId)
     return nil
 end
 
---- Find an unassigned worker by display name. Used by the Phase 1 auto-hire
--- bridge to reconnect a returning named helper to a new job instead of growing
--- the roster without bound.
+--- Find a free worker by display name. "Free" = not currently working AND not
+-- pinned to a vehicle (so the bridge never steals a manually-assigned worker).
+-- Used by the Phase 1 auto-hire bridge to reconnect a returning named helper.
 function WorkerRoster:findIdleByName(name)
     if name == nil then
         return nil
     end
     for _, w in ipairs(self.workers) do
-        if w.assignedVehicleId == nil and w.name == name then
+        if w.assignedVehicleId == nil and w.assignedVehicleUniqueId == nil and w.name == name then
             return w
         end
     end
     return nil
+end
+
+-- ---------------------------------------------------------------------------
+-- Phase 5: persistent manual assignment (by stable vehicle uniqueId)
+-- ---------------------------------------------------------------------------
+
+--- The worker a player pinned to this vehicle uniqueId, if any.
+function WorkerRoster:getByAssignedUniqueId(vehicleUniqueId)
+    if vehicleUniqueId == nil then
+        return nil
+    end
+    for _, w in ipairs(self.workers) do
+        if w.assignedVehicleUniqueId == vehicleUniqueId then
+            return w
+        end
+    end
+    return nil
+end
+
+--- Pin a worker to a vehicle (by its stable uniqueId). One vehicle holds at most
+-- one pinned worker; any previous holder of that vehicle is released first.
+function WorkerRoster:assignVehiclePersistent(uuid, vehicleUniqueId)
+    local worker = self.byId[uuid]
+    if not worker or vehicleUniqueId == nil then
+        return false
+    end
+    local prev = self:getByAssignedUniqueId(vehicleUniqueId)
+    if prev and prev.uuid ~= uuid then
+        prev.assignedVehicleUniqueId = nil
+    end
+    worker.assignedVehicleUniqueId = vehicleUniqueId
+    return true
+end
+
+--- Drop a worker's persistent assignment.
+function WorkerRoster:unassignPersistent(uuid)
+    local worker = self.byId[uuid]
+    if not worker then
+        return false
+    end
+    worker.assignedVehicleUniqueId = nil
+    return true
 end
 
 --- Bind a worker to a vehicle (one vehicle holds at most one worker).
@@ -270,7 +315,11 @@ function WorkerRoster:save(missionInfo)
         xmlFile:setInt(key .. "#totalJobs", w.totalJobs or 0)
         xmlFile:setFloat(key .. "#fatigue", w.fatigue or 0)
         xmlFile:setInt(key .. "#hiredDay", w.hiredDay or 0)
-        -- assignedVehicleId intentionally omitted in Phase 0 (see newWorker()).
+        -- Persistent manual assignment (Phase 5). The transient assignedVehicleId
+        -- is still NOT saved (a runtime pointer is meaningless next session).
+        if w.assignedVehicleUniqueId then
+            xmlFile:setString(key .. "#assignedVehicleUniqueId", w.assignedVehicleUniqueId)
+        end
     end
 
     xmlFile:save()
@@ -314,7 +363,8 @@ function WorkerRoster:loadIfExists(missionInfo)
             totalJobs  = xmlFile:getInt(key .. "#totalJobs", 0),
             fatigue    = xmlFile:getFloat(key .. "#fatigue", 0),
             hiredDay   = xmlFile:getInt(key .. "#hiredDay", 0),
-            assignedVehicleId = nil,  -- re-bound at runtime (Phase 5)
+            assignedVehicleId = nil,  -- transient; re-bound at job start
+            assignedVehicleUniqueId = xmlFile:getString(key .. "#assignedVehicleUniqueId", nil),
         }
         table.insert(self.workers, w)
         self.byId[uuid] = w

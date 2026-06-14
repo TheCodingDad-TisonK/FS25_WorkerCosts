@@ -37,6 +37,10 @@ function WorkerSettingsGUI:registerConsoleCommands()
     addConsoleCommand("WorkerCostsShowSettings", "Show current settings", "consoleCommandShowSettings", self)
     addConsoleCommand("WorkerCostsShowRoster", "Show the Pro-Staff worker roster (id, name, level, hours, jobs, XP)", "consoleCommandShowRoster", self)
     addConsoleCommand("WorkerCostsGrantXP", "TESTING: add XP (=hours) to all roster workers; recomputes level (Experienced=40, Master=160)", "consoleCommandGrantXP", self)
+    addConsoleCommand("WorkerCostsHire", "Hire a worker by name (Pro-Staff)", "consoleCommandHire", self)
+    addConsoleCommand("WorkerCostsFire", "Fire a worker by id; pays severance (Pro-Staff)", "consoleCommandFire", self)
+    addConsoleCommand("WorkerCostsAssign", "Pin worker <id> to the vehicle you are seated in (Pro-Staff)", "consoleCommandAssign", self)
+    addConsoleCommand("WorkerCostsUnassign", "Remove worker <id>'s vehicle pin (Pro-Staff)", "consoleCommandUnassign", self)
     addConsoleCommand("WorkerCostsDiagnostic", "Run full diagnostic report", "consoleCommandDiagnostic", self)
     
     addConsoleCommand("WorkerCostsResetSettings", "Reset all settings to defaults", "consoleCommandResetSettings", self)
@@ -60,6 +64,10 @@ function WorkerSettingsGUI:consoleCommandHelp()
     print("WorkerCostsShowSettings - Show current settings")
     print("WorkerCostsShowRoster - Show the worker roster")
     print("WorkerCostsGrantXP <xp> - TESTING: grant XP to all workers")
+    print("WorkerCostsHire <name> - Hire a worker")
+    print("WorkerCostsFire <id> - Fire a worker (pays severance)")
+    print("WorkerCostsAssign <id> - Pin worker to your current vehicle")
+    print("WorkerCostsUnassign <id> - Remove a worker's vehicle pin")
     print("WorkerCostsDiagnostic - Run full diagnostic report")
     print("WorkerCostsResetSettings - Reset to defaults")
     print("===========================================")
@@ -222,12 +230,16 @@ function WorkerSettingsGUI:consoleCommandShowRoster()
         table.insert(lines, "(empty — start an AI helper to auto-hire one)")
     else
         for _, w in ipairs(workers) do
+            local status = w.assignedVehicleId and "[working]" or "[idle]"
+            if w.assignedVehicleUniqueId then
+                status = status .. " pinned"
+            end
             table.insert(lines, string.format(
                 "#%d  %-16s  %-11s  hrs=%.2f  jobs=%d  XP=%.1f  fat=%d%%  %s",
                 w.uuid, w.name or "Worker", WorkerRoster.levelName(w.level),
                 w.totalHours or 0, w.totalJobs or 0, w.totalXP or 0,
                 math.floor((w.fatigue or 0) * 100),
-                w.assignedVehicleId and "[working]" or "[idle]"
+                status
             ))
         end
     end
@@ -265,6 +277,103 @@ function WorkerSettingsGUI:consoleCommandGrantXP(amountStr)
     if #promoted > 0 then
         msg = msg .. " Promotions: " .. table.concat(promoted, ", ")
     end
+    print(msg)
+    return msg
+end
+
+-- ---------------------------------------------------------------------------
+-- Phase 5: hire / fire / assign (server/SP; MP sync is a separate sub-batch).
+-- ---------------------------------------------------------------------------
+
+function WorkerSettingsGUI:_getCurrentVehicle()
+    if g_localPlayer and g_localPlayer.getCurrentVehicle then
+        local ok, v = pcall(function() return g_localPlayer:getCurrentVehicle() end)
+        if ok and v then return v end
+    end
+    if g_currentMission and g_currentMission.controlledVehicle then
+        return g_currentMission.controlledVehicle
+    end
+    return nil
+end
+
+function WorkerSettingsGUI:consoleCommandHire(name)
+    if g_WorkerManager == nil or g_WorkerManager.workerRoster == nil then
+        return "Error: Worker Costs Mod not initialized"
+    end
+    if name == nil or name == "" then
+        return "Usage: WorkerCostsHire <name>"
+    end
+    local w = g_WorkerManager.workerRoster:createWorker(name)
+    local msg = string.format("Hired '%s' (id=%d)", w.name, w.uuid)
+    print(msg)
+    return msg
+end
+
+function WorkerSettingsGUI:consoleCommandFire(idStr)
+    local mgr = g_WorkerManager
+    if mgr == nil or mgr.workerRoster == nil then
+        return "Error: Worker Costs Mod not initialized"
+    end
+    local uuid = tonumber(idStr)
+    if uuid == nil then
+        return "Usage: WorkerCostsFire <id>   (see WorkerCostsShowRoster)"
+    end
+    local w = mgr.workerRoster:getWorker(uuid)
+    if w == nil then
+        return string.format("No worker with id=%d", uuid)
+    end
+    local severance = 0
+    if mgr.workerSystem then
+        severance = mgr.workerSystem:chargeSeverance(w.name, w.level)
+    end
+    mgr.workerRoster:removeWorker(uuid)
+    local money = g_i18n and g_i18n:formatMoney(severance, 0, true, true) or ("$" .. severance)
+    local msg = string.format("Fired '%s' (id=%d); severance %s", w.name, uuid, money)
+    print(msg)
+    return msg
+end
+
+function WorkerSettingsGUI:consoleCommandAssign(idStr)
+    local mgr = g_WorkerManager
+    if mgr == nil or mgr.workerRoster == nil then
+        return "Error: Worker Costs Mod not initialized"
+    end
+    local uuid = tonumber(idStr)
+    if uuid == nil then
+        return "Usage: WorkerCostsAssign <id>   (run while seated in the vehicle)"
+    end
+    local w = mgr.workerRoster:getWorker(uuid)
+    if w == nil then
+        return string.format("No worker with id=%d", uuid)
+    end
+    local vehicle = self:_getCurrentVehicle()
+    if vehicle == nil then
+        return "Get in the vehicle you want to assign, then run this again"
+    end
+    local uniqueId = (vehicle.getUniqueId and vehicle:getUniqueId()) or nil
+    if uniqueId == nil or uniqueId == "" then
+        return "That vehicle has no stable id yet - save the game once, then assign"
+    end
+    mgr.workerRoster:assignVehiclePersistent(uuid, uniqueId)
+    local vname = (vehicle.getFullName and vehicle:getFullName()) or "the vehicle"
+    local msg = string.format("Pinned '%s' (id=%d) to %s", w.name, uuid, vname)
+    print(msg)
+    return msg
+end
+
+function WorkerSettingsGUI:consoleCommandUnassign(idStr)
+    local mgr = g_WorkerManager
+    if mgr == nil or mgr.workerRoster == nil then
+        return "Error: Worker Costs Mod not initialized"
+    end
+    local uuid = tonumber(idStr)
+    if uuid == nil then
+        return "Usage: WorkerCostsUnassign <id>"
+    end
+    if not mgr.workerRoster:unassignPersistent(uuid) then
+        return string.format("No worker with id=%d", uuid)
+    end
+    local msg = string.format("Unpinned worker id=%d", uuid)
     print(msg)
     return msg
 end

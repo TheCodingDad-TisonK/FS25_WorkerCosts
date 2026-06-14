@@ -28,6 +28,9 @@ WorkerSystem.NIGHT_MULT        = 1.25   -- night-shift / after-hours premium
 WorkerSystem.WEATHER_MULT      = 1.15   -- bad-weather (rain) premium
 WorkerSystem.OVERTIME_HOURS    = 8      -- real hours worked in one in-game day before overtime
 WorkerSystem.OVERTIME_MULT     = 1.50   -- premium once a vehicle passes the daily overtime threshold
+-- Phase 5 severance: one-off payout when firing. Senior workers cost more to let go.
+WorkerSystem.SEVERANCE_HOURS        = 16
+WorkerSystem.SEVERANCE_LEVEL_FACTOR = { [1] = 1.0, [2] = 1.5, [3] = 2.0 }
 
 ---@param settings Settings
 ---@param roster WorkerRoster|nil  Pro-Staff roster for level/fatigue (Phase 3)
@@ -369,6 +372,35 @@ function WorkerSystem:_isBadWeather()
     end
     local ok, raining = pcall(function() return env.weather:getIsRaining() end)
     return ok and raining == true
+end
+
+-- Pro-Staff Phase 5: severance cost for firing a worker of the given level.
+function WorkerSystem:computeSeverance(level)
+    local rate = self.settings:getWageRate()
+    local factor = WorkerSystem.SEVERANCE_LEVEL_FACTOR[level] or 1.0
+    return math.floor(rate * WorkerSystem.SEVERANCE_HOURS * factor)
+end
+
+--- Charge severance to the player's farm. Returns the amount charged (0 if none).
+function WorkerSystem:chargeSeverance(workerName, level)
+    local amount = self:computeSeverance(level)
+    if amount <= 0 then
+        return 0
+    end
+    local farmId = g_currentMission and g_currentMission:getFarmId()
+    if not farmId or farmId == 0 then
+        return 0
+    end
+    self._isProcessingPayment = true
+    local ok = pcall(function()
+        g_currentMission:addMoney(-amount, farmId, MoneyType.OTHER, false)
+    end)
+    self._isProcessingPayment = false
+    if ok and self.settings.showNotifications then
+        local money = g_i18n and g_i18n:formatMoney(amount, 0, true, true) or ("$" .. amount)
+        self:showNotification("Severance", string.format("%s dismissed - severance %s", workerName, money))
+    end
+    return ok and amount or 0
 end
 
 -- Pro-Staff Phase 3: per-in-game-day housekeeping — reset overtime counters and
