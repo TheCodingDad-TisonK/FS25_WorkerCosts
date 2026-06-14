@@ -204,6 +204,7 @@ XML layouts live in `xml/gui/`. Custom GUI profiles are loaded from `xml/gui/gui
 | `workerCostsStatus` | Print current settings |
 | `WorkerCostsShowSettings` | Detailed settings dump |
 | `WorkerCostsShowRoster` | Show the Pro-Staff worker roster (id, name, level, hours, jobs, XP, fatigue) |
+| `WorkerCostsRoster` | Open/close the clickable roster panel (also bound to **ALT+H**, rebindable in Controls → `input_WC_OPEN_ROSTER`) |
 | `WorkerCostsGrantXP <xp>` | TESTING: grant XP (=hours) to all roster workers; recomputes level (Experienced=40, Master=160) |
 | `WorkerCostsHire <name>` | Hire a roster worker |
 | `WorkerCostsFire <id>` | Fire a worker; charges severance (scales with level) |

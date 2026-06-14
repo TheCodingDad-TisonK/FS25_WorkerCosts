@@ -51,7 +51,14 @@ function WorkerManager.new(mission, modDirectory, modName)
     -- Phase 3: WorkerSystem reads the roster (level/fatigue) for the labor-cost
     -- pipeline and recovers idle workers' fatigue daily.
     self.workerSystem = WorkerSystem.new(self.settings, self.workerRoster)
-    
+
+    -- Phase 5: clickable roster panel (custom-drawn overlay). Client-only — it
+    -- renders. Opened via the WorkerCostsRoster console command.
+    if mission:getIsClient() and WCRosterPanel then
+        self.rosterPanel = WCRosterPanel.new(self.workerRoster, self.workerSystem)
+        self:installRosterInput()
+    end
+
     if mission:getIsClient() and g_gui then
         self.WorkerSettingsUI = WorkerSettingsUI.new(self.settings)
         
@@ -123,6 +130,9 @@ function WorkerManager:update(dt)
     if self.workerSystem then
         self.workerSystem:update(dt)
     end
+    if self.rosterPanel then
+        self.rosterPanel:update()
+    end
 end
 
 -- Pro-Staff Phase 0: roster persistence entry points.
@@ -151,7 +161,96 @@ function WorkerManager:loadWorkerData()
     self.workerRoster:loadIfExists(missionInfo)
 end
 
+-- Phase 5: register the rebindable WC_OPEN_ROSTER action (default ALT+H, shown in
+-- the Controls menu) in BOTH the on-foot (PLAYER) and in-vehicle (VEHICLE) input
+-- contexts. Mirrors SoilFertilizer's proven dual-context registration so the hotkey
+-- works whether the player is walking or driving. The console command is the fallback.
+function WorkerManager:installRosterInput()
+    if not (InputAction and InputAction.WC_OPEN_ROSTER and g_inputBinding) then
+        Logging.warning("[Worker Costs] WC_OPEN_ROSTER action unavailable - roster hotkey not bound")
+        return
+    end
+
+    -- PLAYER (on-foot) context.
+    if PlayerInputComponent and PlayerInputComponent.registerActionEvents then
+        local original = PlayerInputComponent.registerActionEvents
+        self._rosterPlayerInputOriginal = original
+        PlayerInputComponent.registerActionEvents = function(inputComponent, ...)
+            original(inputComponent, ...)
+            if not (inputComponent.player and inputComponent.player.isOwner) then return end
+            local mgr = g_WorkerManager
+            if not mgr or not mgr.rosterPanel or mgr.rosterPlayerEventId then return end
+            g_inputBinding:beginActionEventsModification(PlayerInputComponent.INPUT_CONTEXT_NAME)
+            local ok, id = g_inputBinding:registerActionEvent(
+                InputAction.WC_OPEN_ROSTER, mgr, mgr.onOpenRosterInput, false, true, false, true)
+            if ok and id then
+                mgr.rosterPlayerEventId = id
+                g_inputBinding:setActionEventTextVisibility(id, false)
+            end
+            g_inputBinding:endActionEventsModification()
+        end
+    end
+
+    -- VEHICLE context, via InputBinding.endActionEventsModification (hooking
+    -- Vehicle.registerActionEvents directly does not work once vehicles exist).
+    if InputBinding and InputBinding.endActionEventsModification and Vehicle then
+        local originalEndMod = InputBinding.endActionEventsModification
+        self._rosterVehicleInputOriginal = originalEndMod
+        local reentrant = false
+        InputBinding.endActionEventsModification = function(binding, ignoreCheck)
+            local contextName = ""
+            if binding.registrationContext and
+               binding.registrationContext ~= InputBinding.NO_REGISTRATION_CONTEXT then
+                contextName = binding.registrationContext.name or ""
+            end
+            originalEndMod(binding, ignoreCheck)
+            if contextName ~= Vehicle.INPUT_CONTEXT_NAME or reentrant then return end
+            local mgr = g_WorkerManager
+            if not mgr or not mgr.rosterPanel then return end
+            reentrant = true
+            -- Fires on every seat change; purge stale ids (slot-based removeActionEvent
+            -- can invalidate the PLAYER slot too, so clear both and let them re-register).
+            if mgr.rosterVehicleEventId then
+                pcall(function() binding:removeActionEvent(mgr.rosterVehicleEventId) end)
+                mgr.rosterVehicleEventId = nil
+            end
+            if mgr.rosterPlayerEventId then
+                pcall(function() binding:removeActionEvent(mgr.rosterPlayerEventId) end)
+                mgr.rosterPlayerEventId = nil
+            end
+            binding:beginActionEventsModification(Vehicle.INPUT_CONTEXT_NAME)
+            local ok, id = binding:registerActionEvent(
+                InputAction.WC_OPEN_ROSTER, mgr, mgr.onOpenRosterInput, false, true, false, true)
+            if ok and id then
+                mgr.rosterVehicleEventId = id
+                binding:setActionEventTextVisibility(id, false)
+            end
+            binding:endActionEventsModification()
+            reentrant = false
+        end
+    end
+
+    Logging.info("[Worker Costs] Roster hotkey (WC_OPEN_ROSTER, default ALT+H) registered")
+end
+
+-- Input callback for the WC_OPEN_ROSTER action.
+function WorkerManager:onOpenRosterInput()
+    if self.rosterPanel then
+        self.rosterPanel:toggle()
+    end
+end
+
 function WorkerManager:delete()
+    -- Restore the original input functions we hooked, so they don't accumulate.
+    if self._rosterPlayerInputOriginal and PlayerInputComponent then
+        PlayerInputComponent.registerActionEvents = self._rosterPlayerInputOriginal
+        self._rosterPlayerInputOriginal = nil
+    end
+    if self._rosterVehicleInputOriginal and InputBinding then
+        InputBinding.endActionEventsModification = self._rosterVehicleInputOriginal
+        self._rosterVehicleInputOriginal = nil
+    end
+
     -- Restore the original mission.addMoney before the mission object is torn down
     if self.workerSystem then
         self.workerSystem:delete()
@@ -161,6 +260,10 @@ function WorkerManager:delete()
     -- accumulate across mission reloads.
     if self.jobTracker then
         self.jobTracker:delete()
+    end
+
+    if self.rosterPanel then
+        self.rosterPanel:delete()
     end
 
     if self.settings then

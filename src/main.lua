@@ -31,6 +31,7 @@ source(modDirectory .. "src/settings/WorkerSettingsUI.lua")
 source(modDirectory .. "src/WorkerRoster.lua")
 source(modDirectory .. "src/WorkerSystem.lua")
 source(modDirectory .. "src/WorkerJobTracker.lua")
+source(modDirectory .. "src/gui/WCRosterPanel.lua") -- created in WorkerManager.new, so load before it
 source(modDirectory .. "src/WorkerManager.lua")
 
 -- GUI: pause-menu tab + inner tabbed manager
@@ -97,6 +98,27 @@ FSBaseMission.update = Utils.appendedFunction(FSBaseMission.update, function(mis
         wm:update(dt)
     end
 end)
+
+-- Phase 5: draw the custom roster panel (overlay) each frame, like SoilFertilizer.
+FSBaseMission.draw = Utils.appendedFunction(FSBaseMission.draw, function(mission)
+    if wm and wm.rosterPanel then
+        wm.rosterPanel:draw()
+    end
+end)
+
+-- Phase 5: route mouse events to the roster panel while open. addModEventListener
+-- delivers mouseEvent to mods in every context; the panel consumes clicks only when
+-- visible. The OPEN hotkey is the rebindable WC_OPEN_ROSTER input action (default
+-- ALT+H), registered per-context in WorkerManager — not a hardcoded key here.
+local wcMouseHandler = {}
+function wcMouseHandler:mouseEvent(posX, posY, isDown, isUp, button, eventUsed)
+    if wm and wm.rosterPanel and wm.rosterPanel:isOpen() then
+        local consumed = wm.rosterPanel:onMouseEvent(posX, posY, isDown, isUp, button, eventUsed)
+        eventUsed = consumed or eventUsed
+    end
+    return eventUsed
+end
+addModEventListener(wcMouseHandler)
 
 -- Pro-Staff Phase 0: persist the worker roster on the real game-save event.
 -- FSCareerMissionInfo.saveToXMLFile fires after missionInfo.savegameDirectory is

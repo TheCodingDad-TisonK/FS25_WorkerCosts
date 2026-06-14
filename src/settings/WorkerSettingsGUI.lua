@@ -36,6 +36,7 @@ function WorkerSettingsGUI:registerConsoleCommands()
     
     addConsoleCommand("WorkerCostsShowSettings", "Show current settings", "consoleCommandShowSettings", self)
     addConsoleCommand("WorkerCostsShowRoster", "Show the Pro-Staff worker roster (id, name, level, hours, jobs, XP)", "consoleCommandShowRoster", self)
+    addConsoleCommand("WorkerCostsRoster", "Open/close the clickable roster panel (hire/fire/assign)", "consoleCommandRosterPanel", self)
     addConsoleCommand("WorkerCostsGrantXP", "TESTING: add XP (=hours) to all roster workers; recomputes level (Experienced=40, Master=160)", "consoleCommandGrantXP", self)
     addConsoleCommand("WorkerCostsHire", "Hire a worker by name (Pro-Staff)", "consoleCommandHire", self)
     addConsoleCommand("WorkerCostsFire", "Fire a worker by id; pays severance (Pro-Staff)", "consoleCommandFire", self)
@@ -63,6 +64,7 @@ function WorkerSettingsGUI:consoleCommandHelp()
     print("WorkerCostsDebug true|false - Toggle debug logging")
     print("WorkerCostsShowSettings - Show current settings")
     print("WorkerCostsShowRoster - Show the worker roster")
+    print("WorkerCostsRoster - Open the clickable roster panel (or press ALT+H)")
     print("WorkerCostsGrantXP <xp> - TESTING: grant XP to all workers")
     print("WorkerCostsHire <name> - Hire a worker")
     print("WorkerCostsFire <id> - Fire a worker (pays severance)")
@@ -376,6 +378,15 @@ function WorkerSettingsGUI:consoleCommandUnassign(idStr)
     local msg = string.format("Unpinned worker id=%d", uuid)
     print(msg)
     return msg
+end
+
+-- Open/close the clickable roster panel (same as the ALT+H hotkey).
+function WorkerSettingsGUI:consoleCommandRosterPanel()
+    if g_WorkerManager == nil or g_WorkerManager.rosterPanel == nil then
+        return "Roster panel not available (client only)"
+    end
+    g_WorkerManager.rosterPanel:toggle()
+    return g_WorkerManager.rosterPanel:isOpen() and "Roster panel opened" or "Roster panel closed"
 end
 
 function WorkerSettingsGUI:consoleCommandSetDebug(valueStr)
