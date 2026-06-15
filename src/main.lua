@@ -13,13 +13,25 @@
 local modDirectory = g_currentModDirectory
 local modName = g_currentModName
 
+-- =========================================================
+-- PRO-STAFF BUILD CHECKLIST — load order & lifecycle hooks in THIS file,
+-- ticked per phase (full plan: docs/PRO_STAFF_PLAN.md):
+--   [x] Phase 0 — source WorkerRoster; install roster save hook (FSCareerMissionInfo)
+--   [x] Phase 1 — source WorkerJobTracker (subscribes to AI_JOB_STARTED/STOPPED
+--                 in WorkerManager:onMissionLoaded)
+--   [ ] Phase 5 — register network events for MP roster sync
+-- =========================================================
+
 -- Load all source files in correct order
 source(modDirectory .. "src/settings/SettingsManager.lua")
 source(modDirectory .. "src/settings/Settings.lua")
-source(modDirectory .. "src/settings/WorkerSettingsGUI.lua") 
+source(modDirectory .. "src/settings/WorkerSettingsGUI.lua")
 source(modDirectory .. "src/utils/UIHelper.lua")
 source(modDirectory .. "src/settings/WorkerSettingsUI.lua")
+source(modDirectory .. "src/WorkerRoster.lua")
 source(modDirectory .. "src/WorkerSystem.lua")
+source(modDirectory .. "src/WorkerJobTracker.lua")
+source(modDirectory .. "src/gui/WCRosterPanel.lua") -- created in WorkerManager.new, so load before it
 source(modDirectory .. "src/WorkerManager.lua")
 
 -- GUI: pause-menu tab + inner tabbed manager
@@ -87,6 +99,52 @@ FSBaseMission.update = Utils.appendedFunction(FSBaseMission.update, function(mis
     end
 end)
 
+-- Phase 5: draw the custom roster panel (overlay) each frame, like SoilFertilizer.
+FSBaseMission.draw = Utils.appendedFunction(FSBaseMission.draw, function(mission)
+    if wm and wm.rosterPanel then
+        wm.rosterPanel:draw()
+    end
+end)
+
+-- Phase 5: route mouse events to the roster panel while open. addModEventListener
+-- delivers mouseEvent to mods in every context; the panel consumes clicks only when
+-- visible. The OPEN hotkey is the rebindable WC_OPEN_ROSTER input action (default
+-- ALT+H), registered per-context in WorkerManager — not a hardcoded key here.
+local wcMouseHandler = {}
+function wcMouseHandler:mouseEvent(posX, posY, isDown, isUp, button, eventUsed)
+    if wm and wm.rosterPanel and wm.rosterPanel:isOpen() then
+        local consumed = wm.rosterPanel:onMouseEvent(posX, posY, isDown, isUp, button, eventUsed)
+        eventUsed = consumed or eventUsed
+    end
+    return eventUsed
+end
+addModEventListener(wcMouseHandler)
+
+-- Pro-Staff Phase 0: persist the worker roster on the real game-save event.
+-- FSCareerMissionInfo.saveToXMLFile fires after missionInfo.savegameDirectory is
+-- set to the tempsavegame staging dir, which FS25 then copies into the savegame
+-- folder. Server/SP only — in multiplayer only the host holds the authoritative
+-- roster (clients sync it in Phase 5).
+if FSCareerMissionInfo and FSCareerMissionInfo.saveToXMLFile then
+    FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(
+        FSCareerMissionInfo.saveToXMLFile,
+        function(missionInfo)
+            if g_currentMission and g_currentMission.missionDynamicInfo
+               and g_currentMission.missionDynamicInfo.isMultiplayer then
+                if g_server == nil then
+                    return
+                end
+            end
+            if wm then
+                wm:saveWorkerData(missionInfo)
+            end
+        end
+    )
+    Logging.info("[Worker Costs] Roster save hook installed on FSCareerMissionInfo:saveToXMLFile")
+else
+    Logging.warning("[Worker Costs] FSCareerMissionInfo.saveToXMLFile not found — roster will NOT be saved")
+end
+
 -- Pre-initialization safety shims for `workerCosts` / `workerCostsStatus`.
 -- Once WorkerSettingsGUI:registerConsoleCommands() runs, the real implementations
 -- (which call into g_WorkerManager) are registered via addConsoleCommand() and take
@@ -145,4 +203,4 @@ end
 getfenv(0)["workerCosts"]       = workerCosts
 getfenv(0)["workerCostsStatus"] = workerCostsStatus
 
-Logging.info("[Worker Costs] v1.0.9.5 loaded — type 'workerCosts' in console for help")
+Logging.info("[Worker Costs] v2.0.0.0 loaded — type 'workerCosts' in console for help")
