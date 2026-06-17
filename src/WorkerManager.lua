@@ -63,6 +63,15 @@ function WorkerManager.new(mission, modDirectory, modName)
     -- pipeline and recovers idle workers' fatigue daily.
     self.workerSystem = WorkerSystem.new(self.settings, self.workerRoster)
 
+    -- HireHallCore framework (FR0-FR4): server-authoritative personnel lifecycle
+    -- layered on top of the existing roster. Read-only consumer of Pro-Staff data;
+    -- isolates its own state in worker.hireHallMeta and its own hireHallCore.xml.
+    -- The global IS the singleton; self.hireHall just aliases it for the coordinator.
+    if HireHallCore then
+        self.hireHall = HireHallCore:setup(self.workerRoster, self.settings,
+            self.workerSystem, self.jobTracker)
+    end
+
     -- Phase 5: clickable roster panel (custom-drawn overlay). Client-only — it
     -- renders. Opened via the WorkerCostsRoster console command.
     if mission:getIsClient() and WCRosterPanel then
@@ -120,6 +129,12 @@ function WorkerManager:onMissionLoaded()
         if self.jobTracker then
             self.jobTracker:initialize()
         end
+
+        -- HireHallCore: give each loaded worker a lifecycle meta block and apply
+        -- any persisted states. Host-only (the broker reads the real roster).
+        if self.hireHall then
+            self.hireHall:initialize(g_currentMission.missionInfo)
+        end
     end
 
     if self.workerSystem then
@@ -140,6 +155,9 @@ end
 function WorkerManager:update(dt)
     if self.workerSystem then
         self.workerSystem:update(dt)
+    end
+    if self.hireHall then
+        self.hireHall:update(dt)   -- host-only; drives the time-sliced evolution engine
     end
     if self.rosterPanel then
         self.rosterPanel:update()
@@ -176,6 +194,12 @@ function WorkerManager:saveWorkerData(missionInfo)
     end
     missionInfo = missionInfo or (g_currentMission and g_currentMission.missionInfo)
     self.workerRoster:save(missionInfo)
+
+    -- HireHallCore lifecycle state persists alongside the roster, into its own
+    -- isolated hireHallCore.xml (a bad write here can never corrupt the roster file).
+    if self.hireHall then
+        self.hireHall:save(missionInfo)
+    end
 end
 
 function WorkerManager:loadWorkerData()
@@ -566,6 +590,13 @@ function WorkerManager:delete()
     -- accumulate across mission reloads.
     if self.jobTracker then
         self.jobTracker:delete()
+    end
+
+    -- HireHallCore is a sourced-once global singleton: reset its per-mission state
+    -- (corruption flag, event listeners, evolution cursor) so the next career
+    -- starts clean.
+    if self.hireHall and self.hireHall.shutdown then
+        self.hireHall:shutdown()
     end
 
     if self.rosterPanel then

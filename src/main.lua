@@ -31,6 +31,18 @@ source(modDirectory .. "src/settings/WorkerSettingsUI.lua")
 source(modDirectory .. "src/WorkerRoster.lua")
 source(modDirectory .. "src/WorkerSystem.lua")
 source(modDirectory .. "src/WorkerJobTracker.lua")
+
+-- HireHallCore framework (FR0-FR4, Phase 1). Foundation first (defines the global
+-- namespace + constants), then the modules that attach to it. Loaded before
+-- WorkerManager, which wires it via HireHallCore:setup().
+source(modDirectory .. "src/hireHallCore/HireHallCore.lua")
+source(modDirectory .. "src/hireHallCore/core/HireHallEvents.lua")
+source(modDirectory .. "src/hireHallCore/integration/HireHallProStaff.lua")
+source(modDirectory .. "src/hireHallCore/core/HireHallLifecycle.lua")
+source(modDirectory .. "src/hireHallCore/core/HireHallEvolution.lua")
+source(modDirectory .. "src/hireHallCore/core/HireHallAPI.lua")
+source(modDirectory .. "src/hireHallCore/xml/HireHallSchema.lua")
+
 source(modDirectory .. "src/gui/WCRosterPanel.lua") -- created in WorkerManager.new, so load before it
 source(modDirectory .. "src/WorkerManager.lua")
 source(modDirectory .. "src/WCNetworkEvents.lua")   -- Pro-Staff Phase 5: MP roster sync + command events

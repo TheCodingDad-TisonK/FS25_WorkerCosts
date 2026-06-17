@@ -228,6 +228,18 @@ function WorkerJobTracker:_notifyLevelUp(worker, newLevel)
     end
 end
 
+-- True when no live AI job is currently attributed to this worker. Authoritative
+-- task-occupancy check consumed by HireHallCore's availability broker (FR3 cond.3).
+-- O(active jobs) — the active set is tiny (one entry per in-flight helper).
+function WorkerJobTracker:isWorkerIdle(workerId)
+    for _, rec in pairs(self.activeJobs) do
+        if rec.workerUuid == workerId then
+            return false
+        end
+    end
+    return true
+end
+
 -- ---------------------------------------------------------------------------
 -- Resolution helpers
 -- ---------------------------------------------------------------------------
