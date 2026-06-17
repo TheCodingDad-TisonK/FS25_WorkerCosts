@@ -1,7 +1,7 @@
 # Repository Traffic Dashboard
 
-**Last updated:** 2026-06-16T18:00:57Z
-**Days tracked:** 69 | **Download snapshots:** 240 (hourly)
+**Last updated:** 2026-06-17T12:46:30Z
+**Days tracked:** 70 | **Download snapshots:** 243 (hourly)
 
 ---
 
@@ -11,8 +11,8 @@
 
 | Metric | 14-Day Total | Unique |
 |--------|-------------|--------|
-| Page Views | 401 | 72 |
-| Git Clones | 673 | 250 |
+| Page Views | 413 | 75 |
+| Git Clones | 725 | 269 |
 
 > **Engagement:** 5.5 pages per visitor (14-day avg)
 
@@ -30,9 +30,9 @@
 
 ![Conversion](charts/conversion.png)
 
-> **14-day conversion:** 609 of 72 visitors cloned or downloaded (**845.8%**)
+> **14-day conversion:** 632 of 75 visitors cloned or downloaded (**842.6%**)
 >
-> Unique cloners: 250 | Release downloads: 359
+> Unique cloners: 269 | Release downloads: 363
 
 ---
 
@@ -42,9 +42,9 @@
 
 | Channel | Count |
 |---------|-------|
-| Zip Downloads | 359 |
-| Git Clones (14-day) | 673 |
-| **Total Acquisitions** | **1032** |
+| Zip Downloads | 363 |
+| Git Clones (14-day) | 725 |
+| **Total Acquisitions** | **1088** |
 
 ---
 
@@ -54,12 +54,13 @@
 
 | Source | Views | Unique |
 |--------|-------|--------|
-| github.com | 185 | 45 |
+| github.com | 193 | 45 |
+| Google | 18 | 9 |
 | kingmods.net | 16 | 9 |
-| Google | 14 | 7 |
 | Bing | 5 | 1 |
 | ntp.msn.com | 2 | 2 |
 | DuckDuckGo | 1 | 1 |
+| search.brave.com | 1 | 1 |
 
 ---
 
@@ -79,15 +80,15 @@
 
 | Page | Views | Unique |
 |------|-------|--------|
-| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 141 | 65 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/issues` | 56 | 10 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 146 | 68 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/issues` | 57 | 10 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 18 | 14 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues/54` | 18 | 4 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 16 | 12 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.4` | 15 | 12 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.3` | 14 | 12 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues/new` | 13 | 1 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v1.0.9.5` | 10 | 9 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v2.1.0.0` | 6 | 4 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v2.1.0.0` | 10 | 7 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues/48` | 6 | 3 |
 
 ---
