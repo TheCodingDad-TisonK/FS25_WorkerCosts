@@ -200,6 +200,9 @@ function WorkerManager:saveWorkerData(missionInfo)
     -- time worked so far (stats otherwise only finalize on job stop).
     if self.jobTracker then
         self.jobTracker:flushActiveJobs()
+        -- #79 Record resume markers for in-progress jobs so the same worker re-binds
+        -- after a reload (AI jobs persist on the vehicle) instead of auto-hiring anew.
+        self.jobTracker:persistResumeBindings()
     end
     missionInfo = missionInfo or (g_currentMission and g_currentMission.missionInfo)
     self.workerRoster:save(missionInfo)
@@ -264,23 +267,73 @@ end
 
 -- The current pool, generated lazily and refilled after each hire. Server/SP only;
 -- clients read the pool through the synced snapshot.
-function WorkerManager:getRecruitPool()
-    if not self.recruitPool then
-        self:refreshRecruitPool()
+-- #72 The hiring hall rotates once per in-game day. The pool lives on the roster
+-- (persisted across save/reload), and a fresh roll happens only when the game-day
+-- advances — never on demand — so candidates are stable within a day. Lazy: the
+-- rotation is applied the first time the pool is read on a new day.
+function WorkerManager:_rolloverRecruitPool()
+    local roster = self.workerRoster
+    if not roster then
+        return
     end
-    return self.recruitPool
+    local today = self:_currentDay()
+    if roster.recruitPool == nil or roster.poolRotationDay ~= today then
+        self:refreshRecruitPool()
+        roster.poolRotationDay = today
+    end
 end
 
-function WorkerManager:refreshRecruitPool()
-    self.recruitPool = {}
-    for i = 1, WorkerManager.RECRUIT_POOL_SIZE do
-        self.recruitPool[i] = self:_generateRecruit()
+function WorkerManager:getRecruitPool()
+    if not self.workerRoster then
+        return {}
     end
+    self:_rolloverRecruitPool()
+    return self.workerRoster.recruitPool
+end
+
+-- Roll a brand-new full pool. Internal: callers go through _rolloverRecruitPool so
+-- the day gate is always honoured. Hired slots still backfill in _doHire so the
+-- hall stays full between daily rotations.
+function WorkerManager:refreshRecruitPool()
+    if not self.workerRoster then
+        return
+    end
+    local pool = {}
+    for i = 1, WorkerManager.RECRUIT_POOL_SIZE do
+        pool[i] = self:_generateRecruit()
+    end
+    self.workerRoster.recruitPool = pool
 end
 
 -- =========================================================
 -- Pro-Staff Phase 5: roster snapshot — the cross-repo read contract
 -- =========================================================
+
+-- #78 Read a worker's HireHallCore-owned meta for the snapshot: the lifecycle
+-- state (available / onLeave / injured / ...) plus a compact job-history summary.
+-- Guarded and host-only (HireHallCore lives on the host); returns safe defaults
+-- when HireHallCore is absent or disabled. Shipping these in the snapshot is what
+-- lets MP clients and the dossier render lifecycle + resume without a local roster.
+function WorkerManager:_workerHallMeta(worker)
+    local state = "available"
+    local jobs, done, failed = 0, 0, 0
+    local core = HireHallCore
+    if core and core.core then
+        if core.core.Lifecycle and core.core.Lifecycle.getState then
+            local ok, s = pcall(function() return core.core.Lifecycle:getState(worker) end)
+            if ok and s then state = s end
+        end
+        if core.core.History and core.core.History.summarize then
+            local ok, sum = pcall(function() return core.core.History:summarize(worker) end)
+            if ok and sum then
+                jobs   = sum.jobs or 0
+                done   = sum.completed or 0
+                failed = (sum.failed or 0) + (sum.dismissed or 0)
+            end
+        end
+    end
+    return state, jobs, done, failed
+end
 
 -- Build the live, enriched snapshot. Server/SP only — it reads roster, settings,
 -- and the wage pipeline. The snapshot doubles as the multiplayer wire format
@@ -357,6 +410,10 @@ function WorkerManager:getServerSnapshot()
             end
             snapshot.finance.proStaffDelta = snapshot.finance.proStaffDelta + (effRate - baseRate)
 
+            -- #78 HireHallCore-owned meta, shipped in the snapshot so clients + the
+            -- dossier render lifecycle + resume without a local roster read.
+            local lifeState, histJobs, histDone, histFailed = self:_workerHallMeta(w)
+
             table.insert(snapshot.workers, {
                 uuid       = w.uuid,
                 name       = w.name or "Worker",
@@ -373,6 +430,11 @@ function WorkerManager:getServerSnapshot()
                 effRate    = effRate,
                 proStaffDelta = effRate - baseRate,
                 severance  = (workerSys and workerSys:computeSeverance(level)) or 0,
+                -- #78 lifecycle + history resume (synced to clients)
+                lifecycleState = lifeState,
+                histJobs   = histJobs,
+                histDone   = histDone,
+                histFailed = histFailed,
             })
         end
     end
@@ -478,7 +540,9 @@ function WorkerManager:_applyCommandFromNetwork(action, uuid, slot, vehicleUniqu
     elseif action == WCCommand.SET_TRUSTED then
         changed = self:_doSetTrusted(uuid, slot)
     elseif action == WCCommand.REFRESH_POOL then
-        self:refreshRecruitPool()
+        -- #72 The hall no longer force-rerolls on demand. This now only applies a
+        -- pending daily rotation if a new game-day has begun (no-op otherwise).
+        self:_rolloverRecruitPool()
     else
         return
     end

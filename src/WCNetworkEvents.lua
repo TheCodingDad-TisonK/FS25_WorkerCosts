@@ -75,6 +75,11 @@ local function writeSnapshot(streamId, snap)
         streamWriteFloat32(streamId, w.baseRate or 0)
         streamWriteFloat32(streamId, w.effRate or 0)
         streamWriteInt32(streamId,   w.severance or 0)
+        -- #78 HireHallCore meta: lifecycle state + job-history resume.
+        streamWriteString(streamId,  w.lifecycleState or "available")
+        streamWriteInt32(streamId,   w.histJobs or 0)
+        streamWriteInt32(streamId,   w.histDone or 0)
+        streamWriteInt32(streamId,   w.histFailed or 0)
     end
 
     -- Recruit pool
@@ -133,6 +138,11 @@ local function readSnapshot(streamId)
         w.baseRate   = streamReadFloat32(streamId)
         w.effRate    = streamReadFloat32(streamId)
         w.severance  = streamReadInt32(streamId)
+        -- #78 HireHallCore meta: lifecycle state + job-history resume.
+        w.lifecycleState = streamReadString(streamId)
+        w.histJobs   = streamReadInt32(streamId)
+        w.histDone   = streamReadInt32(streamId)
+        w.histFailed = streamReadInt32(streamId)
         -- Derive the display-only fields the server didn't ship.
         w.levelName     = WorkerRoster.levelName(w.level)
         w.proStaffDelta = (w.effRate or 0) - (w.baseRate or 0)
