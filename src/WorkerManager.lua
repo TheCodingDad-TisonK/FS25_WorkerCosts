@@ -200,6 +200,9 @@ function WorkerManager:saveWorkerData(missionInfo)
     -- time worked so far (stats otherwise only finalize on job stop).
     if self.jobTracker then
         self.jobTracker:flushActiveJobs()
+        -- #79 Record resume markers for in-progress jobs so the same worker re-binds
+        -- after a reload (AI jobs persist on the vehicle) instead of auto-hiring anew.
+        self.jobTracker:persistResumeBindings()
     end
     missionInfo = missionInfo or (g_currentMission and g_currentMission.missionInfo)
     self.workerRoster:save(missionInfo)
@@ -306,6 +309,32 @@ end
 -- Pro-Staff Phase 5: roster snapshot — the cross-repo read contract
 -- =========================================================
 
+-- #78 Read a worker's HireHallCore-owned meta for the snapshot: the lifecycle
+-- state (available / onLeave / injured / ...) plus a compact job-history summary.
+-- Guarded and host-only (HireHallCore lives on the host); returns safe defaults
+-- when HireHallCore is absent or disabled. Shipping these in the snapshot is what
+-- lets MP clients and the dossier render lifecycle + resume without a local roster.
+function WorkerManager:_workerHallMeta(worker)
+    local state = "available"
+    local jobs, done, failed = 0, 0, 0
+    local core = HireHallCore
+    if core and core.core then
+        if core.core.Lifecycle and core.core.Lifecycle.getState then
+            local ok, s = pcall(function() return core.core.Lifecycle:getState(worker) end)
+            if ok and s then state = s end
+        end
+        if core.core.History and core.core.History.summarize then
+            local ok, sum = pcall(function() return core.core.History:summarize(worker) end)
+            if ok and sum then
+                jobs   = sum.jobs or 0
+                done   = sum.completed or 0
+                failed = (sum.failed or 0) + (sum.dismissed or 0)
+            end
+        end
+    end
+    return state, jobs, done, failed
+end
+
 -- Build the live, enriched snapshot. Server/SP only — it reads roster, settings,
 -- and the wage pipeline. The snapshot doubles as the multiplayer wire format
 -- (WCRosterSyncEvent), so every derived value clients need is computed here once.
@@ -381,6 +410,10 @@ function WorkerManager:getServerSnapshot()
             end
             snapshot.finance.proStaffDelta = snapshot.finance.proStaffDelta + (effRate - baseRate)
 
+            -- #78 HireHallCore-owned meta, shipped in the snapshot so clients + the
+            -- dossier render lifecycle + resume without a local roster read.
+            local lifeState, histJobs, histDone, histFailed = self:_workerHallMeta(w)
+
             table.insert(snapshot.workers, {
                 uuid       = w.uuid,
                 name       = w.name or "Worker",
@@ -397,6 +430,11 @@ function WorkerManager:getServerSnapshot()
                 effRate    = effRate,
                 proStaffDelta = effRate - baseRate,
                 severance  = (workerSys and workerSys:computeSeverance(level)) or 0,
+                -- #78 lifecycle + history resume (synced to clients)
+                lifecycleState = lifeState,
+                histJobs   = histJobs,
+                histDone   = histDone,
+                histFailed = histFailed,
             })
         end
     end

@@ -259,59 +259,24 @@ function WCRosterPanel:_levelTitle(levelName)
     return LEVEL_TITLE[levelName or ""] or (levelName or "Worker")
 end
 
--- Status dot colour + label. Prefers a notable HireHallCore lifecycle state
--- (on leave / injured / training) over the plain working/idle from the snapshot.
-function WCRosterPanel:_status(workerData)
-    local note = self:_lifecycleNote(workerData.uuid)
-    if note then
-        return note.col, note.label
-    end
-    if workerData.working then
-        return C.dotWork, "Working"
-    end
-    return C.dotIdle, "Idle"
-end
-
--- Guarded read of HireHallCore's lifecycle state. Returns a {col,label} for the
--- non-routine states only, or nil when HireHallCore is absent/normal/host-only.
+-- Status dot colour + label. The lifecycle state + history resume now ride in the
+-- snapshot (#78), so the dossier renders identically on the host and MP clients
+-- with no local roster read. A notable lifecycle state wins over working/idle.
 local LIFE_LABEL = {
     onLeave  = { label = "On leave", c = "dotLeave" },
     injured  = { label = "Injured",  c = "dotHurt"  },
     training = { label = "Training",  c = "dotLeave" },
     retired  = { label = "Retired",   c = "dotIdle"  },
 }
-function WCRosterPanel:_lifecycleNote(uuid)
-    if uuid == nil or HireHallCore == nil or HireHallCore.core == nil
-        or HireHallCore.core.API == nil then
-        return nil
+function WCRosterPanel:_status(workerData)
+    local m = LIFE_LABEL[workerData.lifecycleState or ""]
+    if m then
+        return C[m.c], m.label
     end
-    local ok, state = pcall(function() return HireHallCore.core.API:getLifecycleState(uuid) end)
-    if not ok or state == nil then
-        return nil
+    if workerData.working then
+        return C.dotWork, "Working"
     end
-    local m = LIFE_LABEL[state]
-    if m == nil then
-        return nil
-    end
-    return { col = C[m.c], label = m.label }
-end
-
--- Guarded read of a worker's job-history resume (#66). Returns a summary table
--- { jobs, completed, failed, dismissed } or nil when history is unavailable.
-function WCRosterPanel:_historySummary(uuid)
-    if uuid == nil or HireHallCore == nil or HireHallCore.core == nil
-        or HireHallCore.core.History == nil or self.roster == nil then
-        return nil
-    end
-    local worker = self.roster:getWorker(uuid)
-    if worker == nil then
-        return nil
-    end
-    local ok, summary = pcall(function() return HireHallCore.core.History:summarize(worker) end)
-    if not ok or summary == nil or (summary.jobs or 0) == 0 then
-        return nil
-    end
-    return summary
+    return C.dotIdle, "Idle"
 end
 
 -- ── Main draw ─────────────────────────────────────────────
@@ -549,13 +514,12 @@ function WCRosterPanel:drawDetailPane(snap)
     end
     self:drawText(dx, y, TS_INFO, wageStr, C.text, RenderText.ALIGN_LEFT)
 
-    -- Recent jobs (job-history resume, #66) — only when history is available.
-    local hist = self:_historySummary(d.uuid)
-    if hist then
+    -- Recent jobs (job-history resume, #66) — synced in the snapshot (#78).
+    if (d.histJobs or 0) > 0 then
         y = y - 0.026
         self:drawText(dx, y, TS_INFO, string.format(
             "Recent   %d jobs   -   %d done   %d failed",
-            hist.jobs or 0, hist.completed or 0, (hist.failed or 0) + (hist.dismissed or 0)),
+            d.histJobs or 0, d.histDone or 0, d.histFailed or 0),
             C.dim, RenderText.ALIGN_LEFT)
     end
 

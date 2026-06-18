@@ -142,6 +142,9 @@ function WorkerJobTracker:_onJobStarted(job, startFarmId)
     self.activeJobs[job] = {
         workerUuid = worker.uuid,
         vehicleId  = tostring(vehicle),
+        -- #79 Stable vehicle id captured at start, so a save mid-job can record a
+        -- resume marker that survives the reload (tostring(vehicle) cannot).
+        vehicleUniqueId = self:_vehicleUniqueId(vehicle),
         startTime  = now,
         name       = worker.name,
         -- FR5 history: capture the rank at start so a mid-job promotion is visible
@@ -181,6 +184,9 @@ function WorkerJobTracker:_onJobStopped(job, aiMessage)
 
     -- Free the worker so it can take the next job (and be reused by the bridge).
     self.roster:unassignVehicle(rec.vehicleId)
+    -- #79 Job ended normally: drop any stale resume marker so a later job on the same
+    -- vehicle does not silently re-claim this worker.
+    worker.resumeVehicleUniqueId = nil
 
     self:log("Job done: '%s' +%.2fh (totalHours=%.2f, jobs=%d, XP=%.1f, lvl=%s, fatigue=%.2f)",
         worker.name, hours, worker.totalHours, worker.totalJobs, worker.totalXP,
@@ -236,6 +242,29 @@ function WorkerJobTracker:flushActiveJobs()
             end
         end
         rec.startTime = now  -- avoid double-counting when the job later stops
+    end
+end
+
+-- #79 Stamp every worker currently on an active job with their vehicle's stable
+-- uniqueId, so the SAME worker re-binds when the job resumes after a reload (AI jobs
+-- persist on the vehicle via AIJobVehicle.lastJob). Cleared-then-restamped on every
+-- save, so the marker always means "active at the last save". Called from
+-- WorkerManager:saveWorkerData (server/SP); the roster persists the field.
+function WorkerJobTracker:persistResumeBindings()
+    if self.roster == nil then
+        return
+    end
+    -- Clear first: only jobs active at THIS save should carry a marker into the file.
+    for _, w in ipairs(self.roster:getAll()) do
+        w.resumeVehicleUniqueId = nil
+    end
+    for _, rec in pairs(self.activeJobs) do
+        if rec.vehicleUniqueId then
+            local worker = self.roster:getWorker(rec.workerUuid)
+            if worker then
+                worker.resumeVehicleUniqueId = rec.vehicleUniqueId
+            end
+        end
     end
 end
 
@@ -332,6 +361,20 @@ function WorkerJobTracker:_resolveWorker(vehicle, helperName)
         worker = self.roster:getByAssignedUniqueId(uniqueId)
         if worker then
             self.roster:assignVehicle(worker.uuid, vehicleId)
+            return worker
+        end
+    end
+
+    -- 2b. #79 Resume binding: this worker was on an active job for this exact vehicle
+    -- (by uniqueId) when the game was saved. Re-claim them so identity survives the
+    -- save/reload instead of auto-hiring a duplicate. One-shot — clear on claim.
+    if uniqueId then
+        worker = self.roster:getByResumeUniqueId(uniqueId)
+        if worker then
+            worker.resumeVehicleUniqueId = nil
+            self.roster:assignVehicle(worker.uuid, vehicleId)
+            self:log("Resumed '%s' (uuid=%d) on %s after reload [#79]",
+                worker.name, worker.uuid, tostring(vehicle))
             return worker
         end
     end

@@ -100,6 +100,11 @@ function WorkerRoster.newWorker(uuid, name)
         -- "Trusted Employee" favorite flag (#67). Trusted workers sort to the top of
         -- the roster lists. Persistent; survives save/reload.
         trusted = false,
+        -- #79 Active-job resume marker: the stable vehicle uniqueId this worker was
+        -- driving at the last save. Persisted; lets the SAME worker re-bind when the
+        -- job resumes after load instead of the auto-hire bridge minting a duplicate.
+        -- Set only at save for active workers; cleared on job stop and on re-claim.
+        resumeVehicleUniqueId = nil,
     }
 end
 
@@ -191,7 +196,8 @@ function WorkerRoster:findIdleByName(name)
         return nil
     end
     for _, w in ipairs(self.workers) do
-        if w.assignedVehicleId == nil and w.assignedVehicleUniqueId == nil and w.name == name then
+        if w.assignedVehicleId == nil and w.assignedVehicleUniqueId == nil
+            and w.resumeVehicleUniqueId == nil and w.name == name then
             return w
         end
     end
@@ -209,6 +215,20 @@ function WorkerRoster:getByAssignedUniqueId(vehicleUniqueId)
     end
     for _, w in ipairs(self.workers) do
         if w.assignedVehicleUniqueId == vehicleUniqueId then
+            return w
+        end
+    end
+    return nil
+end
+
+-- #79 The worker (if any) reserved to resume a job on this vehicle uniqueId after a
+-- reload. Mirrors getByAssignedUniqueId but for the transient resume marker.
+function WorkerRoster:getByResumeUniqueId(vehicleUniqueId)
+    if vehicleUniqueId == nil then
+        return nil
+    end
+    for _, w in ipairs(self.workers) do
+        if w.resumeVehicleUniqueId == vehicleUniqueId then
             return w
         end
     end
@@ -373,6 +393,11 @@ function WorkerRoster:save(missionInfo)
         if w.assignedVehicleUniqueId then
             xmlFile:setString(key .. "#assignedVehicleUniqueId", w.assignedVehicleUniqueId)
         end
+        -- #79 Resume marker (active-job vehicle uniqueId at save time). Only written
+        -- when set, so an idle roster stays compact.
+        if w.resumeVehicleUniqueId then
+            xmlFile:setString(key .. "#resumeVehicleUniqueId", w.resumeVehicleUniqueId)
+        end
         -- Trusted/favorite flag (#67). Only written when set, to keep files small.
         if w.trusted then
             xmlFile:setBool(key .. "#trusted", true)
@@ -440,6 +465,7 @@ function WorkerRoster:loadIfExists(missionInfo)
             hiredDay   = xmlFile:getInt(key .. "#hiredDay", 0),
             assignedVehicleId = nil,  -- transient; re-bound at job start
             assignedVehicleUniqueId = xmlFile:getString(key .. "#assignedVehicleUniqueId", nil),
+            resumeVehicleUniqueId = xmlFile:getString(key .. "#resumeVehicleUniqueId", nil),
             trusted = xmlFile:getBool(key .. "#trusted", false),
         }
         table.insert(self.workers, w)
