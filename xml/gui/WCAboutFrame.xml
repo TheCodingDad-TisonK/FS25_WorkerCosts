@@ -14,7 +14,6 @@
 
             <!-- ============================================================ -->
             <!-- Sub-tab selector (#80): three buttons toggle the panels below -->
-            <!-- via index-based visibility. No g_gui:loadGui at runtime.       -->
             <!-- ============================================================ -->
             <Bitmap profile="WC_BtnBgGreen" id="btnTabCoreBg" position="0px 24px" size="336px 44px"/>
             <Button profile="WC_BtnHit" position="0px 24px" size="336px 44px"
@@ -36,13 +35,17 @@
             <!-- ============================================================ -->
             <GuiElement id="paneCore" position="0px -40px" size="1040px 520px">
 
-                <!-- LEFT: how it works body text -->
+                <!-- LEFT: sectioned "how it works" -->
                 <ThreePartBitmap profile="fs25_primaryMenuContainerBg" width="580px" height="500px" position="0px 0px">
                     <Bitmap profile="fs25_menuContainerArrow"/>
                     <GuiElement profile="fs25_subCategoryContainer" width="540px">
                         <Text profile="WC_SectionTitle" position="10px -10px" text="$l10n_wc_section_how_it_works"/>
                         <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -34px" width="520px"/>
-                        <Text profile="WC_BodyText" position="10px -54px" size="520px 440px" textMaxNumLines="22" text="$l10n_wc_about_core_body"/>
+                        <Text profile="WC_BodyText" position="10px -54px" size="520px 180px" textMaxNumLines="9" text="$l10n_wc_about_core_intro"/>
+
+                        <Text profile="WC_SectionTitle" position="10px -250px" text="$l10n_wc_about_h_save"/>
+                        <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -274px" width="520px"/>
+                        <Text profile="WC_BodyText" position="10px -294px" size="520px 150px" textMaxNumLines="7" text="$l10n_wc_about_save_body"/>
                     </GuiElement>
                 </ThreePartBitmap>
 
@@ -72,13 +75,17 @@
             <!-- ============================================================ -->
             <GuiElement id="paneFormulas" position="0px -40px" size="1040px 520px">
 
-                <!-- LEFT: how wages are calculated -->
+                <!-- LEFT: how wages are calculated, one section per mode -->
                 <ThreePartBitmap profile="fs25_primaryMenuContainerBg" width="580px" height="500px" position="0px 0px">
                     <Bitmap profile="fs25_menuContainerArrow"/>
                     <GuiElement profile="fs25_subCategoryContainer" width="540px">
-                        <Text profile="WC_SectionTitle" position="10px -10px" text="$l10n_wc_about_tab_formulas"/>
+                        <Text profile="WC_SectionTitle" position="10px -10px" text="$l10n_wc_cost_mode_hourly"/>
                         <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -34px" width="520px"/>
-                        <Text profile="WC_BodyText" position="10px -54px" size="520px 440px" textMaxNumLines="22" text="$l10n_wc_about_formulas_body"/>
+                        <Text profile="WC_BodyText" position="10px -54px" size="520px 150px" textMaxNumLines="6" text="$l10n_wc_about_hourly_body"/>
+
+                        <Text profile="WC_SectionTitle" position="10px -220px" text="$l10n_wc_cost_mode_hectare"/>
+                        <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -244px" width="520px"/>
+                        <Text profile="WC_BodyText" position="10px -264px" size="520px 180px" textMaxNumLines="8" text="$l10n_wc_about_hectare_body"/>
                     </GuiElement>
                 </ThreePartBitmap>
 
@@ -109,18 +116,37 @@
             </GuiElement>
 
             <!-- ============================================================ -->
-            <!-- PANEL 3 — PRO-STAFF: XP, fatigue, mastery overview            -->
+            <!-- PANEL 3 — PRO-STAFF: two columns, XP/Mastery | Fatigue        -->
             <!-- ============================================================ -->
             <GuiElement id="paneStaff" position="0px -40px" size="1040px 520px">
 
-                <ThreePartBitmap profile="fs25_primaryMenuContainerBg" width="1020px" height="500px" position="0px 0px">
+                <!-- LEFT: experience & mastery -->
+                <ThreePartBitmap profile="fs25_primaryMenuContainerBg" width="580px" height="500px" position="0px 0px">
                     <Bitmap profile="fs25_menuContainerArrow"/>
-                    <GuiElement profile="fs25_subCategoryContainer" width="980px">
-                        <Text profile="WC_SectionTitle" position="10px -10px" text="$l10n_wc_about_tab_staff"/>
-                        <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -34px" width="960px"/>
-                        <Text profile="WC_BodyText" position="10px -54px" size="960px 440px" textMaxNumLines="22" text="$l10n_wc_about_staff_body"/>
+                    <GuiElement profile="fs25_subCategoryContainer" width="540px">
+                        <Text profile="WC_SectionTitle" position="10px -10px" text="$l10n_wc_about_h_xp"/>
+                        <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -34px" width="520px"/>
+                        <Text profile="WC_BodyText" position="10px -54px" size="520px 150px" textMaxNumLines="6" text="$l10n_wc_about_xp_body"/>
+
+                        <Text profile="WC_SectionTitle" position="10px -220px" text="$l10n_wc_about_h_mastery"/>
+                        <ThreePartBitmap profile="fs25_lineSeparatorTop" position="5px -244px" width="520px"/>
+                        <Text profile="WC_BodyText" position="10px -264px" size="520px 180px" textMaxNumLines="8" text="$l10n_wc_about_mastery_body"/>
                     </GuiElement>
                 </ThreePartBitmap>
+
+                <Bitmap profile="fs25_settingsTooltipSeparator" position="596px -20px"/>
+
+                <!-- RIGHT: fatigue -->
+                <GuiElement position="614px 10px" width="420px" height="500px">
+                    <Text profile="WC_SectionTitle" position="0px -10px" text="$l10n_wc_about_h_fatigue"/>
+                    <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -34px" width="400px"/>
+                    <Text profile="WC_BodyText" position="0px -54px" size="400px 200px" textMaxNumLines="9" text="$l10n_wc_about_fatigue_body"/>
+
+                    <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -270px" width="400px"/>
+                    <Text profile="WC_SectionTitle" position="0px -290px" text="$l10n_wc_about_h_tips"/>
+                    <ThreePartBitmap profile="fs25_lineSeparatorTop" position="0px -314px" width="400px"/>
+                    <Text profile="WC_BodyText" position="0px -334px" size="400px 150px" textMaxNumLines="7" text="$l10n_wc_about_tips_body"/>
+                </GuiElement>
 
             </GuiElement>
 
