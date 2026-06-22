@@ -864,6 +864,141 @@
         </text>
 
         <!-- About frame -->
+        <!-- #80: sub-tab labels (Core / Formulas / Pro-Staff) -->
+        <text name="wc_about_tab_core">
+            <en>Core</en>
+            <de>[EN] Core</de>
+            <fr>[EN] Core</fr>
+            <es>[EN] Core</es>
+            <pl>[EN] Core</pl>
+            <it>[EN] Core</it>
+            <cz>[EN] Core</cz>
+            <br>[EN] Core</br>
+            <uk>[EN] Core</uk>
+            <ru>[EN] Core</ru>
+            <da>[EN] Core</da>
+        </text>
+        <text name="wc_about_tab_formulas">
+            <en>Formulas</en>
+            <de>[EN] Formulas</de>
+            <fr>[EN] Formulas</fr>
+            <es>[EN] Formulas</es>
+            <pl>[EN] Formulas</pl>
+            <it>[EN] Formulas</it>
+            <cz>[EN] Formulas</cz>
+            <br>[EN] Formulas</br>
+            <uk>[EN] Formulas</uk>
+            <ru>[EN] Formulas</ru>
+            <da>[EN] Formulas</da>
+        </text>
+        <text name="wc_about_tab_staff">
+            <en>Pro-Staff</en>
+            <de>[EN] Pro-Staff</de>
+            <fr>[EN] Pro-Staff</fr>
+            <es>[EN] Pro-Staff</es>
+            <pl>[EN] Pro-Staff</pl>
+            <it>[EN] Pro-Staff</it>
+            <cz>[EN] Pro-Staff</cz>
+            <br>[EN] Pro-Staff</br>
+            <uk>[EN] Pro-Staff</uk>
+            <ru>[EN] Pro-Staff</ru>
+            <da>[EN] Pro-Staff</da>
+        </text>
+
+        <!-- #80: cost-mode value labels for the Formulas tab config block -->
+        <text name="wc_cost_mode_hourly">
+            <en>Hourly</en>
+            <de>[EN] Hourly</de>
+            <fr>[EN] Hourly</fr>
+            <es>[EN] Hourly</es>
+            <pl>[EN] Hourly</pl>
+            <it>[EN] Hourly</it>
+            <cz>[EN] Hourly</cz>
+            <br>[EN] Hourly</br>
+            <uk>[EN] Hourly</uk>
+            <ru>[EN] Hourly</ru>
+            <da>[EN] Hourly</da>
+        </text>
+        <text name="wc_cost_mode_hectare">
+            <en>Per Hectare</en>
+            <de>[EN] Per Hectare</de>
+            <fr>[EN] Per Hectare</fr>
+            <es>[EN] Per Hectare</es>
+            <pl>[EN] Per Hectare</pl>
+            <it>[EN] Per Hectare</it>
+            <cz>[EN] Per Hectare</cz>
+            <br>[EN] Per Hectare</br>
+            <uk>[EN] Per Hectare</uk>
+            <ru>[EN] Per Hectare</ru>
+            <da>[EN] Per Hectare</da>
+        </text>
+
+        <!-- #80: per-tab body content -->
+        <text name="wc_about_core_body">
+            <en>Realistic Worker Costs replaces the default pay system with a billing model based on real time.
+
+Each active AI worker is charged on a fixed schedule, no matter the game speed. Deductions happen quietly in the background every payment interval.
+
+REAL-TIME BILLING
+Tying wages to real minutes keeps costs predictable at any time scale. Fast-forwarding a season no longer drains your account.
+
+SAVE PERSISTENCE
+Cost mode, wage level and notification settings are saved per save game and restored on load. Multiplayer clients stay in sync with the host.</en>
+            <de>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</de>
+            <fr>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</fr>
+            <es>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</es>
+            <pl>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</pl>
+            <it>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</it>
+            <cz>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</cz>
+            <br>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</br>
+            <uk>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</uk>
+            <ru>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</ru>
+            <da>[EN] Realistic Worker Costs replaces the default pay system with a billing model based on real time. Each active AI worker is charged on a fixed schedule, no matter the game speed.</da>
+        </text>
+        <text name="wc_about_formulas_body">
+            <en>Wages are calculated one of two ways, chosen in the Wage Settings tab.
+
+HOURLY
+A fixed rate per worker for every hour they stay active. More workers and longer shifts mean a bigger bill.
+
+PER HECTARE
+You pay for the area each worker actually covers. Small jobs cost little; large fields cost more.
+
+Both modes scale with your Wage Level. The panel on the right shows your current rate, mode and the three tiers, live from your settings.</en>
+            <de>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</de>
+            <fr>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</fr>
+            <es>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</es>
+            <pl>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</pl>
+            <it>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</it>
+            <cz>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</cz>
+            <br>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</br>
+            <uk>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</uk>
+            <ru>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</ru>
+            <da>[EN] Wages are calculated one of two ways, chosen in the Wage Settings tab. HOURLY: a fixed rate per worker per hour. PER HECTARE: you pay for the area each worker covers. Both scale with your Wage Level.</da>
+        </text>
+        <text name="wc_about_staff_body">
+            <en>Pro-Staff gives workers a career instead of treating them as interchangeable.
+
+EXPERIENCE &amp; LEVELS
+Workers earn XP as they finish jobs and level up over time. Higher levels mean a more capable, more valuable hand.
+
+MASTERY
+Repeating a kind of work builds mastery in it, improving how efficiently that worker handles those tasks.
+
+FATIGUE
+Long shifts build fatigue, and a tired worker is less effective. Rotating staff and giving lighter days keeps the roster sharp.</en>
+            <de>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</de>
+            <fr>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</fr>
+            <es>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</es>
+            <pl>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</pl>
+            <it>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</it>
+            <cz>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</cz>
+            <br>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</br>
+            <uk>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</uk>
+            <ru>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</ru>
+            <da>[EN] Pro-Staff gives workers a career. They earn XP and level up, build mastery by repeating work, and accumulate fatigue on long shifts.</da>
+        </text>
+
         <text name="wc_label_version">
             <en>VERSION</en>
             <de>VERSION</de>
