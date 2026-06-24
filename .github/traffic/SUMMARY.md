@@ -1,7 +1,7 @@
 # Repository Traffic Dashboard
 
-**Last updated:** 2026-06-23T06:42:43Z
-**Days tracked:** 73 | **Download snapshots:** 277 (hourly)
+**Last updated:** 2026-06-24T06:39:36Z
+**Days tracked:** 74 | **Download snapshots:** 282 (hourly)
 
 ---
 
@@ -11,10 +11,10 @@
 
 | Metric | 14-Day Total | Unique |
 |--------|-------------|--------|
-| Page Views | 795 | 105 |
-| Git Clones | 1125 | 414 |
+| Page Views | 843 | 118 |
+| Git Clones | 1178 | 430 |
 
-> **Engagement:** 7.5 pages per visitor (14-day avg)
+> **Engagement:** 7.1 pages per visitor (14-day avg)
 
 ---
 
@@ -30,9 +30,9 @@
 
 ![Conversion](charts/conversion.png)
 
-> **14-day conversion:** 837 of 105 visitors cloned or downloaded (**797.1%**)
+> **14-day conversion:** 863 of 118 visitors cloned or downloaded (**731.3%**)
 >
-> Unique cloners: 414 | Release downloads: 423
+> Unique cloners: 430 | Release downloads: 433
 
 ---
 
@@ -42,9 +42,9 @@
 
 | Channel | Count |
 |---------|-------|
-| Zip Downloads | 423 |
-| Git Clones (14-day) | 1125 |
-| **Total Acquisitions** | **1548** |
+| Zip Downloads | 433 |
+| Git Clones (14-day) | 1178 |
+| **Total Acquisitions** | **1611** |
 
 ---
 
@@ -54,8 +54,8 @@
 
 | Source | Views | Unique |
 |--------|-------|--------|
-| github.com | 372 | 49 |
-| Google | 35 | 18 |
+| github.com | 389 | 51 |
+| Google | 42 | 21 |
 | kingmods.net | 28 | 15 |
 | Bing | 1 | 1 |
 | Yahoo | 1 | 1 |
@@ -79,10 +79,10 @@
 
 | Page | Views | Unique |
 |------|-------|--------|
-| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 214 | 86 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts` | 212 | 85 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues` | 86 | 10 |
-| `/Realistic-Farming/FS25_WorkerCosts` | 42 | 26 |
-| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v2.2.0.0` | 38 | 20 |
+| `/Realistic-Farming/FS25_WorkerCosts` | 75 | 46 |
+| `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v2.2.0.0` | 39 | 20 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases` | 30 | 17 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/issues/54` | 23 | 4 |
 | `/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v2.1.0.0` | 21 | 14 |
