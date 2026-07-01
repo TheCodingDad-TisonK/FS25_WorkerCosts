@@ -18388,26 +18388,26 @@
     "watchers": 2
   },
   {
-    "timestamp": "2026-07-01T00:00:57Z",
+    "timestamp": "2026-07-01T12:28:43Z",
     "date": "2026-07-01",
     "views": {
-      "count": 723,
-      "uniques": 126
+      "count": 714,
+      "uniques": 123
     },
     "clones": {
-      "count": 1139,
-      "uniques": 395
+      "count": 1126,
+      "uniques": 392
     },
     "referrers": [
       {
         "referrer": "github.com",
-        "count": 307,
-        "uniques": 49
+        "count": 304,
+        "uniques": 50
       },
       {
         "referrer": "Google",
-        "count": 45,
-        "uniques": 26
+        "count": 41,
+        "uniques": 24
       },
       {
         "referrer": "kingmods.net",
@@ -18423,31 +18423,26 @@
         "referrer": "Bing",
         "count": 1,
         "uniques": 1
-      },
-      {
-        "referrer": "search.brave.com",
-        "count": 1,
-        "uniques": 1
       }
     ],
     "popular_paths": [
       {
         "path": "/Realistic-Farming/FS25_WorkerCosts",
         "title": "Overview",
-        "count": 135,
-        "uniques": 80
+        "count": 139,
+        "uniques": 81
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts",
         "title": "Overview",
-        "count": 125,
-        "uniques": 51
+        "count": 118,
+        "uniques": 47
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues",
         "title": "/issues",
-        "count": 45,
-        "uniques": 8
+        "count": 44,
+        "uniques": 7
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v2.2.0.0",
@@ -18458,26 +18453,26 @@
       {
         "path": "/Realistic-Farming/FS25_WorkerCosts/releases/tag/v2.2.1.0",
         "title": "/releases/tag/v2.2.1.0",
-        "count": 33,
-        "uniques": 25
+        "count": 34,
+        "uniques": 26
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases",
         "title": "/releases",
-        "count": 19,
-        "uniques": 11
-      },
-      {
-        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v2.1.0.0",
-        "title": "/releases/tag/v2.1.0.0",
-        "count": 15,
-        "uniques": 11
+        "count": 17,
+        "uniques": 9
       },
       {
         "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/issues/62",
         "title": "/issues/62",
         "count": 13,
         "uniques": 3
+      },
+      {
+        "path": "/TheCodingDad-TisonK/FS25_WorkerCosts/releases/tag/v2.1.0.0",
+        "title": "/releases/tag/v2.1.0.0",
+        "count": 11,
+        "uniques": 8
       },
       {
         "path": "/Realistic-Farming/FS25_WorkerCosts/releases/tag/v2.2.0.0",
@@ -18505,7 +18500,7 @@
       {
         "assets": [
           {
-            "downloads": 45,
+            "downloads": 47,
             "name": "FS25_WorkerCosts.zip"
           }
         ],
@@ -18690,7 +18685,7 @@
         "tag": "v1.0.0.0"
       }
     ],
-    "stars": 17,
+    "stars": 18,
     "forks": 0,
     "watchers": 2
   }
